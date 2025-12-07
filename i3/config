@@ -15,7 +15,7 @@ exec_always --no-startup-id "picom"
 exec_always --no-startup-id "xfce4-screensaver"
 
 # Apps
-bindsym Mod1+Return exec --no-startup-id i3-sensible-terminal
+bindsym Mod1+Return exec --no-startup-id xfce4-terminal
 bindsym Mod1+d exec --no-startup-id "~/.config/rofi/launch/launch"
 bindsym Mod1+m exec --no-startup-id "~/.config/rofi/powermenu/powermenu"
 bindsym F12 exec --no-startup-id "scrot $HOME/Pictures/%Y-%m-%d-%H%M%S.png"
@@ -212,6 +212,6 @@ for_window [class="^.*"] border pixel 0
 
 # gaps
 gaps inner 5
-gaps outer 2
+gaps outer 0
 # gaps bottom 28
 # gaps top 28
