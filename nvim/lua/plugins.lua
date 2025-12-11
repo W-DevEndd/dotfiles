@@ -63,4 +63,7 @@ return {
 
 	-- Colorizer
 	require("plugins.colorizer"),
+
+	-- NeoGit
+	require("plugins.neogit"),
 }

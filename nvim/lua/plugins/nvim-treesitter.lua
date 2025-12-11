@@ -1,11 +1,11 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	dependencies = {
-		{
-			"davidmh/mdx.nvim",
-			config = true,
-		},
-	},
+	-- dependencies = {
+	-- 	{
+	-- 		"davidmh/mdx.nvim",
+	-- 		config = true,
+	-- 	},
+	-- },
 	-- branch = 'master',
 	-- lazy = false,
 	build = ":TSUpdate",

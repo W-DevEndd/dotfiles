@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cores=$(lscpu | grep "CPU(s):" | awk '{print $2}')
+
+ps aux | sed '1d' | awk "{ sum += \$3} END {sum /= $cores; printf \"%.0f\\n\", sum}"

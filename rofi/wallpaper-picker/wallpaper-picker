@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+WallDir=$1
+prompt="Change Wallpaper:"
+theme=$(dirname $0)/./theme.rasi
+
+choose=$(ls -1 $WallDir | grep -E '\.(png|jpg|jpeg)$' | rofi -dmenu -theme "$theme" -p "$prompt")
+
+# PREVIEW=true \
+# rofi -no-config \
+# -show filebrowser -filebrowser-command 'feh' \
+# -filebrowser-directory "$WallDir" \
+# -filebrowser-sorting-method mtime \
+# -selected-row 1 >/dev/null
+
+echo "$(realpath $WallDir)/$choose" > ~/.local/etc/wallpaper
+$(wallpaper-launch)
