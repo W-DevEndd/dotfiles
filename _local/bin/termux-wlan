@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+cwd="$0"
+
+wifi_strengths=(
+    "󰤮"
+    "󰤯"
+    "󰤟"
+    "󰤢"
+    "󰤥"
+    "󰤨"
+)
+strength=0
+
+rssi=$(termux-wifi-connectioninfo | jq ".rssi")
+
+if [ $rssi -ge -50 ]; then
+    strength=5
+elif [ $rssi -ge -65 ]; then
+    strength=4
+elif [ $rssi -ge -75 ]; then
+    strength=3
+elif [ $rssi -ge -90 ]; then
+    strength=2
+elif [ $rssi -gt -127 ]; then
+    strength=1
+# elif [ $rssi -le -127]; then
+#     strength=0
+fi
+
+icon=${wifi_strengths[${strength}]}
+
+echo " $icon "

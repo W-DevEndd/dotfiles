@@ -26,7 +26,7 @@
   <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
   <property name="misc-menubar-default" type="bool" value="false"/>
   <property name="misc-borders-default" type="bool" value="false"/>
-  <property name="font-name" type="string" value="JetBrainsMono Nerd Font Medium 10"/>
+  <property name="font-name" type="string" value="JetBrainsMono Nerd Font Mono Medium 10"/>
   <property name="font-allow-bold" type="bool" value="true"/>
   <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
   <property name="background-darkness" type="double" value="1"/>
