@@ -1,2 +1,2 @@
 # dotfiles
-Endd's dotfiles.
+Endd's termux dotfiles.

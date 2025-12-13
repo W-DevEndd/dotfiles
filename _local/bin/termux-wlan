@@ -30,4 +30,4 @@ fi
 
 icon=${wifi_strengths[${strength}]}
 
-echo " $icon "
+echo " $icon  "
