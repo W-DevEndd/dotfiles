@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-
+shopt -s expand_aliases
+source ~/.bashrc
 # PIDFILE="~/.local/tmp/xinit/pid"
 # rm -rf $PIDFILE
 # mkdir -p $(dirname $PIDFILE)
 # echo "$$" >> $PIDFILE
 
-termux-x11 :1 -xstartup "~/.xinitrc" &
+tx11 -xstartup "~/.xinitrc" &
 PID=$!
-export DISPLAY=:1
 am start com.termux.x11/com.termux.x11.MainActivity
 
 trap "kill -2 $PID" SIGINT
