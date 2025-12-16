@@ -6,7 +6,7 @@ source ~/.bashrc
 # mkdir -p $(dirname $PIDFILE)
 # echo "$$" >> $PIDFILE
 
-tx11 -xstartup "~/.xinitrc" &
+tx11 $@ -xstartup "~/.xinitrc" &
 PID=$!
 am start com.termux.x11/com.termux.x11.MainActivity
 
