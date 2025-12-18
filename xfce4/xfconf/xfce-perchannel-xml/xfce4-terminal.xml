@@ -34,7 +34,7 @@
   <property name="background-image-style" type="string" value="TERMINAL_BACKGROUND_STYLE_SCALED"/>
   <property name="background-image-shading" type="double" value="0.90000000000000002"/>
   <property name="scrolling-lines" type="uint" value="2000"/>
-  <property name="title-mode" type="string" value="TERMINAL_TITLE_HIDE"/>
+  <property name="title-mode" type="string" value="TERMINAL_TITLE_APPEND"/>
   <property name="command-login-shell" type="bool" value="false"/>
   <property name="run-custom-command" type="bool" value="false"/>
   <property name="word-chars" type="string" value="-A-Za-z0-9,./?%&amp;#:_=+@~"/>
