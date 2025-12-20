@@ -18,3 +18,6 @@ git-push ()
     git-commit $@
     git push
 }
+
+# Stupid
+#  est -z "$TMUX" && tmux attach || tmux new

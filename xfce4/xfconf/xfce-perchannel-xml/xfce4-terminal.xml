@@ -26,7 +26,7 @@
   <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
   <property name="misc-menubar-default" type="bool" value="false"/>
   <property name="misc-borders-default" type="bool" value="false"/>
-  <property name="font-name" type="string" value="JetBrainsMono Nerd Font Mono Medium 10"/>
+  <property name="font-name" type="string" value="JetBrainsMono Nerd Font Mono 10"/>
   <property name="font-allow-bold" type="bool" value="true"/>
   <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
   <property name="background-darkness" type="double" value="1"/>
@@ -34,7 +34,7 @@
   <property name="background-image-style" type="string" value="TERMINAL_BACKGROUND_STYLE_SCALED"/>
   <property name="background-image-shading" type="double" value="0.90000000000000002"/>
   <property name="scrolling-lines" type="uint" value="2000"/>
-  <property name="title-mode" type="string" value="TERMINAL_TITLE_APPEND"/>
+  <property name="title-mode" type="string" value="TERMINAL_TITLE_HIDE"/>
   <property name="command-login-shell" type="bool" value="false"/>
   <property name="run-custom-command" type="bool" value="false"/>
   <property name="word-chars" type="string" value="-A-Za-z0-9,./?%&amp;#:_=+@~"/>
