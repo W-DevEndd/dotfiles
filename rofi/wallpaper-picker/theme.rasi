@@ -19,8 +19,8 @@ window {
 
     padding: 5mm;
 
-    height:   61%;
-    width:    40%;
+    height:   70%;
+    width:    70%;
     border: 2px 2px 2px 2px;
     margin: 3mm;
     text-color: @text;
@@ -56,22 +56,22 @@ listview {
     padding: 0em;
     dynamic: false;
     lines: 0;
-    columns: 1;
-    flow: vertical;
+    columns: 3;
+    flow: horizontal;
 }
 
 element {
     orientation: horizontal;
     spacing: 1mm;
-    children: [element-icon, element-text];
+    children: [/* element-icon,  */element-text];
 }
 
-element-icon {
-    size: 16mm;
-    vertial-align: 0.5;
-    horizontal-align: 0.5;
-    padding: 0mm;
-}
+// element-icon {
+//     size: 16mm;
+//     vertial-align: 0.5;
+//     horizontal-align: 0.5;
+//     padding: 0mm;
+// }
 
 element-text {
     text-color: @text;
