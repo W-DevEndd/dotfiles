@@ -38,4 +38,5 @@
   <property name="command-login-shell" type="bool" value="false"/>
   <property name="run-custom-command" type="bool" value="false"/>
   <property name="word-chars" type="string" value="-A-Za-z0-9,./?%&amp;#:_=+@~"/>
+  <property name="misc-show-relaunch-dialog" type="bool" value="false"/>
 </channel>

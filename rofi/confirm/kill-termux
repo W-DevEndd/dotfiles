@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 theme=$(dirname $0)/./theme.rasi
-prompt="Goodbyaaaa!"
-options="Let me think again >_<\nTerminate Termux!"
+prompt="Goodbya OWO"
+options="Let me think again\nTerminate Termux."
 cancel="$(echo -e "$options" | grep 'think')"
 confirm="$(echo -e "$options" | grep 'Terminate')"
 

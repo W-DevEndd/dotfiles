@@ -7,6 +7,11 @@ export DISPLAY=:1
 alias tx11="termux-x11 $DISPLAY $@"
 alias tcp="tx11 -listen tcp"
 
+xtrun()
+{
+    xfce4-terminal --hold -e "$@"
+}
+
 git-commit ()
 {
     git add .

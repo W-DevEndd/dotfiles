@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 theme=$(dirname $0)/./theme.rasi
-prompt="Goodbyaa"
-options="Let me think again O_O\nExit i3WM :-)"
+prompt="Goodbyaa ỤnỤ"
+options="Let me think again\nExit i3WM"
 cancel="$(echo -e "$options" | grep 'think')"
 confirm="$(echo -e "$options" | grep 'Exit')"
 
