@@ -6,12 +6,10 @@ theme=$(dirname $0)/./theme.rasi
 
 choose=$(ls -1 $WallDir | grep -E '\.(png|jpg|jpeg)$' | rofi -dmenu -theme "$theme" -p "$prompt")
 
-# PREVIEW=true \
-# rofi -no-config \
-# -show filebrowser -filebrowser-command 'feh' \
-# -filebrowser-directory "$WallDir" \
-# -filebrowser-sorting-method mtime \
-# -selected-row 1 >/dev/null
+if [ $? -ne 0 ]; then
+    echo "Session cancelled."
+    exit 0
+fi
 
 echo "$(realpath $WallDir)/$choose" > ~/.local/etc/wallpaper
 $(wallpaper-launch)
