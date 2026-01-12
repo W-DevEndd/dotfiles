@@ -11,7 +11,7 @@ x11-repo tur-repo glibc-repo
 ```
 - GUI Tools
 ```
-termux-x11 i3 polybar python jq termux-api feh picom rofi xfce4-terminal xorg-xrdb qt6ct lxappearance
+termux-x11 i3 polybar python jq termux-api feh picom rofi xfce4-terminal xorg-xrdb qt6ct lxappearance xorg-xrandr
 ```
 ```
 firefox thunar neovim recordmydesktop

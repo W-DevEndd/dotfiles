@@ -9,15 +9,24 @@ mkdir -p $cache_dir
 mkdir -p $(dirname wallpaper)
 touch $wallpaper
 
-case "$1" in
-    "change")
-        if [[ $2 ]]; then
-            "change") echo $2
-        else
-            exit 2
-        fi
-    ;;
-    *) exit 1
-    ;;
-esac
+if [[ "$1" ]]; then
+    case "$1" in
+        "update")
+            if [[ -f "$2" ]]; then
+                echo "$2" >"$wallpaper"
+            else
+                echo "No wallpaper file found: $2"
+                exit 2
+            fi
+            ;;
+        *) exit 1
+            ;;
+    esac
+fi
 
+scr_rlt=$(xrandr | grep "*" | awk '{print $1}')
+
+IFS="x" read -r scr_w scr_h <<< "$scr_rlt"
+
+
+feh "$bg_flag" "$(cat $wallpaper)"

@@ -11,5 +11,4 @@ if [ $? -ne 0 ]; then
     exit 0
 fi
 
-echo "$(realpath $WallDir)/$choose" > ~/.local/etc/wallpaper
-$(wallpaper-launch)
+fehpaper update "$(realpath $WallDir)/$choose"

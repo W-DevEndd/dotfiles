@@ -9,7 +9,7 @@ font pango:monospace 8
 
 # Xresources
 exec_always --no-startup-id xrdb -merge "$HOME/.Xresources"
-exec_always --no-startup-id wallpaper-launch
+exec_always --no-startup-id fehpaper
 exec_always --no-startup-id "killall -q polybar; polybar main"
 exec_always --no-startup-id "picom"
 
