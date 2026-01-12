@@ -13,7 +13,7 @@ choosen=$(echo -e "$options" | rofi -dmenu -p "$prompt" -theme $theme)
 case "$choosen" in
     "$cancel") exec $returnn
     ;;
-    "$confirm") killall -q "com.termux"
+    "$confirm") xfce4-screensaver-command --lock & sleep 1; killall -q "com.termux"
     ;;
 esac
 

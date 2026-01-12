@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+bg_flag="--bg-fill"
+
+cache_dir="$HOME/.cache/fehpaper"
+wallpaper="$HOME/.local/etc/fehpaper"
+
+mkdir -p $cache_dir
+mkdir -p $(dirname wallpaper)
+touch $wallpaper
+
+case "$1" in
+    "change")
+        if [[ $2 ]]; then
+            "change") echo $2
+        else
+            exit 2
+        fi
+    ;;
+    *) exit 1
+    ;;
+esac
+
