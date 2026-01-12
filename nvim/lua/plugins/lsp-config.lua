@@ -31,26 +31,6 @@ return {
 				-- root_dir = require('lspconfig.util').root_pattern('.git', 'compile_commands.json', '.clangd'),
 			})
 
-			-- lspconfig("lua_ls", {
-			-- 	settings = {
-			-- 		Lua = {
-			-- 			runtime = {
-			-- 				version = "LuaJIT",
-			-- 			},
-			-- 			diagnostics = {
-			-- 				globals = { "vim" },
-			-- 			},
-			-- 			workspace = {
-			-- 				library = vim.api.nvim_get_runtime_file("", true),
-			-- 				checkThirdParty = false,
-			-- 			},
-			-- 			telemetry = {
-			-- 				enable = false,
-			-- 			},
-			-- 		},
-			-- 	}
-			-- })
-
 			lspconfig("jsonls", {
 				settings = {
 					json = {

@@ -6,5 +6,5 @@ return {
 	"jsonls",
 	"bashls",
 	"clangd",
-	"nil",
+	-- "nil",
 }
