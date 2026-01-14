@@ -26,7 +26,29 @@ fi
 
 scr_rlt=$(xrandr | grep "*" | awk '{print $1}')
 
+scr_w=""
+scr_h=""
 IFS="x" read -r scr_w scr_h <<< "$scr_rlt"
 
+img_w=""
+img_h=""
+IFS="x" read -r img_w img_h <<< $(identify -format "%wx%h" $(cat $wallpaper))
 
-feh "$bg_flag" "$(cat $wallpaper)"
+# echo "$scr_w $scr_h \n $img_w $img_h"
+# feh "$bg_flag" "$(cat $wallpaper)"
+
+display_w=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_h / $img_h) * $img_w" | bc)")}")
+display_h=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_w / $img_w) * $img_h" | bc)")}")
+
+if [[ $display_w -ge $scr_w ]]; then
+    display_h="$scr_h"
+elif [[ $display_h -ge $scr_h ]]; then
+    display_w="$scr_w"
+elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - display_h)) ]]
+then
+    # margin=
+    # I'm so tired, bye bye
+fi
+
+echo $display_w
+echo $display_h
