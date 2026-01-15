@@ -34,9 +34,6 @@ img_w=""
 img_h=""
 IFS="x" read -r img_w img_h <<< $(identify -format "%wx%h" $(cat $wallpaper))
 
-# echo "$scr_w $scr_h \n $img_w $img_h"
-# feh "$bg_flag" "$(cat $wallpaper)"
-
 display_w=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_h / $img_h) * $img_w" | bc)")}")
 display_h=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_w / $img_w) * $img_h" | bc)")}")
 
@@ -47,8 +44,11 @@ elif [[ $display_h -ge $scr_h ]]; then
 elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - display_h)) ]]
 then
     # margin=
+    sleep 0
     # I'm so tired, bye bye
 fi
 
 echo $display_w
 echo $display_h
+
+feh "$bg_flag" "$(cat $wallpaper)"
