@@ -24,8 +24,7 @@ if [[ "$1" ]]; then
     esac
 fi
 
-# Mark at here, See yah
-scr_rlt=$(cat "$cache_dir/.scr_rlt" >> "/dev/null" || xrandr | grep "*" | awk '{print $1}')
+scr_rlt=$(cat "$cache_dir/.scr_rlt" || xrandr | grep "*" | awk '{print $1}')
 echo "$scr_rlt" > "$cache_dir/.scr_rlt"
 
 scr_w=""
@@ -44,13 +43,13 @@ if [[ $display_w -ge $scr_w ]]; then
     display_h="$scr_h"
 elif [[ $display_h -ge $scr_h ]]; then
     display_w="$scr_w"
-elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - $display_h)) ]]
-then
+elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - $display_h)) ]]; then
     margin=$($scr_h - $display_h)
 else
     margin=$($scr_w - $display_w)
 fi
 
-
+display_w=$(($display_w + $margin))
+display_h=$(($display_h + $margin))
 
 feh "$bg_flag" "$(cat $wallpaper)"
