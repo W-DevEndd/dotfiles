@@ -6,7 +6,7 @@ cache_dir="$HOME/.cache/fehpaper"
 wallpaper="$HOME/.local/etc/fehpaper"
 
 mkdir -p $cache_dir
-mkdir -p $(dirname wallpaper)
+mkdir -p $(dirname $wallpaper)
 touch $wallpaper
 
 if [[ "$1" ]]; then
@@ -24,32 +24,38 @@ if [[ "$1" ]]; then
     esac
 fi
 
-scr_rlt=$(cat "$cache_dir/.scr_rlt" || xrandr | grep "*" | awk '{print $1}')
-echo "$scr_rlt" > "$cache_dir/.scr_rlt"
-
-scr_w=""
-scr_h=""
-IFS="x" read -r scr_w scr_h <<< "$scr_rlt"
-
-img_w=""
-img_h=""
-IFS="x" read -r img_w img_h <<< $(identify -format "%wx%h" $(cat $wallpaper))
-
-display_w=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_h / $img_h) * $img_w" | bc)")}")
-display_h=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_w / $img_w) * $img_h" | bc)")}")
-margin=0
-
-if [[ $display_w -ge $scr_w ]]; then
-    display_h="$scr_h"
-elif [[ $display_h -ge $scr_h ]]; then
-    display_w="$scr_w"
-elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - $display_h)) ]]; then
-    margin=$($scr_h - $display_h)
-else
-    margin=$($scr_w - $display_w)
-fi
-
-display_w=$(($display_w + $margin))
-display_h=$(($display_h + $margin))
-
-feh "$bg_flag" "$(cat $wallpaper)"
+this_wallpaper="$(cat $wallpaper)"
+# scr_rlt=$(cat "$cache_dir/.scr_rlt" || xrandr | grep "*" | awk '{print $1}')
+# echo "$scr_rlt" > "$cache_dir/.scr_rlt"
+#
+# scr_w=""
+# scr_h=""
+# IFS="x" read -r scr_w scr_h <<< "$scr_rlt"
+#
+# img_w=""
+# img_h=""
+# IFS="x" read -r img_w img_h <<< $(identify -format "%wx%h" $(cat $wallpaper))
+#
+# display_w=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_h / $img_h) * $img_w" | bc)")}")
+# display_h=$(awk "BEGIN {print int("$(echo "scale=2; ($scr_w / $img_w) * $img_h" | bc)")}")
+# margin=0
+#
+# if [[ $display_w -ge $scr_w ]]; then
+#     display_h="$scr_h"
+# elif [[ $display_h -ge $scr_h ]]; then
+#     display_w="$scr_w"
+# elif [[ $(($scr_w - $display_w)) -lt $(($scr_h - $display_h)) ]]; then
+#     margin=$($scr_h - $display_h)
+# else
+#     margin=$($scr_w - $display_w)
+# fi
+#
+# display_w=$(($display_w + $margin))
+# display_h=$(($display_h + $margin))
+#
+# cached_wallpaper="${this_wallpaper}"
+# echo $cached_wallpaper
+#
+#
+#
+feh "$bg_flag" "$this_wallpaper"
