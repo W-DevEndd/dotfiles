@@ -1,6 +1,0 @@
-[submodule "_local/opt/TogglePy"]
-	path = _local/opt/TogglePy
-	url = https://github.com/Wd-Endd/TogglePy.git
-[submodule "_local/opt/swalch-i3wm"]
-	path = _local/opt/swalch-i3wm
-	url = https://github.com/Wd-Endd/swalch-i3wm.git

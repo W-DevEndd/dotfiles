@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-_DIRNAME=$(dirname "${BASH_SOURCE[0]}")
-
-$_DIRNAME/../opt/shizuku/rish

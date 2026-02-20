@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-perc="$(termux-battery-status | jq ".percentage")"
-perc="${perc}%"
-echo $perc

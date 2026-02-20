@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-theme=$(dirname $0)/./theme.rasi
-
-rofi -show drun -theme $theme

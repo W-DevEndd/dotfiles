@@ -1,22 +1,19 @@
+#
+# ~/.bashrc
+#
 
-# Xorg
-export DISPLAY=:1
-export QT_QPA_PLATFORMTHEME="qt6ct"
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-# Bash
-export PS1=" \w  "
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+export PS1="󰣇 \w  "
 export PATH="$PATH:$HOME/.local/bin"
+
 if [ -f /etc/profile.d/bash_completion.sh ]; then
     /etc/profile.d/bash_completion.sh
 fi
-
-alias tx11="termux-x11 $DISPLAY $@"
-alias tcp="tx11 -listen tcp"
-
-xtrun()
-{
-    xfce4-terminal --hold -e "$@"
-}
 
 git-commit ()
 {
