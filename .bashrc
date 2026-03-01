@@ -15,6 +15,12 @@ if [ -f /etc/profile.d/bash_completion.sh ]; then
     /etc/profile.d/bash_completion.sh
 fi
 
+git-set-url ()
+{
+    git remote set-url origin "git@$@"
+}
+
+
 git-commit ()
 {
     git add .
