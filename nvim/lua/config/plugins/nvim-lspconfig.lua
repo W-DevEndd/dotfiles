@@ -1,7 +1,8 @@
 return {
     "neovim/nvim-lspconfig",
     config = function()
-        vim.lsp.enable('pyright')
-        vim.lsp.enable('lua_ls')
+        for _, ls in pairs(require("config.language-servers")) do
+            vim.lsp.enable(ls)
+        end
     end,
 }

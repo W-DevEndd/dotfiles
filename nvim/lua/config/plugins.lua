@@ -4,5 +4,5 @@ return {
     require("config.plugins.nvim-treesitter"),
     require("config.plugins.mason"),
     require("config.plugins.nvim-lspconfig"),
-    require("config.plugins.completion-nvim"),
+    require("config.plugins.lazydev"),
 }
