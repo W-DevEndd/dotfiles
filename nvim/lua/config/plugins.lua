@@ -8,10 +8,13 @@ return {
     require("config.plugins.barbar"),
     require("config.plugins.toggleterm"),
 
-    -- Coding
-    require("config.plugins.nvim-treesitter"),
+    -- Feature
     require("config.plugins.nvim-lspconfig"),
-    require("config.plugins.lazydev"),
-    require("config.plugins.nvim-autopairs"),
     require("config.plugins.nvim-cmp"),
+    require("config.plugins.nvim-autopairs"),
+    require("config.plugins.autosave"),
+
+    -- Code view
+    require("config.plugins.nvim-treesitter"),
+    require("config.plugins.rainbow-delimiters"),
 }

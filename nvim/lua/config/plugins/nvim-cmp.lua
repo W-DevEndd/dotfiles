@@ -4,6 +4,38 @@ return {
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
+
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    -- { -- optional blink completion source for require statements and module annotations
+    --     "saghen/blink.cmp",
+    --     build = 'cargo build --release',
+    --     opts = {
+    --         sources = {
+    --             -- add lazydev to your completion providers
+    --             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+    --             providers = {
+    --                 lazydev = {
+    --                     name = "LazyDev",
+    --                     module = "lazydev.integrations.blink",
+    --                     -- make lazydev completions top priority (see `:h blink.cmp`)
+    --                     score_offset = 100,
+    --                 },
+    --             },
+    --         },
+    --     },
+    -- },
     {
         'hrsh7th/nvim-cmp',
         config = function ()
@@ -27,8 +59,12 @@ return {
                     end,
                 },
                 window = {
-                    -- completion = cmp.config.window.bordered(),
-                    -- documentation = cmp.config.window.bordered(),
+                    completion = cmp.config.window.bordered({
+                        border = "rounded"
+                    }),
+                    documentation = cmp.config.window.bordered({
+                        border = "rounded"
+                    }),
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -70,11 +106,14 @@ return {
             -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline(':', {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                    { name = 'cmdline' }
-                }),
+                sources = cmp.config.sources(
+                    {{ name = 'path' }},
+                    {{ name = 'cmdline' }},
+                    {{
+                        name = "lazydev",
+                        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+                    }}
+                ),
                 matching = { disallow_symbol_nonprefix_matching = false }
             })
 
@@ -87,8 +126,4 @@ return {
             vim.lsp.enable('<YOUR_LSP_SERVER>')
         end
     },
-
-
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
 }

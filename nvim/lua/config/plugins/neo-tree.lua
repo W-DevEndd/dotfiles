@@ -8,5 +8,15 @@ return {
       "nvim-tree/nvim-web-devicons", -- optional, but recommended
     },
     lazy = false, -- neo-tree will lazily load itself
+    config = function()
+        require("neo-tree").setup({
+            filesystem = {
+                follow_current_file = {
+                    enabled = true,
+                    leave_dirs_open = false,
+                }
+            }
+        })
+    end
   }
 }
