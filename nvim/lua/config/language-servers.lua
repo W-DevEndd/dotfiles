@@ -5,4 +5,5 @@ return {
     "nixd",
     "html",
     "clangd",
+    "hyprls",
 }
