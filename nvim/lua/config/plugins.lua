@@ -18,4 +18,5 @@ return {
     require("config.plugins.nvim-treesitter"),
     require("config.plugins.rainbow-delimiters"),
     require("config.plugins.indent-blankline"),
+    require("config.plugins.schemastore")
 }

@@ -7,4 +7,5 @@ return {
     "clangd",
     "hyprls",
     "jsonls",
+    "cssls",
 }
