@@ -2,15 +2,15 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 13px;
     color: @text;
 }
 
 window#waybar {
   /* you can also GTK3 CSS functions! */
-  background-color: shade(@base, 0.9);
-  border: 2px solid alpha(@crust, 0.3);
+  background-color: transparent;
+  /* border: transparent; */
 }
 
 window#waybar.hidden {
@@ -37,7 +37,7 @@ window#waybar.chromium {
 
 button {
     /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
+    /* box-shadow: inset 0 -3px transparent; */
     /* Avoid rounded borders under each button name */
     border: none;
     border-radius: 0;
@@ -46,7 +46,7 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
+    box-shadow: none;
 }
 
 /* you can set a style on hover for any module like this */
@@ -56,21 +56,23 @@ button:hover {
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
+    background-color: @base;
     color: #ffffff;
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: @overlay0;
 }
 
 #workspaces button.focused, #workspaces button.active {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
+    color: @crust;
+    background-color: @lavender;
+    padding: 0 10px;
+    /* box-shadow: inset 0 -3px #ffffff; */
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: @red;
 }
 
 #mode {
@@ -96,7 +98,7 @@ button:hover {
 #power-profiles-daemon,
 #mpd {
     padding: 0 10px;
-    color: #ffffff;
+    color: @text;
 }
 
 #window,

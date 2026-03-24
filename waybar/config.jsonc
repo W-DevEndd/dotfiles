@@ -8,29 +8,29 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/mode",
-        "hyprland/scratchpad",
-        "custom/media"
+        "hyprland/window"
+        // "hyprland/mode",
+        // "hyprland/scratchpad",
+        // "custom/media"
     ],
     "modules-center": [
-        "hyprland/window"
-    ],
-    "modules-right": [
-        "mpd",
-        "idle_inhibitor",
-        "pulseaudio",
-        "network",
-        "power-profiles-daemon",
         "cpu",
         "memory",
         "temperature",
-        "backlight",
-        "keyboard-state",
-        "sway/language",
         "battery",
         "battery#bat2",
-        "clock",
+        "network"
+    ],
+    "modules-right": [
+        // "mpd",
+        // "idle_inhibitor",
+        "pulseaudio",
+        // "power-profiles-daemon",
         "tray",
+        "backlight",
+        // "keyboard-state",
+        // "hyprland/language",
+        "clock",
         "custom/power"
     ],
     // Modules configuration
@@ -50,15 +50,15 @@
     //         "default": ""
     //     }
     // },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
+    // "keyboard-state": {
+    //     "numlock": true,
+    //     "capslock": true,
+    //     "format": "{name} {icon}",
+    //     "format-icons": {
+    //         "locked": "",
+    //         "unlocked": ""
+    //     }
+    // },
     "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -112,15 +112,18 @@
     },
     "clock": {
         // "timezone": "America/New_York",
+        "interval": 1,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%a %d, %h, %Y - %H:%M:%S %p}"
     },
     "cpu": {
+        "interval": 1,
         "format": "{usage}% ",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "interval": 5,
+        "format": "{}% "
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -128,11 +131,12 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
+        "format": "{icon}",
+        "tooltip-format": "{percent}%",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
@@ -143,9 +147,9 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "format-alt": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
@@ -154,19 +158,20 @@
         "bat": "BAT2"
     },
     "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
+        "interval": 1,
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{signalStrength}% ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",

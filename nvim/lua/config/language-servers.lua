@@ -8,4 +8,7 @@ return {
     "hyprls",
     "jsonls",
     "cssls",
+    {
+        "qmlls",
+    }
 }

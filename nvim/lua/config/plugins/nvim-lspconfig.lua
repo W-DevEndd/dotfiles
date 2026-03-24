@@ -2,7 +2,11 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
         for _, ls in pairs(require("config.language-servers")) do
-            vim.lsp.enable(ls)
+            if type(ls) == "string" then:
+                vim.lsp.enable(ls)
+            else:
+                vim.lsp.enable(ls[1])
+            end
         end
 
         vim.keymap.set("n", "K", function ()
