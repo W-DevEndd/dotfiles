@@ -1,0 +1,13 @@
+{
+    "qml.basePath": "/usr/lib/qt6/qml",
+    "qml.importPaths": [
+        "/usr/lib/qt6/qml",
+        "/usr/local/lib/qt6/qml",
+        "${workspaceFolder}"
+    ],
+    "qml.qmlformat.path": "qmlformat",
+    "qml.qmlls.path": "qmlls6",
+    "qml.qmlls.args": [
+        "--build-dir", "${workspaceFolder}/build"
+    ]
+}
