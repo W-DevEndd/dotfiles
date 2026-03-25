@@ -1,4 +1,6 @@
-return {
+
+--- @type table<string,vim.lsp.Config>
+local servers = {
     "pyright",
     "lua_ls",
     "ts_ls",
@@ -8,7 +10,10 @@ return {
     "hyprls",
     "jsonls",
     "cssls",
-    {
-        "qmlls",
+    qmlls = {
+        cmd = {"qmlls6"},
+        filetypes = { "qml" }
     }
 }
+
+return servers
