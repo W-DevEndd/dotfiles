@@ -9,7 +9,7 @@
 
 window#waybar {
   /* you can also GTK3 CSS functions! */
-  background-color: transparent;
+  background-color: @base;
   /* border: transparent; */
 }
 

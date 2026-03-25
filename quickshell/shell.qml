@@ -13,7 +13,7 @@ PanelWindow {
 
     Text {
         text: "Hello, World!"
-        anchors {
+        anchols {
             centerIn: parent
         }
     }

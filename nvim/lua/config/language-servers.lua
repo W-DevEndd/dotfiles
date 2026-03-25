@@ -12,7 +12,12 @@ local servers = {
     "cssls",
     qmlls = {
         cmd = {"qmlls6"},
-        filetypes = { "qml" }
+        filetypes = { "qml" },
+        settings = {
+            qml = {
+              importPaths = { "/usr/lib/qt6/qml" }
+            }
+        }
     }
 }
 
