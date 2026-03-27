@@ -1,6 +1,6 @@
 import Quickshell
-import Quickshell.Io // for Process
 import QtQuick
+import QtQuick.Layouts
 
 PanelWindow {
     anchors {
@@ -8,19 +8,12 @@ PanelWindow {
         left: true
         right: true
     }
+    color: "transparent"
+    aboveWindows: false
+    implicitHeight: 32
+    
+    RowLayout {
+        anchors.fill: parent
 
-    implicitHeight: 36
-
-    Text {
-        text: "Hello, World!"
-        anchols {
-            centerIn: parent
-        }
     }
-
-    Process {
-        
-    }
-
-
 }
