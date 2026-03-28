@@ -1,3 +1,1 @@
-module MyProject
-Main 1.0 shell.qml
-
+singleton Theme 1.0 ./components/Theme.qml
