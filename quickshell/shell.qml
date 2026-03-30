@@ -12,39 +12,54 @@ PanelWindow {
     }
     color: "transparent"
     aboveWindows: false
-    implicitHeight: 36
+    implicitHeight: 42
 
-    RowLayout {
+    Item {
         anchors.centerIn: parent
         height: parent.height - 10
         width: parent.width - 10
-        
-        RowLayout {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
 
-
-        RowLayout {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-
-        RowLayout {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            HorizontalPadding {}
+        Row {
+            height: parent.height
+            width: childrenRect.width
+            anchors.left: parent.left
+            spacing: 0
             ModulesGroupBg {
-                
-                Layout.fillHeight: true
-                Layout.preferredWidth: childrenRect.width + 10
+                height: parent.height
+                width: childrenRect.width + 10
+
+                RowLayout {
+                    anchors.centerIn: parent
+                    height: parent.height
+                    width: childrenRect.width
+                    HyprWindow {
+                        // Layout.preferredWidth: contentWidth
+                        Layout.maximumWidth: 300
+                    }
+                }
+            }
+        }
+
+        Row {
+            height: parent.height
+            width: childrenRect.width
+            anchors.centerIn: parent
+
+            Text { text: "aaa"}
+        }
+
+        Row {
+            height: parent.height
+            width: childrenRect.width
+            anchors.right: parent.right
+
+            ModulesGroupBg {
+                height:parent.height
+                width: childrenRect.width + 10
                 DateTime {
                     anchors.centerIn: parent
                 }
             }
         }
-
     }
 }

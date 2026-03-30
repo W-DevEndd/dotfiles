@@ -1,15 +1,13 @@
 
 import "../../"
+import "../base/"
 import QtQuick
 import QtQuick.Layouts
 
-Text {
+BaseLabel {
     property string format: "dddd MMMM dd, yyyy - hh:mm:ss AP"
     property var now: new Date()
     text: Qt.formatDateTime(now, format)
-    font.pointSize: Theme.fontSize
-
-    color: Theme.text
 
     Timer {
         interval: 1000

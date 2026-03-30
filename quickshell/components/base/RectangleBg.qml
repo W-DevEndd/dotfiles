@@ -4,7 +4,7 @@ import "../../"
 Rectangle {
     color: Theme.base
     border {
-        color: Theme.lavender
-        width: 1
+        color: Theme.overlay1
+        width: 2
     }
 }
