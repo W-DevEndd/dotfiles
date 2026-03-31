@@ -26,16 +26,20 @@ PanelWindow {
             spacing: 0
             ModulesGroupBg {
                 height: parent.height
-                width: childrenRect.width + 10
+                width: childrenRect.width
 
-                RowLayout {
-                    anchors.centerIn: parent
+                // RowLayout {
+                //     id: hyprwindows_layout
+                //     anchors.centerIn: parent
+                //     height: parent.height
+                //     // width: childrenRect.width
+                //     HyprWindow {
+                //         // Layout.preferredWidth: contentWidth
+                //         Layout.maximumWidth: 300
+                //     }
+                // }
+                HyprWorkspaces {
                     height: parent.height
-                    width: childrenRect.width
-                    HyprWindow {
-                        // Layout.preferredWidth: contentWidth
-                        Layout.maximumWidth: 300
-                    }
                 }
             }
         }
@@ -55,8 +59,9 @@ PanelWindow {
 
             ModulesGroupBg {
                 height:parent.height
-                width: childrenRect.width + 10
+                width: datetime.implicitWidth + 10
                 DateTime {
+                    id: datetime
                     anchors.centerIn: parent
                 }
             }

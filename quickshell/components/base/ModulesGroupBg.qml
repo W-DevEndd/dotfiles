@@ -2,5 +2,5 @@ import "./"
 import QtQuick
 
 RectangleBg {
-    radius: 10.0
+    radius: 15.0
 }

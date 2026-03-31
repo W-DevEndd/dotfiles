@@ -11,7 +11,14 @@ BaseLabel {
     // Connections {
     //     target: Hyprland
     //     function onRawEvent(event) {
-    //         name = event.name
+    //         var name = event.name
+    //         var data = event.data
+    //
+    //         if (name == "activewindowv2") {
+    //             print("Hello, World")
+    //             print(Hyprland.activeToplevel.title)
+    //             print(Hyprland.activeToplevel)
+    //         }
     //     }
     // }
 }
