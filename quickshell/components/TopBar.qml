@@ -1,71 +1,74 @@
-
 import Quickshell
 import QtQuick
-import QtQuick.Layouts
 import "./base/"
 import "./modules/"
 
 PanelWindow {
     anchors {
         top: true
-        left: true
         right: true
-    }
-    color: "transparent"
-    aboveWindows: false
+        left: true
+    } 
     implicitHeight: 44
+    aboveWindows: false
+    color: Theme.base
+    // color: "transparent"
 
-    Item {
-        anchors.centerIn: parent
+    Row {
         height: parent.height - 10
-        width: parent.width - 10
+        width: childrenRect.width
+        anchors.left: parent.left
+        y: 5
+        spacing: 10
 
-        Row {
+        Item { height: parent.height; width: 1}
+        ModulePanel {
             height: parent.height
-            width: childrenRect.width
-            anchors.left: parent.left
-            spacing: 0
-            ModulesGroupBg {
-                height: parent.height
-                width: childrenRect.width
+            width: childrenRect.width + 10
 
-                // RowLayout {
-                //     id: hyprwindows_layout
-                //     anchors.centerIn: parent
-                //     height: parent.height
-                //     // width: childrenRect.width
-                //     HyprWindow {
-                //         // Layout.preferredWidth: contentWidth
-                //         Layout.maximumWidth: 300
-                //     }
-                // }
-                HyprWorkspaces {
-                    height: parent.height
-                }
+            HyprWorkspace {
+                height: parent.height - 20
+                width: childrenRect.width + 10
+                y: 10
+                x: 10
             }
         }
+    }
 
-        Row {
+    Row {
+        height: parent.height - 10
+        width: childrenRect.width
+        anchors.centerIn: parent
+        spacing: 10
+    }
+    
+    Row {
+        height: parent.height - 10
+        width: childrenRect.width
+        anchors.right: parent.right
+        y: 5
+        spacing: 10
+
+        ModulePanel {
             height: parent.height
-            width: childrenRect.width
-            anchors.centerIn: parent
+            width: childrenRect.width + 10
 
-            Text { text: "aaa"}
-        }
-
-        Row {
-            height: parent.height
-            width: childrenRect.width
-            anchors.right: parent.right
-
-            ModulesGroupBg {
-                height:parent.height
-                width: datetime.implicitWidth + 10
-                DateTime {
-                    id: datetime
-                    anchors.centerIn: parent
-                }
+            Tray {
+                height: parent.height - 10
+                width: childrenRect.width + 6
+                y: 5
+                x: 5
             }
         }
+        ModulePanel {
+            height: parent.height
+            width: childrenRect.width + 10
+
+            DateTime {
+                y: 5
+                x: 5
+            }
+        }
+        Item { height: parent.height; width: 1}
     }
 }

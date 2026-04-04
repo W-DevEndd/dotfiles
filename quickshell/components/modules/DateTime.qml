@@ -1,18 +1,16 @@
 
-import "../../"
 import "../base/"
 import QtQuick
-import QtQuick.Layouts
 
-BaseLabel {
-    property string format: "dddd MMMM dd, yyyy - hh:mm:ss AP"
+Label {
+    property string format: "dddd, MMMM dd, yyyy '' HH:mm:ss A"
     property var now: new Date()
     text: Qt.formatDateTime(now, format)
 
     Timer {
-        interval: 1000
+        interval: 1
         repeat: true
         running: true
-        onTriggered: parent.now = new Date()
+        onTriggered: parent.now = new Date
     }
 }

@@ -1,4 +1,7 @@
 
 import "./components/"
+import QtQuick
 
-TopBar {}
+TopBar {
+    
+}
