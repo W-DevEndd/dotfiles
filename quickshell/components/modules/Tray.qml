@@ -25,7 +25,14 @@ Row {
                 anchors.fill: parent
             }
 
-
+            Popop {
+                visible: hoverHandler.hovered
+                width: 100
+                height: 100
+                color: "111111"
+                x: 0
+                y: 0
+            }
         }
     }
 }
