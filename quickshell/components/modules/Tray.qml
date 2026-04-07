@@ -1,5 +1,6 @@
 import QtQuick
-import Quickshell.Services.SystemTray 
+import Quickshell.Services.SystemTray
+import QtQuick.Controls
 import "../base/"
 
 Row {
@@ -12,6 +13,19 @@ Row {
             height: parent.height
             width: height
             color: hoverHandler.hovered ? Theme.overlay2 : "transparent"
+
+            Image {
+                source: modelData.icon
+                height: parent.height - 4
+                width: height
+                anchors.centerIn: parent
+            }
+
+            MouseArea {
+                anchors.fill: parent
+            }
+
+
         }
     }
 }

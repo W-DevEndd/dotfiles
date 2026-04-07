@@ -11,26 +11,29 @@ PanelWindow {
     } 
     implicitHeight: 44
     aboveWindows: false
-    color: Theme.base
-    // color: "transparent"
+    // color: Theme.base
+    color: "transparent"
 
     Row {
         height: parent.height - 10
         width: childrenRect.width
-        anchors.left: parent.left
-        y: 5
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+            leftMargin: 5
+        }
         spacing: 10
 
-        Item { height: parent.height; width: 1}
         ModulePanel {
             height: parent.height
-            width: childrenRect.width + 10
+            width: childrenRect.width + 20
 
             HyprWorkspace {
                 height: parent.height - 20
-                width: childrenRect.width + 10
-                y: 10
-                x: 10
+                width: childrenRect.width
+                anchors {
+                    centerIn: parent
+                }
             }
         }
     }
@@ -45,30 +48,30 @@ PanelWindow {
     Row {
         height: parent.height - 10
         width: childrenRect.width
-        anchors.right: parent.right
-        y: 5
+        anchors {
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+            rightMargin: 5
+        }
         spacing: 10
 
         ModulePanel {
             height: parent.height
-            width: childrenRect.width + 10
+            width: childrenRect.width + 15
 
             Tray {
+                anchors.centerIn: parent
                 height: parent.height - 10
-                width: childrenRect.width + 6
-                y: 5
-                x: 5
+                width: childrenRect.width
             }
         }
         ModulePanel {
             height: parent.height
-            width: childrenRect.width + 10
+            width: childrenRect.width + 15
 
             DateTime {
-                y: 5
-                x: 5
+                anchors.centerIn: parent
             }
         }
-        Item { height: parent.height; width: 1}
     }
 }
