@@ -44,6 +44,17 @@ PanelWindow {
         width: childrenRect.width
         anchors.centerIn: parent
         spacing: 10
+
+        ModulePanel {
+            property real padding: 10
+            height: parent.height
+            width: childrenRect.width + padding
+
+            SystemMonitor {
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
     }
     
     Row {
