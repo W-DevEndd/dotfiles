@@ -11,6 +11,7 @@ PanelWindow {
     } 
     implicitHeight: 44
     aboveWindows: false
+
     // color: Theme.base
     color: "transparent"
 
@@ -25,15 +26,15 @@ PanelWindow {
         spacing: 10
 
         ModulePanel {
+            property real padding: 20
             height: parent.height
-            width: childrenRect.width + 20
+            width: childrenRect.width + padding
 
             HyprWorkspace {
                 height: parent.height - 20
                 width: childrenRect.width
-                anchors {
-                    centerIn: parent
-                }
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }
@@ -56,21 +57,25 @@ PanelWindow {
         spacing: 10
 
         ModulePanel {
+            property real padding: 10
             height: parent.height
-            width: childrenRect.width + 15
+            width: childrenRect.width + padding
 
             Tray {
-                anchors.centerIn: parent
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
                 height: parent.height - 10
                 width: childrenRect.width
             }
         }
         ModulePanel {
+            property int padding: 10
             height: parent.height
-            width: childrenRect.width + 15
+            width: childrenRect.width + padding
 
             DateTime {
-                anchors.centerIn: parent
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }

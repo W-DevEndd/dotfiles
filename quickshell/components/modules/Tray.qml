@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Services.SystemTray
 import QtQuick.Controls
+import Quickshell
 import "../base/"
 
 Row {
@@ -22,16 +23,15 @@ Row {
             }
 
             MouseArea {
+                id: mouseArea
                 anchors.fill: parent
-            }
-
-            Popop {
-                visible: hoverHandler.hovered
-                width: 100
-                height: 100
-                color: "111111"
-                x: 0
-                y: 0
+                onClicked: modelData.activate()
+                PopupWindow {
+                    visible: hoverHandler.hovered
+                    anchor.item: parent
+                }
+                focus: false
+                
             }
         }
     }
