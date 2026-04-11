@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 import QtQuick.Controls
 import Quickshell
@@ -10,28 +11,37 @@ Row {
     Repeater {
         model: SystemTray.items
         delegate: Rectangle {
-            HoverHandler{ id: hoverHandler}
+            clip: true
             height: parent.height
-            width: height
+            width: hoverHandler.hovered ? height + appNameText.implicitWidth + 5 : height
+            Behavior on width { NumberAnimation { duration: 100; easing.type: Easing.InQuad } }
             color: hoverHandler.hovered ? Theme.overlay2 : "transparent"
 
+            HoverHandler{ id: hoverHandler }
             Image {
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 2
+                }
                 source: modelData.icon
                 height: parent.height - 4
                 width: height
-                anchors.centerIn: parent
+            }
+            Label {
+                id: appNameText
+                text: modelData.title
+                anchors{
+                    left: parent.left
+                    leftMargin: height + 5
+                    verticalCenter: parent.verticalCenter
+                }
             }
 
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
                 onClicked: modelData.activate()
-                PopupWindow {
-                    visible: hoverHandler.hovered
-                    anchor.item: parent
-                }
-                focus: false
-                
             }
         }
     }

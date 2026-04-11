@@ -13,11 +13,11 @@ Row {
             height: parent.height - parent.padding
             width: modelData.active ? 44 : height
             Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.InQuad } }
-
+            Behavior on color { ColorAnimation { duration: 200 }}
             MouseArea {
                 width: parent.width
                 height: parent.height
-                onClicked: { modelData.activate()}
+                onClicked: { modelData.activate() }
             }
         }
     }
