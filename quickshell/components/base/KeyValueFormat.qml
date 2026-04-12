@@ -4,14 +4,21 @@ import "./"
 
 Row {
     width: childrenRect.width
+    height: childrenRect.height
     spacing: 5
 
-    property string format: "%1%2 %3%4"
-    property string prefix: ""
+    property color keyColor: Theme.lavender
+    property string key: "key"
+    property color valueColor: Theme.text
     property string value: ""
 
     Label {
-        textFormat: Text.RichText
-        text: parent.format
+        text: parent.key
+        color: parent.keyColor
+    }
+
+    Label{
+        text: parent.value
+        color: parent.valueColor
     }
 }
