@@ -4,11 +4,5 @@ import "../base/"
 
 Row {
     // spacing: 10
-
-    Rectangle {
-        height: parent.height
-        width: 100
-        color: "white"
-    }
-
+    width: childrenRect.width
 }
