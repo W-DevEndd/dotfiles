@@ -50,9 +50,15 @@ PanelWindow {
             height: parent.height
             width: childrenRect.width + padding
 
-            SystemMonitor {
+            Row {
                 x: parent.padding / 2
                 anchors.verticalCenter: parent.verticalCenter
+                height: childrenRect.height
+                width: childrenRect.width
+
+                Battery {}
+                Item { height: parent.height; width: 5 }
+                Cpu {}
             }
         }
     }
