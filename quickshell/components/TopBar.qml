@@ -46,7 +46,7 @@ PanelWindow {
         spacing: 10
 
         ModulePanel {
-            property real padding: 10
+            property real padding: 15
             height: parent.height
             width: childrenRect.width + padding
 
@@ -55,10 +55,11 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 height: childrenRect.height
                 width: childrenRect.width
+                spacing: 5
 
                 Battery {}
-                Item { height: parent.height; width: 5 }
                 Cpu {}
+                Mem {}
             }
         }
     }

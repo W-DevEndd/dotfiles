@@ -5,7 +5,7 @@ import "../base/"
 
 KeyValueFormat {
     readonly property int perc: UPower.displayDevice.percentage * 100
-    keyColor: Theme.green
+    keyColor: Theme.peach
     key: perc >= 90 ? "" :
     perc >= 70 ? "" :
     perc >= 40 ? "" :

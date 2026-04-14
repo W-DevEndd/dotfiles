@@ -27,10 +27,10 @@ KeyValueFormat {
         }
     }
 
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: cpuProcesss.running = true
-    }
+    // Timer {
+    //     interval: 1000
+    //     running: true
+    //     repeat: true
+    //     onTriggered: cpuProcesss.running = true
+    // }
 }
