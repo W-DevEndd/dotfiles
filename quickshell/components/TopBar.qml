@@ -72,7 +72,7 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
             rightMargin: 5
         }
-        spacing: 10
+        spacing: 5
 
         ModulePanel {
             property real padding: 10
@@ -94,6 +94,21 @@ PanelWindow {
             DateTime {
                 x: parent.padding / 2
                 anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+        ModulePanel {
+            property real padding: 15
+            height: parent.height
+            width: childrenRect.width + padding
+
+            Row {
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
+                height: childrenRect.height
+                width: childrenRect.width
+                spacing: 10
+
+                Volume {}
             }
         }
     }
