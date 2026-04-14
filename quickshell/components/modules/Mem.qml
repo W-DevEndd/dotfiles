@@ -3,34 +3,28 @@ import Quickshell.Io
 import "../base/"
 
 KeyValueFormat {
-    key: ""
-    keyColor: Theme.blue
+    key: ""
+    keyColor: Theme.green
     value: "0%"
 
     Process {
         running: true
         id: cpuProcesss
         command: [
-            "sh", "-c", '(lscpu | grep "CPU(s):" -m 1 | awk \'{print $2}\');
-            (ps aux | sed \'1d\' | awk \'{print $3}\')'
+            "sh", "-c", '(free | grep "Mem:" | awk \'{print $2 " " $3}\')'
         ]
         stdout: StdioCollector {
             onStreamFinished: {
-                var lines = this.text.split("\n")
-                var core = Number(lines[0])
-                var usage = 0
-                lines.slice(1).map(item => {
-                    usage += Number(item)
-                })
-                value = Math.round(usage / core) + "%"
+                var a = this.text.split(" ")
+                value = (Math.round((a[1] / a[0]) * 100)) + "%"
             }
         }
     }
 
-    // Timer {
-    //     interval: 1000
-    //     running: true
-    //     repeat: true
-    //     onTriggered: cpuProcesss.running = true
-    // }
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: cpuProcesss.running = true
+    }
 }

@@ -55,11 +55,11 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 height: childrenRect.height
                 width: childrenRect.width
-                spacing: 5
+                spacing: 10
 
-                Battery {}
                 Cpu {}
                 Mem {}
+                Battery {}
             }
         }
     }
