@@ -5,7 +5,7 @@ import "../base/"
 KeyValueFormat {
     property int vol: 0
     key: ""
-    keyColor: Theme.blue
+    keyColor: Theme.mauve
     value: vol + "%"
 
     Process {
