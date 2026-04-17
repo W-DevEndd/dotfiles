@@ -2,4 +2,4 @@
 
 cores=$(lscpu | grep "CPU(s):" | awk '{print $2}')
 
-ps aux | sed '1d' | awk "{ sum += \$3} END {sum /= $cores; printf \"%.0f\\n\", sum}"
+ps -eo pcpu | sed '1d' | awk "{ sum += \$1} END {sum /= $cores; printf \"%.0f\\n\", sum}"
