@@ -12,7 +12,7 @@ Row {
             radius: 20
             height: parent.height - parent.padding
             width: modelData.active ? 44 : height
-            Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.InQuad } }
+            Behavior on width { NumberAnimation { duration: 1000; easing.type: Easing.OutExpo } }
             Behavior on color { ColorAnimation { duration: 200 }}
             MouseArea {
                 width: parent.width

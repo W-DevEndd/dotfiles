@@ -6,14 +6,16 @@ import "../base/"
 Item {
     clip: true
     width: hoverHandler.hovered ? childrenRect.width : childrenRect.height
-    Behavior on width { NumberAnimation { duration: 100; easing.type: Easing.InQuad } }
+    Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     height: childrenRect.height
 
     property int vol: 0
+    property var muted: false
 
     KeyValueFormat {
-        key: parent.vol >= 50 ? "" :
-            parent.vol >= 20 ? " " :
+        key: muted ? "" :
+            parent.vol >= 50 ? "" :
+            parent.vol >= 10 ? " " :
             " "
         keyColor: Theme.mauve
         value: parent.vol + "%"
@@ -24,23 +26,10 @@ Item {
     MouseArea {
         width: parent.width
         height: parent.height
-        onClicked: openPavuctl.running = true
+        onClicked: muteToggle.running = true
         onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0) volUp.running = true
-            else volDown.running = true
-        }
-    }
-
-    Process {
-        id: updateVol
-        running: true
-        command: [
-            "sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'"
-        ]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                vol = Number(this.text)
-            }
+            if (wheel.angleDelta.y > 0 && parent.vol < 150) volUp.running = true
+            else if (wheel.angleDelta.y < 0) volDown.running = true
         }
     }
 
@@ -48,7 +37,34 @@ Item {
         id: openPavuctl
         command: ["pavucontrol"]
     }
+    Process {
+        id: muteToggle
+        command: ["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]
+    }
+    Process {
+        id: volDown
+        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
+    }
+    Process {
+        id: volUp
+        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
+    }
 
+    Process {
+        id: updateVol
+        running: true
+        command: [
+            "wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"
+        ]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var out = this.text.trim().split(/\s+/)
+
+                vol = Number(Number(out[1]) * 100)
+                muted = out.includes("[MUTED]")
+            }
+        }
+    }
     Process {
         command: ["pactl", "subscribe"]
         running: true
@@ -57,14 +73,5 @@ Item {
                 if (line.includes("change")) updateVol.running = true
             }
         }
-    }
-
-    Process {
-        id: volDown
-        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
-    }
-    Process {
-        id: volUp
-        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
     }
 }

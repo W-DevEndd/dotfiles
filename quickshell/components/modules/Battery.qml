@@ -5,11 +5,13 @@ import "../base/"
 
 KeyValueFormat {
     readonly property int perc: UPower.displayDevice.percentage * 100
+    visible: UPower.displayDevice.isLaptopBattery
     keyColor: Theme.peach
-    key: perc >= 90 ? "" :
-    perc >= 70 ? "" :
-    perc >= 40 ? "" :
-    perc >= 10 ? "" :
-    ""
+    key: !UPower.onBattery ? "󰚥" :
+        perc >= 90 ? "" :
+        perc >= 70 ? "" :
+        perc >= 40 ? "" :
+        perc >= 10 ? "" :
+        ""
     value: perc + "%"
 }

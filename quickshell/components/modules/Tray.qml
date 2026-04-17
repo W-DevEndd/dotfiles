@@ -14,7 +14,7 @@ Row {
             clip: true
             height: parent.height
             width: hoverHandler.hovered ? height + appNameText.implicitWidth + 5 : height
-            Behavior on width { NumberAnimation { duration: 100; easing.type: Easing.InQuad } }
+            Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
             color: hoverHandler.hovered ? Theme.overlay2 : "transparent"
 
             HoverHandler{ id: hoverHandler }
