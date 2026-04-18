@@ -13,7 +13,7 @@ Row {
         delegate: Rectangle {
             clip: true
             height: parent.height
-            width: hoverHandler.hovered ? height + appNameText.implicitWidth + 5 : height
+            width: height
             Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
             color: hoverHandler.hovered ? Theme.overlay2 : "transparent"
 
@@ -28,15 +28,15 @@ Row {
                 height: parent.height - 4
                 width: height
             }
-            Label {
-                id: appNameText
-                text: modelData.title
-                anchors{
-                    left: parent.left
-                    leftMargin: height + 5
-                    verticalCenter: parent.verticalCenter
-                }
-            }
+            // Label {
+            //     id: appNameText
+            //     text: modelData.title
+            //     anchors{
+            //         left: parent.left
+            //         leftMargin: height + 5
+            //         verticalCenter: parent.verticalCenter
+            //     }
+            // }
 
             MouseArea {
                 id: mouseArea

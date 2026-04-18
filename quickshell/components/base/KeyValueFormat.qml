@@ -39,7 +39,7 @@ Row {
             width: 1
         }
         Label {
-            text: ""
+            text: "|"
             color: parent.parent.valueColor
         }
         Item {

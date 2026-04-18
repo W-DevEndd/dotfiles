@@ -14,10 +14,7 @@ Item {
     property var muted: false
 
     KeyValueFormat {
-        key: muted ? "" :
-            parent.vol >= 50 ? "" :
-            parent.vol >= 10 ? " " :
-            " "
+        key: muted ? "" : ""
         keyColor: Theme.mauve
         value: parent.vol + "%"
     }

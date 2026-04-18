@@ -109,6 +109,7 @@ PanelWindow {
                 spacing: 10
 
                 Volume {}
+                Mic {}
             }
         }
     }

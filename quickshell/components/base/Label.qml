@@ -4,6 +4,6 @@ import "./"
 Text {
     color: Theme.text
     font {
-        pointSize: 11
+        pointSize: 12
     }
 }
