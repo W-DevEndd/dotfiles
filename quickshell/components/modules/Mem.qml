@@ -2,11 +2,22 @@ import QtQuick
 import Quickshell.Io
 import "../base/"
 
-KeyValueFormat {
-    key: ""
-    keyColor: Theme.green
-    value: "0%"
+Item {
+    width: format.width
+    height: format.height
 
+    KeyValueFormat {
+        id: format
+        key: ""
+        keyColor: Theme.green
+        value: "0%"
+        extraValue: "aaaaaaaaaaaa"
+    }
+    MouseArea {
+        height: parent.height
+        width: parent.width
+        onClicked: format.useExtraValue = !format.useExtraValue
+    }
     Process {
         running: true
         id: cpuProcesss
@@ -15,8 +26,11 @@ KeyValueFormat {
         ]
         stdout: StdioCollector {
             onStreamFinished: {
-                var a = this.text.split(" ")
-                value = (Math.round((a[1] / a[0]) * 100)) + "%"
+                var out = this.text.split(" ")
+                var total = Number(out[0])
+                var usage = Number(out[1])
+                format.value = (Math.round(usage / total * 100)) + "%"
+                format.extraValue = (usage / 1000000).toFixed(2) + " GiB / " + (total / 1000000).toFixed(2) + " GiB"
             }
         }
     }

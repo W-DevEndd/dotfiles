@@ -28,7 +28,7 @@ Item {
         height: parent.height
         onClicked: muteToggle.running = true
         onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0 && parent.vol < 150) volUp.running = true
+            if (wheel.angleDelta.y > 0 && parent.vol < 100) volUp.running = true
             else if (wheel.angleDelta.y < 0) volDown.running = true
         }
     }

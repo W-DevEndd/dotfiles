@@ -5,7 +5,6 @@ import "./"
 Row {
     width: childrenRect.width
     height: childrenRect.height
-    spacing: 5
 
     property var useExtraValue: false
     property color keyColor: Theme.lavender
@@ -19,21 +18,37 @@ Row {
         color: parent.keyColor
     }
 
+    Item {
+        height: parent.height
+        width: 5
+    }
     Label{
         text: parent.value
         color: parent.valueColor
     }
 
-    Item {
+    Row {
         // visible: parent.useExtraValue
         clip: true
         height: childrenRect.height
         width: parent.useExtraValue ? childrenRect.width : 0
         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
 
+        Item {
+            height: parent.height
+            width: 1
+        }
+        Label {
+            text: ""
+            color: parent.parent.valueColor
+        }
+        Item {
+            height: parent.height
+            width: 1
+        }
         Label {
             text: parent.parent.extraValue
-            visible: parent.parent.valueColor
+            color: parent.parent.valueColor
         }
     }
 }

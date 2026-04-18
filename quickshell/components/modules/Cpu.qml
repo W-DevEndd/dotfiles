@@ -43,11 +43,11 @@ Item {
     Process {
         id: cpuTemp
         running: true
-        command: ["sh", "-c", '"cat /sys/class/thermal/thermal_zone*/temp"']
+        command: ["sh", "-c", "cat /sys/class/thermal/thermal_zone*/temp"]
         stdout: StdioCollector {
             onStreamFinished: {
-                var out = this.text
-                console.log(out)
+                var out = Number(this.text)
+                format.extraValue = out / 1000 + "󰔄"
             }
         }
     }
@@ -58,7 +58,7 @@ Item {
         repeat: true
         onTriggered: {
             cpuProcesss.running = true
-            cpuTemp.running = true
+            cpuTemp.running = format.useExtraValue
         }
     }
 }
