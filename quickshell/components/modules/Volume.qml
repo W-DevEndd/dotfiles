@@ -6,7 +6,8 @@ import "../base/"
 
 Item {
     clip: true
-    width: hoverHandler.hovered ? childrenRect.width : childrenRect.height
+    property var showVol: hoverHandler.hovered
+    width: showVol ? childrenRect.width : childrenRect.height
     Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     height: childrenRect.height
 
@@ -29,7 +30,7 @@ Item {
         height: parent.height
         onClicked: muteToggle.running = true
         onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0 && parent.vol < 100) volUp.running = true
+            if (wheel.angleDelta.y > 0 && parent.vol <= 100) volUp.running = true
             else if (wheel.angleDelta.y < 0) volDown.running = true
         }
     }
@@ -71,8 +72,23 @@ Item {
         running: true
         stdout: SplitParser {
             onRead: (line) => {
-                if (line.includes("change")) updateVol.running = true
+                if (line.includes("change")) {
+                    updateVol.running = true
+                    if (!hoverHandler.hovered) {
+                        showVol = true
+                        resetVolVisible.restart()
+                    }
+                }
             }
+        }
+    }
+    Timer {
+        id: resetVolVisible
+        interval: 1000
+        repeat: false
+        running: true
+        onTriggered: {
+            showVol = Qt.binding(function () { return hoverHandler.hovered })
         }
     }
 }

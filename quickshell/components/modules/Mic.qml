@@ -15,7 +15,7 @@ Item {
 
     KeyValueFormat {
         key: muted ? "" : ""
-        keyColor: Theme.mauve
+        keyColor: Theme.lavender
         value: parent.vol + "%"
     }
 
