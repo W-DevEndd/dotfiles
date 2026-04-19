@@ -6,6 +6,7 @@ Row {
     width: childrenRect.width
     height: childrenRect.height
 
+    property int leftMargin: 0
     property var useExtraValue: false
     property color keyColor: Theme.lavender
     property string key: "key"
@@ -13,6 +14,10 @@ Row {
     property string value: ""
     property string extraValue: ""
 
+    Item {
+        width: parent.leftMargin
+        height: parent.height
+    }
     Label {
         text: parent.key
         color: parent.keyColor

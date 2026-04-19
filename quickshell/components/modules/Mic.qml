@@ -6,16 +6,25 @@ import "../base/"
 
 Item {
     clip: true
-    width: hoverHandler.hovered ? childrenRect.width : childrenRect.height
+    property var showVol: hoverHandler.hovered
+    width: showVol ? childrenRect.width : childrenRect.height
     Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     height: childrenRect.height
 
     property int vol: 0
+    onVolChanged: {
+        if (!hoverHandler.hovered) {
+            showVol = true
+            resetVolVisible.restart()
+        }
+    }
     property var muted: false
 
     KeyValueFormat {
-        key: muted ? "" : ""
-        keyColor: Theme.lavender
+        leftMargin: 3
+        key: muted ? "󰍭" :
+            "󰍬"
+        keyColor: Theme.mauve
         value: parent.vol + "%"
     }
 
@@ -37,22 +46,22 @@ Item {
     }
     Process {
         id: muteToggle
-        command: ["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]
+        command: ["pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle"]
     }
     Process {
         id: volDown
-        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
+        command: ["pactl", "set-source-volume", "@DEFAULT_SOURCE@", "-5%"]
     }
     Process {
         id: volUp
-        command: ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
+        command: ["pactl", "set-source-volume", "@DEFAULT_SOURCE@", "+5%"]
     }
 
     Process {
         id: updateVol
         running: true
         command: [
-            "wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"
+            "wpctl", "get-volume", "@DEFAULT_SOURCE@"
         ]
         stdout: StdioCollector {
             onStreamFinished: {
@@ -68,8 +77,19 @@ Item {
         running: true
         stdout: SplitParser {
             onRead: (line) => {
-                if (line.includes("change")) updateVol.running = true
+                if (line.includes("change")) {
+                    updateVol.running = true
+                }
             }
+        }
+    }
+    Timer {
+        id: resetVolVisible
+        interval: 1000
+        repeat: false
+        running: false
+        onTriggered: {
+            showVol = Qt.binding(function () { return hoverHandler.hovered })
         }
     }
 }

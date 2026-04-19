@@ -108,6 +108,7 @@ PanelWindow {
                 width: childrenRect.width
                 spacing: 10
 
+                Light {}
                 Volume {}
                 Mic {}
             }

@@ -12,12 +12,19 @@ Item {
     height: childrenRect.height
 
     property int vol: 0
+    onVolChanged: {
+        if (!hoverHandler.hovered) {
+            showVol = true
+            resetVolVisible.restart()
+        }
+    }
     property var muted: false
 
     KeyValueFormat {
+        leftMargin: 3
         key: muted ? "" :
             parent.vol >= 50 ? "" :
-            parent.vol >= 10 ? " " :
+            parent.vol >= 10 ? "" :
             " "
         keyColor: Theme.mauve
         value: parent.vol + "%"
@@ -30,7 +37,7 @@ Item {
         height: parent.height
         onClicked: muteToggle.running = true
         onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0 && parent.vol <= 100) volUp.running = true
+            if (wheel.angleDelta.y > 0 && parent.vol < 100) volUp.running = true
             else if (wheel.angleDelta.y < 0) volDown.running = true
         }
     }
@@ -74,10 +81,6 @@ Item {
             onRead: (line) => {
                 if (line.includes("change")) {
                     updateVol.running = true
-                    if (!hoverHandler.hovered) {
-                        showVol = true
-                        resetVolVisible.restart()
-                    }
                 }
             }
         }
@@ -86,7 +89,7 @@ Item {
         id: resetVolVisible
         interval: 1000
         repeat: false
-        running: true
+        running: false
         onTriggered: {
             showVol = Qt.binding(function () { return hoverHandler.hovered })
         }
