@@ -31,8 +31,19 @@ PanelWindow {
             width: childrenRect.width + padding
 
             HyprWorkspace {
-                height: parent.height - 20
+                height: parent.height - parent.padding
                 width: childrenRect.width
+                x: parent.padding / 2
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+        ModulePanel {
+            property real padding: 20
+            height: parent.height
+            width: childrenRect.width + padding
+
+            Media {
                 x: parent.padding / 2
                 anchors.verticalCenter: parent.verticalCenter
             }

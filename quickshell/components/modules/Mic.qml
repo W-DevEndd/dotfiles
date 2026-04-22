@@ -7,9 +7,8 @@ import "../base/"
 Item {
     clip: true
     property var showVol: hoverHandler.hovered
-    width: showVol ? childrenRect.width : childrenRect.height
-    Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
-    height: childrenRect.height
+    width: mainContent.width
+    height: mainContent.height
 
     property int vol: 0
     onVolChanged: {
@@ -21,10 +20,11 @@ Item {
     property var muted: false
 
     KeyValueFormat {
-        leftMargin: 3
+        id: mainContent
         key: muted ? "󰍭" :
             "󰍬"
-        keyColor: Theme.mauve
+            keyColor: Theme.mauve
+        showValue: parent.showVol
         value: parent.vol + "%"
     }
 

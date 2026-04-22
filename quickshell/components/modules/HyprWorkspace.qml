@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell.Hyprland
 import "../base/"
 Row {
-    spacing: 10
+    spacing: 5
     // width: childrenRect.width
 
     Repeater {
@@ -18,6 +18,15 @@ Row {
                 width: parent.width
                 height: parent.height
                 onClicked: { modelData.activate() }
+            }
+            Label {
+                text: modelData.name
+                color: Theme.crust
+                anchors.centerIn: parent
+                font {
+                    bold: true
+                    pointSize: 6
+                }
             }
         }
     }

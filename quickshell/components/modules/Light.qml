@@ -7,9 +7,8 @@ import "../base/"
 Item {
     clip: true
     property var showBri: hoverHandler.hovered
-    width: showBri ? childrenRect.width : childrenRect.height
-    Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
-    height: childrenRect.height
+    width: mainContent.width
+    height: mainContent.height
 
     property int bri: 0
     onBriChanged: {
@@ -21,7 +20,8 @@ Item {
     property var muted: false
 
     KeyValueFormat {
-        leftMargin: 3
+        id: mainContent
+        showValue: parent.showBri
         key: bri >= 100 ? "" :
             bri >= 93 ? "" : 
             bri >= 86 ? "" :
