@@ -22,21 +22,21 @@ Item {
     KeyValueFormat {
         id: mainContent
         showValue: parent.showBri
-        key: bri >= 100 ? "" :
-            bri >= 93 ? "" : 
-            bri >= 86 ? "" :
-            bri >= 79 ? "" :
-            bri >= 72 ? "" :
-            bri >= 65 ? "" :
-            bri >= 58 ? "" :
-            bri >= 51 ? "" :
-            bri >= 44 ? "" :
-            bri >= 37 ? "" :
-            bri >= 30 ? "" :
-            bri >= 23 ? "" :
-            bri >= 16 ? "" :
-            bri >= 9 ? "" :
-            ""
+        key: bri >= 100 ? " " :
+            bri >= 93 ? " " : 
+            bri >= 86 ? " " :
+            bri >= 79 ? " " :
+            bri >= 72 ? " " :
+            bri >= 65 ? " " :
+            bri >= 58 ? " " :
+            bri >= 51 ? " " :
+            bri >= 44 ? " " :
+            bri >= 37 ? " " :
+            bri >= 30 ? " " :
+            bri >= 23 ? " " :
+            bri >= 16 ? " " :
+            bri >= 9 ? " " :
+            " "
         keyColor: Theme.mauve
         value: parent.bri + "%"
     }
