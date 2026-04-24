@@ -1,12 +1,11 @@
 
 return {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'master',
+    branch = 'main',
     lazy = false,
     build = ':TSUpdate',
     config = function()
-	    local configs = require('nvim-treesitter.configs')
-        configs.setup({
+	    require('nvim-treesitter').setup({
 		    auto_install = true,
 		    ensure_installed = { "lua", "vim", "vimdoc" },
 		    highlight = {
