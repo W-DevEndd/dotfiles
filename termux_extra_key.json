@@ -1,0 +1,5 @@
+[
+    [ "ESC", "SHIFT", "-",   "PGUP", "UP",   "PGDN",  "HOME", "PREFERENCES" ],
+    [ "TAB", "CTRL",  "ALT", "LEFT", "DOWN", "RIGHT", "END",  "DEL"         ],
+    [ "F1",  "F2",    "F3",  "F4",   "F5",   "F10",   "F11",  "F12"         ]
+]
