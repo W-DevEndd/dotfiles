@@ -25,7 +25,7 @@ Row {
                 anchors.centerIn: parent
                 font {
                     bold: true
-                    pointSize: 6
+                    pointSize: 5
                 }
             }
         }

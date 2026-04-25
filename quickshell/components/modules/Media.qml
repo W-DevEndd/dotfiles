@@ -6,7 +6,19 @@ Row {
     width: childrenRect.width
     height: childrenRect.height
 
-    Label {
-        text: ""
+    Repeater {
+        model: Mpris.players
+        ScrollingText {
+            text: modelData.trackArtists + " - " + modelData.trackTitle
+        }
+    }
+
+    Timer {
+        running: true
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            console.log(Mpris.players)
+        }
     }
 }
