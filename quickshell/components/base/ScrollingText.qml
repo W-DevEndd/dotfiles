@@ -28,7 +28,7 @@ Item {
 
     Timer {
         interval: root.speed
-        running: mainText.width > root.width
+        running: mainText.width > root.width || textRow.x != 0
         repeat: true
         onTriggered: {
             textRow.x -= 1

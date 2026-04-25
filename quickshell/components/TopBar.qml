@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import "./base/"
 import "./modules/"
+import "./states/"
 
 PanelWindow {
     anchors {
@@ -43,7 +44,7 @@ PanelWindow {
             height: parent.height
             width: childrenRect.width + padding
 
-            Media {
+            MusicPlayer {
                 x: parent.padding / 2
                 anchors.verticalCenter: parent.verticalCenter
             }
