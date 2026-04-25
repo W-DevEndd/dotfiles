@@ -5,7 +5,7 @@ Item {
     id: root
     property int speed: 25
     property string text: ""
-    property int spacing: 5
+    property int spacing: 10
     property int maxWidth: 300
     height: childrenRect.height
     width: Math.min(maxWidth, mainText.width)
