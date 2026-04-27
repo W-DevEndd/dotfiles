@@ -1,5 +1,6 @@
 import QtQuick
-import Quickshell.Services.Mpris 
+import Quickshell.Services.Mpris
+import QtQml.Models
 import "../base/"
 import "../states/"
 
@@ -7,28 +8,21 @@ Row {
     width: childrenRect.width
     height: childrenRect.height
 
-    property var thisPlayer
     ScrollingText {
         id: textContent
-        function updateText(display) {
-            text = display
+        text: "Unknow track"
+        Connections {
+            target: Media.players
+            // onCountChanged: {
+            //     var count = Media.players.count
+            //     console.log(count)
+            // }
         }
-    }
-
-    Instantiator {
-        model: Mpris.players
-        delegate: QtObject {
-            property string title: modelData.trackTitle || "[No Media]"
-            property string artists: modelData.trackArtists || "Unknow"
-            property string display: artists + " • " + title
-
-            readonly property var isPlaying: modelData.isPlaying
-            onIsPlayingChanged: {
-                if (isPlaying) textContent.updateText(display)
-            }
-            onDisplayChanged: {
-                textContent.updateText(display)
-            }
-        }
+        // Timer {
+        //     interval: 1000
+        //     repeat: true
+        //     running: true
+        //     onTriggered: console.log(Media.players.get(0).title)
+        // }
     }
 }
