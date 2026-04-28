@@ -10,14 +10,7 @@ Row {
 
     ScrollingText {
         id: textContent
-        text: "Unknow track"
-        Connections {
-            target: Media.players
-            // onCountChanged: {
-            //     var count = Media.players.count
-            //     console.log(count)
-            // }
-        }
+        text: Media.players.count > 0 ? Media.players.get(0).title : ""
         // Timer {
         //     interval: 1000
         //     repeat: true

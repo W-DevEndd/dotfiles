@@ -14,12 +14,13 @@ QtObject {
             property int index: -1
             readonly property string uuid: Math.random().toString(16).slice(2)
             readonly property string title: modelData.trackTitle
+            onTitleChanged: root.players.setProperty(index, "title", title)
 
             property var _indexUpdater: Connections {
                 target: root
                 onUpdateIndexChanged: {
                     index = ListUtils.getIndexByUUID(root.players, uuid)
-                    console.log(index)
+                    // console.log(index)
                 }
             }
         }
@@ -31,16 +32,16 @@ QtObject {
             root.updateIndex = ! root.updateIndex
         }
     }
-    property var _test: Timer {
-        interval: 1000
-        repeat: true
-        running: true
-        onTriggered: {
-            for (let i = 0; i < root.players.count; i++) {
-                let player = root.players.get(i)
-                console.log(player.uuid)
-                console.log(player.title)
-            }
-        }
-    }
+    // property var _test: Timer {
+    //     interval: 1000
+    //     repeat: true
+    //     running: true
+    //     onTriggered: {
+    //         for (let i = 0; i < root.players.count; i++) {
+    //             let player = root.players.get(i)
+    //             console.log(player.uuid)
+    //             console.log(player.title)
+    //         }
+    //     }
+    // }
 }

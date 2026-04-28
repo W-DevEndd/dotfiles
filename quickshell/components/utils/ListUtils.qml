@@ -10,8 +10,7 @@ QtObject {
         return -1
     }
 
-    function setProperty(list, index, key, value) {
-        const control = list[index]
-        control[key] = value
-    }
+    // function updateProperty(list, index, key, value) {
+    //     list.setProperty(index, )
+    // }
 }
