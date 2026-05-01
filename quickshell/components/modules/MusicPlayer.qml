@@ -10,12 +10,7 @@ Row {
 
     ScrollingText {
         id: textContent
-        text: Media.players.count > 0 ? Media.players.get(0).title : ""
-        // Timer {
-        //     interval: 1000
-        //     repeat: true
-        //     running: true
-        //     onTriggered: console.log(Media.players.get(0).title)
-        // }
+        property string title: Media.players.count > 0 ? Media.players.get(0).title : ""
+        text: title ? title : "Unknown track"
     }
 }

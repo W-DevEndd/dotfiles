@@ -24,7 +24,7 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
             leftMargin: 5
         }
-        spacing: 10
+        spacing: 5
 
         ModulePanel {
             property real padding: 20
@@ -55,7 +55,7 @@ PanelWindow {
         height: parent.height - 10
         width: childrenRect.width
         anchors.centerIn: parent
-        spacing: 10
+        spacing: 5
 
         ModulePanel {
             property real padding: 15
