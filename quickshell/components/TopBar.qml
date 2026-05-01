@@ -14,7 +14,7 @@ PanelWindow {
     aboveWindows: false
 
     // color: Theme.base
-    color: "transparent"
+    color: "#00ffffff"
 
     Row {
         height: parent.height - 10
@@ -27,7 +27,7 @@ PanelWindow {
         spacing: 5
 
         ModulePanel {
-            property real padding: 20
+            property real padding: 10
             height: parent.height
             width: childrenRect.width + padding
 

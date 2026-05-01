@@ -27,6 +27,7 @@ Item {
     onTextChanged: {
         root.implicitSpeed = 500
         timer.stop()
+        textRow.x = 1
         textRow.x = 0
         timer.restart()
     }
