@@ -31,7 +31,7 @@ PanelWindow {
             height: parent.height
             width: childrenRect.width + padding
 
-            HyprWorkspace {
+            Workspace {
                 height: parent.height - parent.padding
                 width: childrenRect.width
                 x: parent.padding / 2

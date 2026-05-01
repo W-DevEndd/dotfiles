@@ -31,6 +31,10 @@ QtObject {
                     // console.log(index)
                 }
             }
+
+            // property var _listener: Connections {
+            //     target: modelData
+            // }
         }
         onObjectAdded: (index, obj) => {
             root.players.insert(0, {
@@ -42,6 +46,10 @@ QtObject {
                 togglePlaying: obj.togglePlaying,
             })
             root.updateIndex = ! root.updateIndex
+        }
+        onObjectRemoved: (index, obj) => {
+            root.players.remove(obj.index)
+            root.updateIndex = !root.updateIndex
         }
     }
     // property var _test: Timer {
