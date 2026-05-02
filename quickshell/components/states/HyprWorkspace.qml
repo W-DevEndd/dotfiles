@@ -5,6 +5,16 @@ import Quickshell.Hyprland
 QtObject {
     id: root
     property var workspaces: Hyprland.workspaces.values
+    property var update: false
+
+    // property var _test: Timer {
+    //     interval: 1000
+    //     repeat: true
+    //     running: true
+    //     onTriggered: {
+    //         console.log(root.workspaces.length)
+    //     }
+    // }
 
     function getIndexById(id) {
         for (let i = 0; i < root.workspaces.length; i++) {
