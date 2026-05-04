@@ -5,10 +5,18 @@ import "../states/"
 
 Item {
     id: root
+
+    property int defaultVisibleCount: 4
+
+    width: wsRow.implicitWidth
+    Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
     ModulePanel {
-        id: checker
-        property int firstEmpty: 100
-        property int forcused: Hyprland.focusedWorkspace.id
+        id: indicator
+
+        property int workspaceId: Hyprland.focusedWorkspace.id
+        property int workspaceIndex: HyprWorkspace.getIndexById(workspaceId)
+        property int emtyDefaultCount: 0
+
         height: root.height
         width: height
         anchors.verticalCenter: root.verticalCenter
@@ -17,18 +25,16 @@ Item {
         color: Theme.pink
         radius: 5
 
-        x: forcused <= 4 ? (wsRow.height + wsRow.spacing) * (forcused - 1) : 0
-        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
+        x: (root.height + wsRow.spacing) * (indicator.workspaceId <= 4 ? (indicator.workspaceId - 1) : (indicator.workspaceIndex + indicator.emtyDefaultCount))
+        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
     }
 
     Row {
         id: wsRow
         spacing: 5
-        width: childrenRect.width
         Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
-        height: childrenRect.height
         anchors.verticalCenter: parent.verticalCenter
-        clip: true
+        // clip: true
 
         Repeater {
             model: 10
@@ -36,16 +42,24 @@ Item {
             Item {
                 property int workspaceId: modelData + 1
                 property var workspace: HyprWorkspace.getById(workspaceId)
+                property var isOpened: workspace !== undefined
 
-                visible: workspaceId <= 4 || workspace != undefined
+                visible: workspaceId <= root.defaultVisibleCount || isOpened
                 height: root.height
-                width: visible ? height : 0
+                width: height
                 Label {
                     text: modelData + 1
                     color: !parent.workspace ? Theme.overlay2 :
                         parent.workspace.active ? Theme.crust : Theme.text
                     Behavior on color { ColorAnimation { duration: 400; easing: Easing.OutExpo }}
                     anchors.centerIn: parent
+                }
+
+                onIsOpenedChanged: {
+                    if (workspaceId <= root.defaultVisibleCount) {
+                        if (isOpened) indicator.emtyDefaultCount--
+                        else indicator.emtyDefaultCount++
+                    }
                 }
             }
         }
