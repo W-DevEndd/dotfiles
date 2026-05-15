@@ -1,9 +1,11 @@
 
 import "./components/"
-import QtQuick
+import Quickshell
 
 //@ pragma IconTheme breeze
 
-TopBar {
-    
+ShellRoot {
+    property int scrCorner: 7
+    TopBar {}
+
 }

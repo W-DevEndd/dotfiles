@@ -2,10 +2,10 @@
 import QtQuick
 import "./"
 Rectangle {
-    color: Theme.crust
+    color: Theme.base
     border {
         width: 1
-        color: Theme.base
+        color: Theme.crust
     }
     radius: 10
 }

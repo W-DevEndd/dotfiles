@@ -5,24 +5,26 @@ import "./modules/"
 import "./states/"
 
 PanelWindow {
+    id: root
     anchors {
         top: true
         right: true
         left: true
     } 
-    implicitHeight: 44
+
+    property int padding: 5
+    implicitHeight: 36
     aboveWindows: false
 
-    // color: Theme.base
-    color: "#00ffffff"
+    color: Theme.crust
 
     Row {
-        height: parent.height - 10
+        height: parent.height - root.padding
         width: childrenRect.width
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
-            leftMargin: 5
+            leftMargin: root.padding / 2
         }
         spacing: 5
 
@@ -52,7 +54,7 @@ PanelWindow {
     }
 
     Row {
-        height: parent.height - 10
+        height: parent.height - root.padding
         width: childrenRect.width
         anchors.centerIn: parent
         spacing: 5
@@ -77,12 +79,12 @@ PanelWindow {
     }
     
     Row {
-        height: parent.height - 10
+        height: parent.height - root.padding
         width: childrenRect.width
         anchors {
             right: parent.right
             verticalCenter: parent.verticalCenter
-            rightMargin: 5
+            rightMargin: root.padding / 2
         }
         spacing: 5
 

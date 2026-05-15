@@ -9,7 +9,7 @@ Item {
     property int defaultVisibleCount: 4
 
     width: wsRow.implicitWidth
-    Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
+    Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
     ModulePanel {
         id: indicator
 
@@ -26,7 +26,7 @@ Item {
         radius: 5
 
         x: (root.height + wsRow.spacing) * (indicator.workspaceId <= 4 ? (indicator.workspaceId - 1) : (indicator.workspaceIndex + indicator.emtyDefaultCount))
-        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
+        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
     }
 
     Row {
