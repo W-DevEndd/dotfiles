@@ -6,6 +6,10 @@ import "./states/"
 
 PanelWindow {
     id: root
+    // surfaceFormat: QsSurfaceFormat {
+    //     opaque: false
+    // }
+    surfaceFormat.opaque: false
     anchors {
         top: true
         right: true
@@ -17,6 +21,7 @@ PanelWindow {
     aboveWindows: false
 
     color: Theme.crust
+    // Component.onCompleted: root.color.a = 0.85
 
     Row {
         height: parent.height - root.padding
