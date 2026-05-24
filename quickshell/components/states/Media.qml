@@ -5,14 +5,14 @@ import "../utils/"
 
 QtObject {
     id: root
-    property ListModel players : ListModel {}
+    property ListModel players : ListModel { ListElement {} }
     property var updateIndex: false
 
     property var _logic: Instantiator {
         model: Mpris.players
         delegate: QtObject {
             readonly property string uuid: Math.random().toString(16).slice(2)
-            property int index: 0
+            property int index: { index = root.players.count - 1 }
 
             readonly property string title: modelData.trackTitle
             onTitleChanged: root.players.setProperty(index, "title", title)
@@ -23,6 +23,10 @@ QtObject {
             onIsPlayingChanged: root.players.setProperty(index, "isPlaying", isPlaying)
 
             readonly property var togglePlaying: modelData.togglePlaying
+
+            Component.onCompleted: {
+                root.players.setProperty(index, "togglePlaying", togglePlaying)
+            }
 
             property var _indexUpdater: Connections {
                 target: root
@@ -37,15 +41,7 @@ QtObject {
             // }
         }
         onObjectAdded: (index, obj) => {
-            root.players.insert(0, {
-                uuid: obj.uuid,
-                title: obj.title,
-                artists: obj.artists,
-
-                isPlaying: obj.isPlaying,
-                togglePlaying: obj.togglePlaying,
-            })
-            root.updateIndex = ! root.updateIndex
+            root.players.append({})
         }
         onObjectRemoved: (index, obj) => {
             root.players.remove(obj.index)
@@ -57,11 +53,7 @@ QtObject {
     //     repeat: true
     //     running: true
     //     onTriggered: {
-    //         for (let i = 0; i < root.players.count; i++) {
-    //             let player = root.players.get(i)
-    //             console.log(player.uuid)
-    //             console.log(player.title)
-    //         }
+    //         console.log(Media.players.get(Media.players.count - 2).isPlaying)
     //     }
     // }
 }

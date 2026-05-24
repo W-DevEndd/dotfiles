@@ -10,7 +10,7 @@ Row {
 
     ScrollingText {
         id: textContent
-        property string title: Media.players.count > 0 ? Media.players.get(0).title : ""
+        property string title: Media.players.count > 1 ? Media.players.get(Media.players.count - 2).title : ""
         text: title ? title : "Unknown track"
     }
 }
