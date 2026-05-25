@@ -20,7 +20,7 @@ QtObject {
         for (let i = 0; i < root.workspaces.length; i++) {
             if (workspaces[i].id === id) return i
         }
-        return undefined
+        return -1
     }
 
     function getById(id) {

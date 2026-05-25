@@ -25,18 +25,12 @@ Item {
         id: cpuProcesss
         running: true
         command: [
-            "sh", "-c", '(lscpu | grep "CPU(s):" -m 1 | awk \'{print $2}\');
-            (ps -eo pcpu | sed \'1d\')'
+            "sh", "-c", "top -bn1 | grep '%Cpu(s):' | awk '{print $8}'"
         ]
         stdout: StdioCollector {
             onStreamFinished: {
-                var lines = this.text.split("\n")
-                var core = Number(lines[0])
-                var usage = 0
-                lines.slice(1).map(item => {
-                    usage += Number(item)
-                })
-                format.value = Math.round(usage / core) + "%"
+                var ide = Math.round(Number(this.text))
+                format.value = 100 - ide + "%"
             }
         }
     }

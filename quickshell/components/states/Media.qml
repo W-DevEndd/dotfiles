@@ -5,7 +5,7 @@ import "../utils/"
 
 QtObject {
     id: root
-    property ListModel players : ListModel { ListElement {} }
+    property ListModel players : ListModel { ListElement { uuid: "-1" } }
     property var updateIndex: false
 
     property var _logic: Instantiator {
@@ -24,7 +24,10 @@ QtObject {
 
             readonly property var togglePlaying: modelData.togglePlaying
 
+            readonly property var length: modelData.length
+
             Component.onCompleted: {
+                root.players.setProperty(index, "uuid", uuid)
                 root.players.setProperty(index, "togglePlaying", togglePlaying)
             }
 

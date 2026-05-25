@@ -13,7 +13,7 @@ Item {
     ModulePanel {
         id: indicator
 
-        property int workspaceId: Hyprland.focusedWorkspace.id
+        property int workspaceId: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0
         property int workspaceIndex: HyprWorkspace.getIndexById(workspaceId)
         property int emtyDefaultCount: 0
 
