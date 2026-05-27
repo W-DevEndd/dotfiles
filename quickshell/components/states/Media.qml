@@ -22,7 +22,9 @@ QtObject {
             readonly property string isPlaying: modelData.isPlaying
             onIsPlayingChanged: root.players.setProperty(index, "isPlaying", isPlaying)
 
-            readonly property var togglePlaying: modelData.togglePlaying
+            readonly property var togglePlaying: () => {
+                modelData.togglePlaying()
+            }
 
             readonly property var length: modelData.length
 
