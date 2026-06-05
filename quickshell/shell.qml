@@ -1,11 +1,10 @@
-
-import "./components/"
 import Quickshell
-
-//@ pragma IconTheme breeze
+import "./views/"
+import "./commons/"
 
 ShellRoot {
-    property int scrCorner: 7
-    TopBar {}
+    id: root
 
+    TopBar {}
+    
 }

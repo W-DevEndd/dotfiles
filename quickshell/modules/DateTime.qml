@@ -1,6 +1,6 @@
 
-import "../base/"
 import QtQuick
+import "../commons/"
 
 Label {
     property string format: "dddd, MMMM dd, yyyy '•' HH:mm:ss A"
