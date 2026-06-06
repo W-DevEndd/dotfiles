@@ -9,7 +9,7 @@ QtObject {
 
     // Shell BG
     property color bgColor: CatppuccinMocha.base
-    property real bgAlpha: 0.25 * componentAlpha
+    property real bgAlpha: 0.1 * componentAlpha
     property int bgBorderW: 0
     property color bgBorderColor: "black"
 
@@ -18,6 +18,7 @@ QtObject {
     property color textColor: CatppuccinMocha.text
     property color textColor2: CatppuccinMocha.overlay1
     property color textColor3: bgColor
+    property int fontWeight: 32
 
     // Topbar
     property int topbarWidth: 28

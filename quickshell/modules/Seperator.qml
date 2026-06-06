@@ -1,0 +1,5 @@
+import "../commons/"
+
+Label {
+    text: "|"
+}

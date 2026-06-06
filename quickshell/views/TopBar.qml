@@ -12,7 +12,7 @@ PanelWindow {
     property int horizontalPadding: 5
     property int verticalPadding: 4
 
-    aboveWindows: false
+    // aboveWindows: false
     color: "transparent"
     anchors {
         top: true
@@ -59,6 +59,9 @@ PanelWindow {
         height: root.height - root.verticalPadding
         spacing: 5
 
+        anchors.centerIn: parent
+
+        DateTime { anchors.verticalCenter: parent.verticalCenter }
     }
 
     Row {
@@ -73,8 +76,8 @@ PanelWindow {
             rightMargin: root.horizontalPadding
         }
 
-        Tray { height: parent.height }
+        Tray { height: parent.height - 2; anchors.verticalCenter: parent.verticalCenter }
+        Seperator {}
         Battery { height: parent.height }
-        DateTime { anchors.verticalCenter: parent.verticalCenter }
     }
 }

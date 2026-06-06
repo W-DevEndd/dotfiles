@@ -3,7 +3,7 @@ import QtQuick
 import "../commons/"
 
 Label {
-    property string format: "dddd, MMMM dd, yyyy '•' HH:mm:ss A"
+    property string format: "ddd, MMM dd, yyyy '•' HH:mm:ss A"
     property var now: new Date()
     text: Qt.formatDateTime(now, format)
 
