@@ -6,5 +6,5 @@ ShellRoot {
     id: root
 
     TopBar {}
-    
+    PowerPopup {}
 }
