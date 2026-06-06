@@ -39,6 +39,7 @@ PanelWindow {
         id: leftModules
 
         height: root.height - root.verticalPadding
+        spacing: 5
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -56,6 +57,7 @@ PanelWindow {
         id: centerModules
 
         height: root.height - root.verticalPadding
+        spacing: 5
 
     }
 
@@ -63,6 +65,7 @@ PanelWindow {
         id: rightModules
 
         height: root.height - root.verticalPadding
+        spacing: 5
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -71,6 +74,7 @@ PanelWindow {
         }
 
         Tray { height: parent.height }
+        Battery { height: parent.height }
         DateTime { anchors.verticalCenter: parent.verticalCenter }
     }
 }

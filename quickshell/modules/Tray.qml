@@ -3,7 +3,7 @@ import Quickshell.Services.SystemTray
 
 Row {
     id: root
-    property int itemPadding: 4
+    property int itemPadding: 8
     spacing: itemPadding
 
     Repeater {

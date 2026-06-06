@@ -5,11 +5,11 @@ import "../commons/"
 QtObject {
 
     // All components
-    property real componentAlpha: 0.9
+    property real componentAlpha: 1
 
     // Shell BG
-    property color bgColor: CatppuccinMocha.crust
-    property real bgAlpha: 0.5 * componentAlpha
+    property color bgColor: CatppuccinMocha.base
+    property real bgAlpha: 0.25 * componentAlpha
     property int bgBorderW: 0
     property color bgBorderColor: "black"
 
