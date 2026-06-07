@@ -9,7 +9,7 @@ QtObject {
 
     // Shell BG
     property color bgColor: CatppuccinMocha.base
-    property real bgAlpha: 0.1 * componentAlpha
+    property real bgAlpha: 0.85 * componentAlpha
     property int bgBorderW: 0
     property color bgBorderColor: "black"
 

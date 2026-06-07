@@ -12,7 +12,7 @@ PanelWindow {
     property int horizontalPadding: 5
     property int verticalPadding: 4
 
-    // aboveWindows: false
+    aboveWindows: false
     color: "transparent"
     anchors {
         top: true
