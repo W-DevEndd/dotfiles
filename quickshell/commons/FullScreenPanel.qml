@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import Quickshell.Wayland
 import "../vars/"
 
 PanelWindow {
@@ -9,27 +10,20 @@ PanelWindow {
     property var toggleVisible: () => {}
 
     anchors { top: true; left: true; right: true; bottom: true }
+    margins { top: 0;    left: 0;    right: 0   ; bottom: 0    }
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
-    // property int direction: 2
-    // property int verticalMargin: 4
-    // property int horizontalMargin: 4
-    //
-    // anchors {
-    //     top: direction == 1 || direction == 2
-    //     bottom: direction == 3 || direction == 4
-    //     left: direction == 1 || direction == 4
-    //     right: direction == 2 || direction == 3
-    // }
 
+    // Area to close popup
     MouseArea {
         width: root.width
         height: root.height
         onClicked: root.toggleVisible()
+        propagateComposedEvents: false
 
         Label {
             text: "Click anywhere to close popup"
-            font.bold: true
+            color: Styles.textColor2
             anchors {
                 bottom: parent.bottom
                 bottomMargin: 55

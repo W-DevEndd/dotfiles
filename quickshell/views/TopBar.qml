@@ -26,13 +26,10 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: Styles.bgColor
-        border {
-            width: Styles.bgBorderW
-        }
-
-        Component.onCompleted: {
-            color.a = Styles.bgAlpha
-        }
+        opacity: Styles.bgAlpha
+        // border {
+        //     width: Styles.bgBorderW
+        // }
     }
 
     Row {

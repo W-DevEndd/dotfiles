@@ -6,12 +6,13 @@ QtObject {
 
     // All components
     property real componentAlpha: 1
+    property real cornerRadius1: 10
 
     // Shell BG
     property color bgColor: CatppuccinMocha.base
     property real bgAlpha: 0.85 * componentAlpha
-    property int bgBorderW: 0
-    property color bgBorderColor: "black"
+    property int bgBorderW: 1
+    property color bgBorderColor: CatppuccinMocha.crust
 
     // Texts
     property int fontSize: 11
