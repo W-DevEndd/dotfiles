@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import "../commons/"
 import "../vars/"
@@ -8,26 +9,22 @@ FullScreenPanel {
     visibleBy: PopupStates.showPowerPopup
     toggleVisible: PopupStates.toggleShowPowerPopup
     
-    PopupWindow {
+    PanelWindow {
         id: mainPopup
-
-        anchor {
-            window: root
-            rect.x: root.width
-            rect.y: Styles.topbarWidth
-        }
 
         implicitWidth: 100
         implicitHeight: 100
 
         color: "transparent"
-        visible: true
+        visible: root.visibleBy
+
+        WlrLayershell.layer: WlrLayer.Overlay
 
         Rectangle {
             id: popupBg
             anchors.fill: parent
             color: Styles.bgColor
-            // opacity: Styles.bgAlpha
+            opacity: Styles.bgAlpha
             // Component.onCompleted: color.a = Styles.bgAlpha
             radius: Styles.cornerRadius1
             border {

@@ -16,6 +16,7 @@ PanelWindow {
 
     // Area to close popup
     MouseArea {
+        // z: -1
         width: root.width
         height: root.height
         onClicked: root.toggleVisible()
