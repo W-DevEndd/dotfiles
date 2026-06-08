@@ -4,33 +4,14 @@ import QtQuick
 import "../commons/"
 import "../vars/"
 
-FullScreenPanel {
+PanelWindow {
     id: root
-    visibleBy: PopupStates.showPowerPopup
-    toggleVisible: PopupStates.toggleShowPowerPopup
     
-    PanelWindow {
-        id: mainPopup
-
-        implicitWidth: 100
-        implicitHeight: 100
-
-        color: "transparent"
-        visible: root.visibleBy
-
-        WlrLayershell.layer: WlrLayer.Overlay
-
-        Rectangle {
-            id: popupBg
-            anchors.fill: parent
-            color: Styles.bgColor
-            opacity: Styles.bgAlpha
-            // Component.onCompleted: color.a = Styles.bgAlpha
-            radius: Styles.cornerRadius1
-            border {
-                width: Styles.bgBorderW
-                color: Styles.bgBorderColor
-            }
-        }
+    anchors {
+        top: true
+        right: true
     }
+    exclusionMode: ExclusionMode.Normal
+    exclusiveZone: 0
+    visible: PopupStates.showPowerPopup
 }

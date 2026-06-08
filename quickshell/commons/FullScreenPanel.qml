@@ -20,7 +20,6 @@ PanelWindow {
         width: root.width
         height: root.height
         onClicked: root.toggleVisible()
-        propagateComposedEvents: false
 
         Label {
             text: "Click anywhere to close popup"
