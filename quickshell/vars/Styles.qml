@@ -4,6 +4,8 @@ import "../commons/"
 
 QtObject {
 
+    // WM
+    property int windowGaps: 5
     // All components
     property real componentAlpha: 1
     property real cornerRadius1: 10
@@ -16,6 +18,7 @@ QtObject {
 
     // Texts
     property int fontSize: 11
+    property int h1FontSize: 16
     property color textColor: CatppuccinMocha.text
     property color textColor2: CatppuccinMocha.overlay1
     property color textColor3: bgColor
