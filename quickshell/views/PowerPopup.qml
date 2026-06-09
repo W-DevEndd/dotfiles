@@ -8,6 +8,9 @@ PanelWindow {
     id: root
 
     property var isVisible: false
+    property real popupAlpha: Number(isVisible)
+    Behavior on popupAlpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
+    onPopupAlphaChanged: console.log(popupAlpha)
 
     anchors {
         top: true
@@ -24,12 +27,12 @@ PanelWindow {
     exclusiveZone: 0
 
     color: "transparent"
-    visible: root.isVisible
+    visible: root.isVisible || root.popupAlpha != 0
 
     Rectangle {
         id: bg
         color: Styles.bgColor
-        opacity: (Number(root.isVisible) * Styles.bgAlpha)
+        opacity: (root.popupAlpha * Styles.bgAlpha)
         width: root.implicitWidth
         height: root.implicitHeight
         radius: Styles.cornerRadius1
@@ -43,6 +46,6 @@ PanelWindow {
         id: content
         width: 500
         height: 700
-        opacity: Number(root.isVisible)
+        opacity: root.popupAlpha
     }
 }
