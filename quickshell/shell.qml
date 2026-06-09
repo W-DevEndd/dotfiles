@@ -1,10 +1,13 @@
 import Quickshell
 import "./views/"
 import "./commons/"
+import "./vars/"
 
 ShellRoot {
     id: root
 
     TopBar {}
-    PowerPopup {}
+    PowerPopup {
+        isVisible: PopupStates.showPowerPopup
+    }
 }
