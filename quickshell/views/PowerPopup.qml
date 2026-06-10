@@ -54,16 +54,36 @@ PanelWindow {
     Column {
         id: content
         opacity: root.popupAlpha
+        width: 300
 
-        padding: 5
+        spacing: 2
 
+        padding: 10
+
+        Label {
+            color: Styles.textColor2
+            text: "Battery"
+        }
         Row {
             H1 {
                 text: root.batPerc + "%"
+                font.pointSize: 32
             }
         }
         Label {
-            text: root.remaining
+            text: {
+                let pfx = root.isCharging ? "Full after: " : "Remaining: "
+                let mins = 0;
+                let hours = 0;
+                return `${pfx}${hours}h ${mins}m`
+            }
+            color: Styles.textColor2
+        }
+        HorizontalLine {
+            width: content.width
+        }
+        Row {
+            width: content.width
         }
     }
 }

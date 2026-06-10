@@ -6,5 +6,4 @@ Text {
     font.pointSize: Styles.fontSize
     // font.bold: true
 
-    Component.onCompleted: { color.a = Styles.componentAlpha}
 }
