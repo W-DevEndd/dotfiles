@@ -8,11 +8,15 @@ import "../vars/"
 PanelWindow {
     id: root
 
+    // Battery
     property var displayDev: UPower.displayDevice
     property int batPerc: displayDev.percentage * 100
     property var isCharging: !UPower.onBattery
     property int remaining: displayDev.timeToEmpty
-    property int fullIn: displayDev.timeToFull
+    property int fullAfter: displayDev.timeToFull
+
+    // PowerProfile
+    property var currentPProfile: PowerProfiles.profile
 
     property var isVisible: false
     property real popupAlpha: Number(isVisible)
@@ -72,18 +76,32 @@ PanelWindow {
         }
         Label {
             text: {
-                let pfx = root.isCharging ? "Full after: " : "Remaining: "
-                let mins = 0;
-                let hours = 0;
-                return `${pfx}${hours}h ${mins}m`
+                let pfx = root.isCharging ? "Full after: " : "Remaining: ";
+                let time = root.isCharging ? root.fullAfter : root.remaining;
+                let mins = Math.floor(time / 60) % 60;
+                let hours = Math.floor(time / 60 / 60);
+                return `${pfx}${hours} h ${mins}m`;
             }
             color: Styles.textColor2
         }
         HorizontalLine {
             width: content.width
         }
-        Row {
-            width: content.width
+        Rectangle {
+            anchors.horizontalCenter: content.horizontalCenter
+            width: powerModePanel.width
+            height: 35
+            Row {
+                id: powerModePanel
+                height: parent.height
+                Repeater {
+                    model: [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
+                    Rectangle {
+                        height: powerModePanel.height
+                        width: height
+                    }
+                }
+            }
         }
     }
 }
