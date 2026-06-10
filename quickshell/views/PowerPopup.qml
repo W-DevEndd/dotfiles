@@ -2,8 +2,10 @@ import Quickshell
 import Quickshell.Services.UPower
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Controls
 import "../commons/"
 import "../vars/"
+import "../assets/icons/"
 
 PanelWindow {
     id: root
@@ -34,6 +36,7 @@ PanelWindow {
     implicitWidth: content.width
     implicitHeight: content.height
     exclusionMode: ExclusionMode.Normal
+    WlrLayershell.layer: WlrLayer.Overlay
     exclusiveZone: 0
 
     color: "transparent"
@@ -58,9 +61,9 @@ PanelWindow {
     Column {
         id: content
         opacity: root.popupAlpha
-        width: 300
+        width: 233
 
-        spacing: 2
+        spacing: 5
 
         padding: 10
 
@@ -68,10 +71,18 @@ PanelWindow {
             color: Styles.textColor2
             text: "Battery"
         }
-        Row {
+        Item {
+            width: content.width - content.padding * 2
+            height: childrenRect.height
             H1 {
                 text: root.batPerc + "%"
                 font.pointSize: 32
+                anchors.left: parent.left
+            }
+            H1 {
+                text: BatteryNerd.value
+                font.pointSize: 36
+                anchors.right: parent.right
             }
         }
         Label {
@@ -85,21 +96,70 @@ PanelWindow {
             color: Styles.textColor2
         }
         HorizontalLine {
-            width: content.width
+            width: content.width - 2 * content.padding
         }
-        Rectangle {
-            anchors.horizontalCenter: content.horizontalCenter
-            width: powerModePanel.width
-            height: 35
-            Row {
-                id: powerModePanel
-                height: parent.height
-                Repeater {
-                    model: [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
-                    Rectangle {
-                        height: powerModePanel.height
-                        width: height
+        // Rectangle {
+        Item {
+            id: powerModePanel
+            height: 55
+            width: content.width - content.padding * 2
+
+            Rectangle {
+                id: primeSlider
+                height: powerModePanel.height
+                width: height
+                radius: Styles.cornerRadius2
+                color: Styles.prime
+                x: (powerModePanel.width / 2) * root.currentPProfile - ((width / 2) * root.currentPProfile)
+                Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
+            }
+
+            Repeater {
+                // model: [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
+                model: [0, 1, 2]
+
+                delegate: Button {
+                    property var mode: {
+                        switch (modelData) {
+                            case 0: return PowerProfile.PowerSaver;
+                            case 1: return PowerProfile.Balanced;
+                            case 2: return PowerProfile.Performance;
+                        }
                     }
+
+                    height: powerModePanel.height
+                    width: height
+
+                    anchors {
+                        left: modelData === 0 ? powerModePanel.left : undefined
+                        horizontalCenter: modelData === 1 ? powerModePanel.horizontalCenter : undefined
+                        right: modelData === 2 ? powerModePanel.right : undefined
+                    }
+
+                    background: null
+
+                    icon.width: width
+                    icon.height: height
+                    icon.source: {
+                        let path = "";
+                        switch (modelData) {
+                            case 0:
+                                path = "../assets/icons/power-saver.svg";
+                                break;
+                            case 1:
+                                path = "../assets/icons/balanced.svg";
+                                break;
+                            case 2:
+                                path = "../assets/icons/performance.svg";
+                                break;
+                        }
+
+                        return Qt.resolvedUrl(path);
+                    }
+                    icon.color: mode == root.currentPProfile ? Styles.bgColor1 : Styles.prime
+                    Behavior on icon.color { ColorAnimation { duration: 400; easing: Easing.OutExpo  } }
+
+                    onClicked: PowerProfiles.profile = mode
                 }
             }
         }

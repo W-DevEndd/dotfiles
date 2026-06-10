@@ -9,14 +9,18 @@ QtObject {
     // All components
     property real componentAlpha: 1
     property real cornerRadius1: 10
+    property real cornerRadius2: 20
 
     // Shell BG
     property color bgColor: CatppuccinMocha.base
+    property color bgColor1: CatppuccinMocha.crust
     property real bgAlpha: 0.85 * componentAlpha
     property int bgBorderW: 1
     property color bgBorderColor: CatppuccinMocha.crust
+    property color bgBorderColor1: CatppuccinMocha.surface0
 
-    // Texts
+    // Texts, Content
+    property color prime: CatppuccinMocha.lavender
     property int fontSize: 11
     property int h1FontSize: 16
     property color textColor: CatppuccinMocha.text

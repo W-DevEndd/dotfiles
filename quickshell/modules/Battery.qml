@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell.Services.UPower
 import "../commons/"
 import "../vars/"
+import "../assets/icons/"
 
 Item {
     id: root
@@ -24,17 +25,7 @@ Item {
         }
         Label {
             id: iconDisplay
-            text:  root.onBat ? (root.batPerc <= 5 ? "󰂎" :
-            root.batPerc <= 10 ? "󰁺" : 
-            root.batPerc <= 20 ? "󰁻" : 
-            root.batPerc <= 30 ? "󰁼" :
-            root.batPerc <= 40 ? "󰁼" :
-            root.batPerc <= 50 ? "󰁾" :
-            root.batPerc <= 60 ? "󰁿" :
-            root.batPerc <= 70 ? "󰂀" :
-            root.batPerc <= 80 ? "󰂁" :
-            root.batPerc <= 90 ? "󰂂" :
-            "󰁹") : "󱐋"
+            text:  BatteryNerd.value
             anchors.verticalCenter: r.verticalCenter
         }
     }
