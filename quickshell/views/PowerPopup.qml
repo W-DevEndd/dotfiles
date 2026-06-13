@@ -15,7 +15,7 @@ PanelWindow {
     property int batPerc: displayDev.percentage * 100
     property var isCharging: !UPower.onBattery
     property int remaining: displayDev.timeToEmpty
-    property int fullAfter: displayDev.timeToFull
+    property int fullIn: displayDev.timeToFull
 
     // PowerProfile
     property var currentPProfile: PowerProfiles.profile
@@ -85,25 +85,42 @@ PanelWindow {
                 anchors.right: parent.right
             }
         }
+
+        // Time to full/empty
         Label {
             text: {
-                let pfx = root.isCharging ? "Full after: " : "Remaining: ";
-                let time = root.isCharging ? root.fullAfter : root.remaining;
+                let pfx = root.isCharging ? "Full in: " : "Remaining: ";
+                let time = root.isCharging ? root.fullIn : root.remaining;
                 let mins = Math.floor(time / 60) % 60;
                 let hours = Math.floor(time / 60 / 60);
                 return `${pfx}${hours} h ${mins}m`;
             }
             color: Styles.textColor2
         }
+
         HorizontalLine {
             width: content.width - 2 * content.padding
         }
-        // Rectangle {
+
+        Label {
+            text: "Mode:"
+        }
+
+        // Power Mode Toggles
         Item {
             id: powerModePanel
             height: 55
             width: content.width - content.padding * 2
 
+            // Background
+            Rectangle {
+                height: powerModePanel.height
+                width: powerModePanel.width
+                radius: Styles.cornerRadius2
+                color: Styles.bgColor1
+            }
+
+            // Indicator
             Rectangle {
                 id: primeSlider
                 height: powerModePanel.height
