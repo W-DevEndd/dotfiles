@@ -29,8 +29,8 @@ PanelWindow {
         right: true
     }
     margins {
-        top: Styles.windowGaps
         right: Styles.windowGaps - 1 / 3 * width * (1 - popupAlpha)
+        top: Styles.windowGaps
     }
 
     implicitWidth: content.width
@@ -67,10 +67,18 @@ PanelWindow {
 
         padding: 10
 
-        Label {
-            color: Styles.textColor2
-            text: "Battery"
+        // top text panel
+        Item {
+            width: content.width - content.padding * 2
+            height: childrenRect.height
+
+            Label {
+                color: Styles.textColor2
+                text: "Battery"
+            }
         }
+
+        // primally text panel
         Item {
             width: content.width - content.padding * 2
             height: childrenRect.height
@@ -122,11 +130,11 @@ PanelWindow {
 
             // Indicator
             Rectangle {
-                id: primeSlider
+                id: primamySlider
                 height: powerModePanel.height
                 width: height
                 radius: Styles.cornerRadius2
-                color: Styles.prime
+                color: Styles.primary
                 x: (powerModePanel.width / 2) * root.currentPProfile - ((width / 2) * root.currentPProfile)
                 Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
             }
@@ -173,7 +181,7 @@ PanelWindow {
 
                         return Qt.resolvedUrl(path);
                     }
-                    icon.color: mode == root.currentPProfile ? Styles.bgColor1 : Styles.prime
+                    icon.color: mode == root.currentPProfile ? Styles.bgColor1 : Styles.primary
                     Behavior on icon.color { ColorAnimation { duration: 400; easing: Easing.OutExpo  } }
 
                     onClicked: PowerProfiles.profile = mode

@@ -10,4 +10,5 @@ ShellRoot {
     PowerPopup {
         isVisible: PopupStates.showPowerPopup
     }
+    SystemPopup { isVisible: PopupStates.showSystemPopup }
 }

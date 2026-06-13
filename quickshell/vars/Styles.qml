@@ -20,7 +20,8 @@ QtObject {
     property color bgBorderColor1: CatppuccinMocha.surface0
 
     // Texts, Content
-    property color prime: CatppuccinMocha.lavender
+    property color primary: CatppuccinMocha.lavender
+    property color primary2: CatppuccinMocha.overlay0
     property int fontSize: 11
     property int h1FontSize: 16
     property color textColor: CatppuccinMocha.text

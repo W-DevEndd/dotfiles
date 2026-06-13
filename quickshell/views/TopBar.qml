@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Wayland
 import QtQuick
 import "../commons/"
 import "../modules/"
@@ -12,7 +13,9 @@ PanelWindow {
     property int horizontalPadding: 5
     property int verticalPadding: 4
 
-    aboveWindows: false
+    WlrLayershell.layer: PopupStates.popupIsShowed ? WlrLayer.Overlay : WlrLayer.Top
+
+    // aboveWindows: false
     color: "transparent"
     anchors {
         top: true
@@ -76,5 +79,6 @@ PanelWindow {
         Tray { height: parent.height - 2; anchors.verticalCenter: parent.verticalCenter }
         Seperator {}
         Battery { height: parent.height }
+        OptionButton { height: parent.height }
     }
 }
