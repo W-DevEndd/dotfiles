@@ -13,6 +13,7 @@ return {
     require("config.plugins.nvim-cmp"),
     require("config.plugins.nvim-autopairs"),
     require("config.plugins.autosave"),
+    require("config.plugins.cord"),
 
     -- Code view
     require("config.plugins.nvim-treesitter"),
