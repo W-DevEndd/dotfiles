@@ -10,20 +10,37 @@ import "../assets/icons/"
 PanelWindow {
     id: root
 
-    // Battery
+    // Battery and Profiles
     property var displayDev: UPower.displayDevice
     property int batPerc: displayDev.percentage * 100
     property var isCharging: !UPower.onBattery
     property int remaining: displayDev.timeToEmpty
     property int fullIn: displayDev.timeToFull
-
-    // PowerProfile
     property var currentPProfile: PowerProfiles.profile
 
-    property var isVisible: false
+    // Popup
+    property var isVisible: PopupStates.showPowerPopup
     property real popupAlpha: Number(isVisible)
     Behavior on popupAlpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
+    visible: root.isVisible || root.popupAlpha != 0
+    color: "transparent"
 
+    // Keybinds
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    Shortcut {
+        sequence: "Escape"
+        onActivated: PopupStates.showPowerPopup = false
+    }
+
+    // Size
+    property int padding: 10
+    implicitWidth: content.width + padding * 2
+    implicitHeight: content.height + padding * 2
+    exclusionMode: ExclusionMode.Normal
+    WlrLayershell.layer: WlrLayer.Overlay
+    exclusiveZone: 0
+
+    // Position
     anchors {
         top: true
         right: true
@@ -32,15 +49,6 @@ PanelWindow {
         right: Styles.windowGaps - 1 / 3 * width * (1 - popupAlpha)
         top: Styles.windowGaps
     }
-
-    implicitWidth: content.width
-    implicitHeight: content.height
-    exclusionMode: ExclusionMode.Normal
-    WlrLayershell.layer: WlrLayer.Overlay
-    exclusiveZone: 0
-
-    color: "transparent"
-    visible: root.isVisible || root.popupAlpha != 0
 
     // Background
     Rectangle {
@@ -63,13 +71,14 @@ PanelWindow {
         opacity: root.popupAlpha
         width: 233
 
-        spacing: 5
+        x: root.padding
+        y: root.padding
 
-        padding: 10
+        spacing: 5
 
         // top text panel
         Item {
-            width: content.width - content.padding * 2
+            width: content.width
             height: childrenRect.height
 
             Label {
@@ -80,7 +89,7 @@ PanelWindow {
 
         // primally text panel
         Item {
-            width: content.width - content.padding * 2
+            width: content.width
             height: childrenRect.height
             H1 {
                 text: root.batPerc + "%"
@@ -107,7 +116,7 @@ PanelWindow {
         }
 
         HorizontalLine {
-            width: content.width - 2 * content.padding
+            width: content.width
         }
 
         Label {
@@ -118,7 +127,7 @@ PanelWindow {
         Item {
             id: powerModePanel
             height: 55
-            width: content.width - content.padding * 2
+            width: content.width
 
             // Background
             Rectangle {

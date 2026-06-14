@@ -7,8 +7,6 @@ ShellRoot {
     id: root
 
     TopBar {}
-    PowerPopup {
-        isVisible: PopupStates.showPowerPopup
-    }
-    SystemPopup { isVisible: PopupStates.showSystemPopup }
+    PowerPopup {}
+    SystemPopup {}
 }
