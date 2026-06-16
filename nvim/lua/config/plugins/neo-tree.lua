@@ -17,6 +17,9 @@ return {
                 }
             }
         })
+
+
+        vim.api.nvim_set_keymap('n', '<Leader>nt', ':Neotree<CR>', { noremap = true, silent = true })
     end
   }
 }
