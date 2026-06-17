@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import "root:/"
 
 PanelWindow {
     id: root
@@ -15,5 +16,6 @@ PanelWindow {
         id: bg
         width: root.width
         height: root.height
+        color: Catppuccin.base
     }
 }
