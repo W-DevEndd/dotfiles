@@ -1,7 +1,10 @@
-import Quickshell;
-import "root:/views/";
+import Quickshell
+import "root:/views/"
 
 ShellRoot {
-    property real barOpacity: 0.85;
-    TopBar {}
+    id: root
+    property real barOpacity: 0.85
+    TopBar {
+        opacity: root.barOpacity
+    }
 }

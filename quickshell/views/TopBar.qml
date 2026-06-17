@@ -1,25 +1,61 @@
-import Quickshell;
-import QtQuick;
-import "root:/";
+import Quickshell
+import QtQuick
+import "root:/"
+import "root:/commons"
 
 PanelWindow {
-    id: root;
+    id: root
 
-    property real opacity: 1.0;
+    property real opacity: 1.0
+    property int padding: 2
 
+    aboveWindows: false
     anchors {
-        top: true;
-        left: true;
-        right: true;
+        top: true
+        left: true
+        right: true
     }
 
-    implicitHeight: 36;
-    color: "transparent";
+    implicitHeight: 36
+    color: "transparent"
 
     Rectangle {
         id: bg;
-        width: root.width;
-        height: root.height;
-        color: Catppuccin.base;
+        width: root.width
+        height: root.height
+        color: Catppuccin.base
+        opacity: root.opacity
+    }
+
+    Item {
+        id: content;
+        width: root.width - root.padding * 2
+        height: root.height - root.padding * 2
+        x: root.padding
+        y: root.padding
+
+        opacity: root.opacity
+
+        Row {
+            id: leftModules
+            anchors.left: content.left
+            height: content.height
+        }
+
+        Row {
+            id: middleModules
+            anchors.verticalCenter: content.verticalCenter
+            height: content.height
+        }
+
+        Row {
+            id: rightModules
+            anchors.right: content.right
+            height: content.height
+
+            ContentButton {
+                height: parent.height
+            }
+        }
     }
 }
