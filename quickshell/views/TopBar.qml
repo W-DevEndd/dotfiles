@@ -2,12 +2,13 @@ import Quickshell
 import QtQuick
 import "root:/"
 import "root:/commons"
+import "root:/modules"
 
 PanelWindow {
     id: root
 
     property real opacity: 1.0
-    property int padding: 2
+    property int padding: 4
 
     aboveWindows: false
     anchors {
@@ -40,12 +41,19 @@ PanelWindow {
             id: leftModules
             anchors.left: content.left
             height: content.height
+
+            spacing: 5
+
+            HyprWorkspace { height: parent.height }
         }
 
         Row {
             id: middleModules
-            anchors.verticalCenter: content.verticalCenter
+            anchors.horizontalCenter: content.horizontalCenter
             height: content.height
+
+            spacing: 5
+            DateTime { height: parent.height }
         }
 
         Row {
@@ -53,9 +61,7 @@ PanelWindow {
             anchors.right: content.right
             height: content.height
 
-            ContentButton {
-                height: parent.height
-            }
+            spacing: 5
         }
     }
 }
