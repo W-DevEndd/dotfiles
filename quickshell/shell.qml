@@ -4,14 +4,12 @@ import "root:/views/"
 
 ShellRoot {
     id: root
-    property real barOpacity: 0.85
+    property real bgOpacity: 0.85
 
-    // States
-    property var showMenuPopup: false
     TopBar {
-        opacity: root.barOpacity
+        opacity: root.bgOpacity
         // HyprlandWindow.opacity: root.barOpacity
     }
 
-    MenuPopup { }
+    MenuPopup { opacity: root.bgOpacity }
 }

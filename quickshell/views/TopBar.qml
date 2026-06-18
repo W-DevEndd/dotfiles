@@ -11,7 +11,8 @@ PanelWindow {
     property real opacity: 1.0
     property int padding: 4
 
-    // aboveWindows: false
+    aboveWindows: false
+
     anchors {
         top: true
         left: true
