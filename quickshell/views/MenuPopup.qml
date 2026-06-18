@@ -2,6 +2,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import "root:/"
+import "root:/commons/"
+import "root:/commons/option/"
 
 PanelWindow {
     id: root
@@ -10,6 +12,7 @@ PanelWindow {
     Behavior on alpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
 
     property real opacity: 1.0
+    property int padding: 5
 
     visible: PpStates.showMenuPopup | alpha !== 0
 
@@ -26,19 +29,41 @@ PanelWindow {
         right: true
     }
 
-    Rectangle {
-        id: bg
-        color: Catppuccin.base
-        opacity: root.opacity * (root.alpha)
+    implicitWidth: 400
+    implicitHeight: maincontent.height + padding * 2
 
-        width: root.width
-        height: root.height
+    Column {
+        id: maincontent
+        opacity: root.opacity * root.alpha
 
-        radius: 10
+        width: root.implicitWidth - root.padding * 2
+        x: root.padding
+        y: root.padding
 
-        border {
-            width: 1
-            color: Catppuccin.crust
+        spacing: 10
+
+        ContentPanel1 {
+            width: maincontent.width
+            height: sliderPanel.height
+
+            Column {
+                id: sliderPanel
+                width: parent.width
+
+                OptionSlider { width: sliderPanel.width }
+            }
         }
+        // ContentPanel1 {
+        //     width: maincontent.width
+        //     height: 100
+        // }
+        // ContentPanel1 {
+        //     width: maincontent.width
+        //     height: 100
+        // }
+        // ContentPanel1 {
+        //     width: maincontent.width
+        //     height: 100
+        // }
     }
 }
