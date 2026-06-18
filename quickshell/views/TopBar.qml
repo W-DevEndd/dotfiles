@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Hyprland
 import QtQuick
 import "root:/"
 import "root:/commons"
@@ -10,7 +11,7 @@ PanelWindow {
     property real opacity: 1.0
     property int padding: 4
 
-    aboveWindows: false
+    // aboveWindows: false
     anchors {
         top: true
         left: true
