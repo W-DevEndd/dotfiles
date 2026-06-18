@@ -53,7 +53,6 @@ PanelWindow {
             height: content.height
 
             spacing: 5
-            DateTime { height: parent.height }
         }
 
         Row {
@@ -62,6 +61,9 @@ PanelWindow {
             height: content.height
 
             spacing: 5
+
+            Tray { height: parent.height }
+            DateTime { height: parent.height }
         }
     }
 }

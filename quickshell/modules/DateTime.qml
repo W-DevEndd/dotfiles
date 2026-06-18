@@ -6,7 +6,7 @@ ContentPanel {
     id: root
 
     property int padding: 5
-    property string format: "ddd, MMM dd, yyyy | hh:mm:ss AP"
+    property string format: "ddd, MMM dd, yyyy 󰧞 hh:mm:ss AP"
 
     width: txt.width + padding * 2
 
