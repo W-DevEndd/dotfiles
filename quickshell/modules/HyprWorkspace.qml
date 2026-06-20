@@ -7,6 +7,7 @@ ContentPanel {
     id: root
 
     width: workspcNumbers.width
+    Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
 
     ContentPanel {
         id: focusedScroller
@@ -22,12 +23,22 @@ ContentPanel {
     Row {
         id: workspcNumbers
         height: root.height
+        clip: true
+
+        move: Transition {
+            NumberAnimation { 
+                property: "x"
+                duration: 400 
+                easing: Easing.OutExpo
+            }
+        }
 
         Repeater {
             model: Hyprland.workspaces
             delegate: Item {
                 height: workspcNumbers.height
                 width: height
+
 
                 BaseText {
                     id: numberDisplay
