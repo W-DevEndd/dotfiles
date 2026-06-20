@@ -17,7 +17,17 @@ RowLayout {
         id: slider
         Layout.fillWidth: true
         handle: null
-        height: 100
+
+        height: bg.height
+
+        background: Rectangle {
+            id: bg
+            width:slider.width
+            height: 34
+
+            radius: 10
+            color: Catppuccin.crust
+        }
 
         // snapMode: Slider.SnapAlways
         // stepSize: 10
