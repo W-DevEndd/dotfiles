@@ -10,29 +10,41 @@ RowLayout {
     // height: 55
 
     BaseText {
-        text: Math.floor(slider.position * 100)
+        text: Math.floor(control.position * 100)
     }
 
     Slider {
-        id: slider
+        id: control
         Layout.fillWidth: true
         handle: null
+
+        // snapMode: Slider.SnapAlways
+        // stepSize: 10
+        from: 0
+        to: 1
 
         height: bg.height
 
         background: Rectangle {
             id: bg
-            width:slider.width
+            width: control.width
             height: 34
 
-            radius: 10
-            color: Catppuccin.crust
-        }
+            radius: 15
+            color: Catppuccin.surface0
 
-        // snapMode: Slider.SnapAlways
-        // stepSize: 10
-        from: 0
-        to: 100
+            clip: true
+
+            Rectangle {
+                anchors.left: bg.left
+                height: bg.height
+
+                // radius: 10
+                color: Catppuccin.blue
+
+                width: control.visualPosition * bg.width
+            }
+        }
     }
 }
 
