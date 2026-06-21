@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import "root:/"
 import "root:/commons/"
@@ -50,20 +51,14 @@ PanelWindow {
                 id: sliderPanel
                 width: parent.width
 
-                OptionSlider { width: sliderPanel.width }
+                OptionSlider {
+                    id: soundControl
+                    width: sliderPanel.width
+
+                    leftText: Math.floor(sliderPos * 100)
+                    onSliderMoved: Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos])
+                }
             }
         }
-        // ContentPanel1 {
-        //     width: maincontent.width
-        //     height: 100
-        // }
-        // ContentPanel1 {
-        //     width: maincontent.width
-        //     height: 100
-        // }
-        // ContentPanel1 {
-        //     width: maincontent.width
-        //     height: 100
-        // }
     }
 }

@@ -9,8 +9,20 @@ RowLayout {
     id: root
     // height: 55
 
+    readonly property real sliderPos: control.position
+    signal sliderMoved(real newValue)
+    // onSliderMoved: console.log(sliderPos)
+
+    property string leftText: ""
+    property color leftTextColor: Catppuccin.text
+    property string rightText: ""
+    property color rightTextColor: Catppuccin.text
+
+
     BaseText {
-        text: Math.floor(control.position * 100)
+        text: root.leftText
+        color: root.leftTextColor
+        font.bold: true
     }
 
     Slider {
@@ -25,6 +37,8 @@ RowLayout {
 
         height: bg.height
 
+        onMoved: {root.sliderMoved(control.value)}
+
         background: Rectangle {
             id: bg
             width: control.width
@@ -35,16 +49,28 @@ RowLayout {
 
             clip: true
 
-            Rectangle {
+            Item {
                 anchors.left: bg.left
                 height: bg.height
 
-                // radius: 10
-                color: Catppuccin.blue
-
                 width: control.visualPosition * bg.width
+                clip:true
+
+                Rectangle {
+                    width: bg.width
+                    height: bg.height
+                    radius: bg.radius
+
+                    color: Catppuccin.blue
+                }
             }
         }
+    }
+
+    BaseText {
+        text: root.rightText
+        color: root.rightTextColor
+        font.bold: true
     }
 }
 
