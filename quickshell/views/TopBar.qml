@@ -11,29 +11,46 @@ PanelWindow {
     property real opacity: 1.0
     property int padding: 4
 
+    property int cornerSize: 15
+    property int h: 36
+
     aboveWindows: false
+    exclusiveZone: h
 
     anchors {
         top: true
         left: true
         right: true
     }
-
-    implicitHeight: 36
+    implicitHeight: h + cornerSize
     color: "transparent"
 
-    Rectangle {
-        id: bg;
+    Canvas {
+        id: bg
+        opacity: root.opacity
+
         width: root.width
         height: root.height
-        color: Catppuccin.base
-        opacity: root.opacity
+
+        onPaint: {
+            var ctx = getContext("2d");
+
+
+            ctx.fillStyle = Catppuccin.base;
+            ctx.beginPath();
+
+            ctx.moveTo(0, 0);
+            ctx.lineTo(bg.width, 0);
+            ctx.lineTo(bg.width, bg.height - root.cornerSize);
+            ctx.lineTo(0, bg.height - root.cornerSize);
+            ctx.fill();
+        }
     }
 
     Item {
         id: content;
         width: root.width - root.padding * 2
-        height: root.height - root.padding * 2
+        height: root.h - root.padding * 2
         x: root.padding
         y: root.padding
 

@@ -8,7 +8,6 @@ ShellRoot {
 
     TopBar {
         opacity: root.bgOpacity
-        // HyprlandWindow.opacity: root.barOpacity
     }
 
     MenuPopup { opacity: root.bgOpacity }
