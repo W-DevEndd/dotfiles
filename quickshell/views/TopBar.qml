@@ -41,8 +41,10 @@ PanelWindow {
 
             ctx.moveTo(0, 0);
             ctx.lineTo(bg.width, 0);
-            ctx.lineTo(bg.width, bg.height - root.cornerSize);
-            ctx.lineTo(0, bg.height - root.cornerSize);
+            ctx.lineTo(bg.width, bg.height);
+            ctx.quadraticCurveTo(bg.width, bg.height - root.cornerSize, bg.width - root.cornerSize, bg.height - root.cornerSize);
+            ctx.lineTo(root.cornerSize, bg.height - root.cornerSize);
+            ctx.quadraticCurveTo(0, bg.height - root.cornerSize, 0, bg.height);
             ctx.fill();
         }
     }
