@@ -61,4 +61,13 @@ PanelWindow {
             }
         }
     }
+
+    Process {
+        id: pavuListener
+        command: ["sh", "-c", 'pactl subscribe | grep --line-buffered -E "sink|source"']
+        running: true
+        stdout: SplitParser {
+            onRead: console.log("aaa")
+        }
+    }
 }
