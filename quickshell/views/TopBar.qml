@@ -11,7 +11,7 @@ PanelWindow {
     property real opacity: 1.0
     property int padding: 4
 
-    property int cornerSize: 15
+    property int cornerSize: 16
     property int h: 36
 
     aboveWindows: false

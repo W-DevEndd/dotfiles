@@ -9,8 +9,12 @@ RowLayout {
     id: root
     // height: 55
 
+    property var isMoving: false
     readonly property real sliderPos: control.position
+    property real newValue: sliderPos
+    onNewValueChanged: isMoving || (control.value = newValue)
     signal sliderMoved(real newValue)
+
     // onSliderMoved: console.log(sliderPos)
 
     property string leftText: ""

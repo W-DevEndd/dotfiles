@@ -68,7 +68,21 @@ PanelWindow {
                     width: sliderPanel.width
 
                     leftText: sliderPos * 100 + 0.5 | 0
-                    onSliderMoved: Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos])
+                    onSliderMoved: {
+                        Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos]);
+                    }
+
+                    Connections {
+                        target: SystemStates
+                        function onSinkVolumeChanged() {
+                            (Math.abs(SystemStates.sinkVolume - soundControl.sliderPos) >= 0.005) && (
+                                soundControl.newValue = SystemStates.sinkVolume
+                            )
+                        }
+                        // function onMutedSinkChanged() { console.log(SystemStates.mutedSink) }
+                        // function onSourceVolumeChanged() { console.log(SystemStates.sourceVolume) }
+                        // function onMutedSourceChanged() { console.log(SystemStates.mutedSource) }
+                    }
                 }
             }
         }
