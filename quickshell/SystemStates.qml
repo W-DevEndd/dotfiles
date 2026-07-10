@@ -6,9 +6,14 @@ QtObject {
     id: root
     property real sinkVolume: -1
     property var mutedSink: undefined
+
     property real sourceVolume: -1
     property var mutedSource: undefined
 
+    property real brightnessVolume: -1
+
+
+    // engine logics
     property var _pavuListener: Process {
         command: ["sh", "-c", 'pactl subscribe | grep --line-buffered -E "sink|source"']
         running: true
@@ -35,5 +40,25 @@ QtObject {
                 root.mutedSource = value[1].includes("[MUTED]");
             }
         }
-    } 
+    }
+
+    property var _brightnessListener: Process {
+        command: ["sh", "-c", 'udevadm monitor --subsystem=backlight | grep --line-buffered "change"']
+        running: true
+        stdout: SplitParser {
+            onRead: {
+                root._getBrightness.running = true
+            }
+        }
+    }
+    property var _getBrightness: Process {
+        command: ["sh", "-c", 'brightnessctl | grep "Current"']
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var value = this.text.trim().split(/\s+/)
+                root.brightnessVolume = Number(value[value.length - 1].match(/\d+/)[0]) / 100
+            }
+        }
+    }
 }

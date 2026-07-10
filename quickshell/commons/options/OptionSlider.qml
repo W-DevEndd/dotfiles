@@ -19,12 +19,12 @@ Item {
 
     // onSliderMoved: console.log(sliderPos)
 
+    property string leftTextSample: "100"
     property string leftText: ""
     property color leftTextColor: Catppuccin.text
-    property var handleLeftTextClick: () => {
-        console.log("Aaaaaaa")
-    }
+    property var handleLeftTextClick: () => {}
 
+    property string rightTextSample: ""
     property string rightText: ""
     property color rightTextColor: Catppuccin.text
     property var handleRightTextClick: () => {}
@@ -33,11 +33,16 @@ Item {
     height: 34
 
     Item {
-        width: root.labelPanelSize
+        width: frameLeft.width
+        height: root.height
         anchors {
             left: root.left
-            verticalCenter: root.verticalCenter
             leftMargin: root.padding
+        }
+        Label {
+            id: frameLeft
+            color: "transparent"
+            text: root.leftTextSample
         }
         BaseText {
             text: root.leftText
@@ -47,9 +52,7 @@ Item {
         }
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                console.log("aaaaaa")
-            }
+            onClicked: root.handleLeftTextClick()
         }
     }
 
@@ -57,8 +60,10 @@ Item {
         id: control
         handle: null
 
+        // property var isUpdating: false
+
         // snapMode: Slider.SnapAlways
-        // stepSize: 10
+        // stepSize: 0.1
         from: 0
         to: 1
 
@@ -71,6 +76,7 @@ Item {
             value: root.newValue
         }
         onMoved: {
+            // isUpdating = true
             root.sliderMoved(control.value)
         }
 
@@ -103,11 +109,16 @@ Item {
     }
 
     Item {
-        width: root.labelPanelSize
+        width: frameRight.width
         anchors {
             right: root.right
             verticalCenter: root.verticalCenter
             rightMargin: root.padding
+        }
+        Label {
+            id: frameRight
+            color: "transparent"
+            text: root.rightTextSample
         }
         BaseText {
             text: root.rightText

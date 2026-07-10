@@ -5,6 +5,7 @@ import Quickshell.Wayland
 import "root:/"
 import "root:/commons/"
 import "root:/commons/options/"
+import "root:/quick_setting/"
 
 PanelWindow {
     id: root
@@ -63,39 +64,59 @@ PanelWindow {
                 id: sliderPanel
                 width: parent.width
 
-                OptionSlider {
+                spacing: 5
+                
+                PrimarySlider {
                     id: soundControl
-                    width: sliderPanel.width
-
-                    property var isUpdating: false
-                    property real displayValue: sliderPos * 100 + 0.5 | 0
-
                     rightText: displayValue
-                    leftText: displayValue >= 40 ? "" :
-                        displayValue >= 10 ? "" : ""
+                    leftText: SystemStates.mutedSink ? "" : (displayValue >= 40 ? "" :
+                        displayValue >= 10 ? "" : "")
 
-                    onSliderMoved: {
-                        soundControl.isUpdating = true
-                        handleSliderMove.running = false
-                        handleSliderMove.running = true
-                    }
+                    clickCommand: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", Number(!SystemStates.mutedSink)]
+                    dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos]
+
                     Connections {
                         target: SystemStates
                         function onSinkVolumeChanged() {
-                            if (!soundControl.isUpdating) {
-                                soundControl.newValue = SystemStates.sinkVolume
-                            }
+                            soundControl.newValue = SystemStates.sinkVolume
                         }
                     }
-                    handleLeftTextClick: () => {
-                        console.log("Aaaaaaa")
-                    }
+                }
+                PrimarySlider {
+                    id: micControl
+                    rightText: displayValue
+                    leftText: SystemStates.mutedSource ? "" : ""
 
-                    Process {
-                        id: handleSliderMove
-                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", soundControl.sliderPos]
-                        stdout: StdioCollector {
-                            onStreamFinished: soundControl.isUpdating = false
+                    clickCommand: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", Number(!SystemStates.mutedSource)]
+                    dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SOURCE@", sliderPos]
+
+                    Connections {
+                        target: SystemStates
+                        function onSourceVolumeChanged() {
+                            micControl.newValue = SystemStates.sourceVolume
+                        }
+                    }
+                }
+                PrimarySlider {
+                    id: briControl
+                    rightText: displayValue
+                    leftText: displayValue >= 95 ? "󰛨" :
+                    displayValue >= 85 ? "󱩖" :
+                    displayValue >= 75 ? "󱩕" :
+                    displayValue >= 65 ? "󱩔" :
+                    displayValue >= 55 ? "󱩓" :
+                    displayValue >= 45 ? "󱩒" :
+                    displayValue >= 35 ? "󱩑" :
+                    displayValue >= 25 ? "󱩐" :
+                    displayValue >= 15 ? "󱩏" :
+                    displayValue >= 5 ? "󱩎" : "󰛩"
+
+                    dragCommand:  ["brightnessctl", "set", `${sliderPos * 100 + 1}%`]
+
+                    Connections {
+                        target: SystemStates
+                        function onBrightnessVolumeChanged() {
+                            briControl.newValue = SystemStates.brightnessVolume
                         }
                     }
                 }
