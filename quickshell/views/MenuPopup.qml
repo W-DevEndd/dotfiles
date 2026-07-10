@@ -4,7 +4,7 @@ import Quickshell.Io
 import Quickshell.Wayland
 import "root:/"
 import "root:/commons/"
-import "root:/commons/option/"
+import "root:/commons/options/"
 
 PanelWindow {
     id: root
@@ -67,7 +67,7 @@ PanelWindow {
                     id: soundControl
                     width: sliderPanel.width
 
-                    property var isUpdating: true
+                    property var isUpdating: false
                     property real displayValue: sliderPos * 100 + 0.5 | 0
 
                     rightText: displayValue
@@ -75,16 +75,28 @@ PanelWindow {
                         displayValue >= 10 ? "" : ""
 
                     onSliderMoved: {
-                        Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos])
+                        soundControl.isUpdating = true
+                        handleSliderMove.running = false
+                        handleSliderMove.running = true
                     }
                     Connections {
                         target: SystemStates
                         function onSinkVolumeChanged() {
-                            soundControl.newValue = SystemStates.sinkVolume
+                            if (!soundControl.isUpdating) {
+                                soundControl.newValue = SystemStates.sinkVolume
+                            }
                         }
                     }
                     handleLeftTextClick: () => {
                         console.log("Aaaaaaa")
+                    }
+
+                    Process {
+                        id: handleSliderMove
+                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", soundControl.sliderPos]
+                        stdout: StdioCollector {
+                            onStreamFinished: soundControl.isUpdating = false
+                        }
                     }
                 }
             }

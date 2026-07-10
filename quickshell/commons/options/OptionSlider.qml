@@ -70,7 +70,9 @@ Item {
         Binding on value {
             value: root.newValue
         }
-        onMoved: {root.sliderMoved(control.value)}
+        onMoved: {
+            root.sliderMoved(control.value)
+        }
 
         background: Rectangle {
             id: bg
