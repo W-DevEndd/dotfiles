@@ -62,8 +62,8 @@ Item {
 
         // property var isUpdating: false
 
-        // snapMode: Slider.SnapAlways
-        // stepSize: 0.1
+        snapMode: Slider.SnapOnRelease
+        stepSize: 0.01
         from: 0
         to: 1
 

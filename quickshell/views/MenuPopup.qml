@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
 import "root:/"
 import "root:/commons/"
@@ -68,12 +67,12 @@ PanelWindow {
                 
                 PrimarySlider {
                     id: soundControl
+                    width: sliderPanel.width
                     rightText: displayValue
                     leftText: SystemStates.mutedSink ? "" : (displayValue >= 40 ? "" :
                         displayValue >= 10 ? "" : "")
 
-                    clickCommand: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", Number(!SystemStates.mutedSink)]
-                    dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos]
+                    // dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", sliderPos]
 
                     Connections {
                         target: SystemStates
@@ -82,44 +81,44 @@ PanelWindow {
                         }
                     }
                 }
-                PrimarySlider {
-                    id: micControl
-                    rightText: displayValue
-                    leftText: SystemStates.mutedSource ? "" : ""
-
-                    clickCommand: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", Number(!SystemStates.mutedSource)]
-                    dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SOURCE@", sliderPos]
-
-                    Connections {
-                        target: SystemStates
-                        function onSourceVolumeChanged() {
-                            micControl.newValue = SystemStates.sourceVolume
-                        }
-                    }
-                }
-                PrimarySlider {
-                    id: briControl
-                    rightText: displayValue
-                    leftText: displayValue >= 95 ? "󰛨" :
-                    displayValue >= 85 ? "󱩖" :
-                    displayValue >= 75 ? "󱩕" :
-                    displayValue >= 65 ? "󱩔" :
-                    displayValue >= 55 ? "󱩓" :
-                    displayValue >= 45 ? "󱩒" :
-                    displayValue >= 35 ? "󱩑" :
-                    displayValue >= 25 ? "󱩐" :
-                    displayValue >= 15 ? "󱩏" :
-                    displayValue >= 5 ? "󱩎" : "󰛩"
-
-                    dragCommand:  ["brightnessctl", "set", `${sliderPos * 100 + 1}%`]
-
-                    Connections {
-                        target: SystemStates
-                        function onBrightnessVolumeChanged() {
-                            briControl.newValue = SystemStates.brightnessVolume
-                        }
-                    }
-                }
+                // PrimarySlider {
+                //     id: micControl
+                //     rightText: displayValue
+                //     leftText: SystemStates.mutedSource ? "" : ""
+                //
+                //     clickCommand: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", Number(!SystemStates.mutedSource)]
+                //     dragCommand:  ["wpctl", "set-volume", "@DEFAULT_AUDIO_SOURCE@", sliderPos]
+                //
+                //     Connections {
+                //         target: SystemStates
+                //         function onSourceVolumeChanged() {
+                //             micControl.newValue = SystemStates.sourceVolume
+                //         }
+                //     }
+                // }
+                // PrimarySlider {
+                //     id: briControl
+                //     rightText: displayValue
+                //     leftText: displayValue >= 95 ? "󰛨" :
+                //     displayValue >= 85 ? "󱩖" :
+                //     displayValue >= 75 ? "󱩕" :
+                //     displayValue >= 65 ? "󱩔" :
+                //     displayValue >= 55 ? "󱩓" :
+                //     displayValue >= 45 ? "󱩒" :
+                //     displayValue >= 35 ? "󱩑" :
+                //     displayValue >= 25 ? "󱩐" :
+                //     displayValue >= 15 ? "󱩏" :
+                //     displayValue >= 5 ? "󱩎" : "󰛩"
+                //
+                //     dragCommand:  ["brightnessctl", "set", `${sliderPos * 100}%`]
+                //
+                //     Connections {
+                //         target: SystemStates
+                //         function onBrightnessVolumeChanged() {
+                //             briControl.newValue = SystemStates.brightnessVolume
+                //         }
+                //     }
+                // }
             }
         }
     }
