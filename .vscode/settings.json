@@ -1,8 +1,0 @@
-{
-    "qt-qml.qmlls.extraImportPaths": [
-        "/usr/lib/qt6/qml",
-        "/usr/lib/qt/qml",
-        "/usr/share/qt6/qml"
-    ],
-    "qt-qml.qmlls.customExePath": "/usr/bin/qmlls6"
-}
