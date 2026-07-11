@@ -7,6 +7,7 @@ return {
     require("config.plugins.telescope"),
     require("config.plugins.barbar"),
     require("config.plugins.toggleterm"),
+    require("config.plugins.neogit"),
 
     -- Feature
     require("config.plugins.nvim-lspconfig"),
