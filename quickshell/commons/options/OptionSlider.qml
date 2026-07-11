@@ -61,7 +61,7 @@ Item {
         stepSize: root.sliderStep
         
         from: root.minValue
-        to: root.maxValu
+        to: root.maxValue
 
         Binding on value {
             value: root.currentValue
