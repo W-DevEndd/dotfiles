@@ -23,7 +23,7 @@ PanelWindow {
         top: true
         right: true
     }
-    margins.right: margin - 100 * (1 - root.alpha)
+margins.right: margin - 100 * (1 - root.alpha)
     margins.top: margin
 
     implicitWidth: 400
@@ -65,9 +65,19 @@ PanelWindow {
                 spacing: 5
                 
                 OptionSlider {
+                    id: sinkSlider
                     height: 34
                     width: parent.width
+
+                    Binding on currentValue {
+                        value: SystemStates.brightnessVolume
+                    }
+                    onCurrentValueChanged: SystemStates.brightnessVolume = sinkSlider.currentValue
                 }
+
+                // BaseText {
+                //     text: SystemStates.brightnessVolume
+                // }
             }
         }
     }
