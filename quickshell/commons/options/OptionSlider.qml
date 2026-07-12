@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import "root:/"
 import "root:/commons"
 
 
@@ -70,5 +71,24 @@ Item {
             root.currentValue = control.value
         }
 
+        background: Rectangle {
+            anchors.fill: control
+            color: Catppuccin.surface0
+            radius: 10
+
+            Item {
+                anchors.left: parent.left
+                height: control.height
+                width: control.width * (control.visualPosition)
+                clip: true
+                Rectangle {
+                    width: control.width
+                    height: control.height
+                    color: Catppuccin.blue
+                    radius: 10
+                }
+            }
+        }
+        handle: Item {}
     }
 }
