@@ -74,10 +74,6 @@ margins.right: margin - 100 * (1 - root.alpha)
                     }
                     onCurrentValueChanged: SystemStates.brightnessVolume = sinkSlider.currentValue
                 }
-
-                // BaseText {
-                //     text: SystemStates.brightnessVolume
-                // }
             }
         }
     }
