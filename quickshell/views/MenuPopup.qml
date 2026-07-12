@@ -70,9 +70,19 @@ margins.right: margin - 100 * (1 - root.alpha)
                     width: parent.width
 
                     Binding on currentValue {
+                        value: SystemStates.sinkVolume
+                    }
+                    onCurrentValueChanged: SystemStates.sinkVolume = sinkSlider.currentValue
+                }
+                OptionSlider {
+                    id: briSlider
+                    height: 34
+                    width: parent.width
+
+                    Binding on currentValue {
                         value: SystemStates.brightnessVolume
                     }
-                    onCurrentValueChanged: SystemStates.brightnessVolume = sinkSlider.currentValue
+                    onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
                 }
             }
         }
