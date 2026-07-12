@@ -80,6 +80,11 @@ Item {
                 anchors.left: parent.left
                 height: control.height
                 width: control.width * (control.visualPosition)
+                Behavior on width { NumberAnimation {
+                    duration: 400
+                    easing.type: Easing.OutExpo
+                }}
+
                 clip: true
                 Rectangle {
                     width: control.width
