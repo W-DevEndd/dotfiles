@@ -23,8 +23,7 @@ QtObject {
     onBrightnessVolumeChanged: {
         // console.log(brightnessVolume)
         if (root._isSyncingBrightnessVolume) return
-        _updateBrightnessVolume.command = ["brightnessctl" , "set", root.brightnessVolume + "%"]
-        _updateBrightnessVolume.running = true
+        _updateBrightnessVolume.exec(["brightnessctl" , "set", root.brightnessVolume + "%"])
     }
     property var _brightnessListener: Process {
         command: ["sh", "-c", 'udevadm monitor --kernel --subsystem=backlight | grep --line-buffered "change"']
