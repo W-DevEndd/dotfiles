@@ -12,6 +12,7 @@ QtObject {
     property int brightnessVolume: -1
 
     property int sinkVolume: -1
+    property var isMutedSink: false
 
     // ---
     // Logics
@@ -86,12 +87,12 @@ QtObject {
     property var _updateBrightnessVolume: Process {
         onStarted: root._isSyncingBrightnessVolume = true
         command: ["brightnessctl", "set"]
-        stdout: StdioCollector { onStreamFinished: root._isSyncingBrightnessVolume = false }
+        onExited: root._isSyncingBrightnessVolume = false
     }
     property var _updateSinkVolume: Process {
         onStarted: root._isSyncingSinkVolume = true
         command: ["wpctl", "set"]
-        stdout: StdioCollector { onStreamFinished: root._isSyncingSinkVolume = false }
+        onExited: root._isSyncingSinkVolume = false
     }
 
     // tester
