@@ -69,6 +69,9 @@ margins.right: margin - 100 * (1 - root.alpha)
                     height: 34
                     width: parent.width
 
+                    minValue: 0
+                    maxValue: 100
+                    sliderStep: 1
                     Binding on currentValue {
                         value: SystemStates.sinkVolume
                     }
@@ -79,6 +82,9 @@ margins.right: margin - 100 * (1 - root.alpha)
                     height: 34
                     width: parent.width
 
+                    property real minValue: 0
+                    property real maxValue: 100
+                    property real sliderStep: 1
                     Binding on currentValue {
                         value: SystemStates.brightnessVolume
                     }
