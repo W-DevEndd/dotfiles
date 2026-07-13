@@ -1,5 +1,6 @@
 pragma Singleton
 import Quickshell.Io
+import Quickshell.Services.Pipewire
 import QtQuick
 
 QtObject {
@@ -20,10 +21,8 @@ QtObject {
 
     // flags
     property var _isSyncingBrightnessVolume: false
-    property var _isSyncingSinkVolume: false
 
     // listener
-    // on_IsSyncingBrightnessVolumeChanged: console.log(_isSyncingBrightnessVolume)
     onBrightnessVolumeChanged: {
         // console.log(brightnessVolume)
         if (root._isSyncingBrightnessVolume) return
@@ -39,14 +38,21 @@ QtObject {
         }
     }
 
-    onSinkVolumeChanged: {
-        if (root._isSyncingSinkVolume) return
-        _updateSinkVolume.exec(["wpctl" , "set-volume", "@DEFAULT_AUDIO_SINK@", root.sinkVolume / 100])
+    property var _audioTracker: PwObjectTracker {
+        objects: [
+            Pipewire.defaultAudioSink,
+            Pipewire.defaultAudioSource,
+        ]
     }
-    property var _pavuListener: Process {
-        running: true
-        command: ["sh", "-c", "pactl subscribe | grep --line-buffered -E 'change.*sink |change.*source '"]
-        stdout: SplitParser { onRead: root._getPavu.running = true }
+
+    property var  _sinkListener: Connections {
+        target: Pipewire.defaultAudioSink?.audio ?? null
+        function onVolumeChanged() { root.sinkVolume = Math.round(Pipewire.defaultAudioSink.audio.volume * 100) }
+    }
+    onSinkVolumeChanged: {
+        if (!Pipewire.defaultAudioSink?.audio) return
+        if (root.sinkVolume === Math.round(Pipewire.defaultAudioSink.audio.volume * 100)) return
+        Pipewire.defaultAudioSink.audio.volume = root.sinkVolume / 100
     }
 
     // system getter
@@ -63,25 +69,6 @@ QtObject {
             }
         }
     }
-    property var _getPavu: Process {
-        command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@; wpctl get-volume @DEFAULT_AUDIO_SOURCE@"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const lines = this.text.trim().split("\n")
-                const sinkVol = Number(lines[0].match(/\d+(\.\d+)?/)[0]) * 100
-                const isMutedSink = lines[0].includes("[MUTED]")
-                const sourceVol = Number(lines[1].match(/\d+(\.\d+)?/)[0]) * 100
-                const isMutedSource = lines[1].includes("[MUTED]")
-
-                if (!root._isSyncingSinkVolume) {
-                    root._isSyncingSinkVolume = true
-                    root.sinkVolume = sinkVol
-                    root._isSyncingSinkVolume = false
-                }
-            }
-        }
-    }
 
     // system setter
     property var _updateBrightnessVolume: Process {
@@ -89,18 +76,14 @@ QtObject {
         command: ["brightnessctl", "set"]
         onExited: root._isSyncingBrightnessVolume = false
     }
-    property var _updateSinkVolume: Process {
-        onStarted: root._isSyncingSinkVolume = true
-        command: ["wpctl", "set"]
-        onExited: root._isSyncingSinkVolume = false
-    }
 
     // tester
     property var _test: Timer {
         // running: true
         interval: 3000
+        repeat: true
         onTriggered: {
-            root.brightnessVolume = 20
+            console.log(Pipewire.defaultAudioSink.audio.volume)
         }
     }
 }
