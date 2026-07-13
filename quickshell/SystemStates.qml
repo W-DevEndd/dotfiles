@@ -12,11 +12,12 @@ QtObject {
 
     property int brightnessVolume: -1
 
-    property int sinkVolume: (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) ? Math.round(Pipewire.defaultAudioSink.audio.volume * 100) : -1
-    property int sourceVolume: (Pipewire.defaultAudioSource && Pipewire.defaultAudioSource.audio) ? Math.round(Pipewire.defaultAudioSource.audio.volume * 100) : -1
+    // Sửa ở nơi bạn khai báo thuộc tính root
+    property int sinkVolume: -1
+    property int sourceVolume: (Pipewire.defaultAudioSource && Pipewire.defaultAudioSource.audio) ? Math.round(Pipewire.defaultAudioSource.audio.volume * 100) : 0
 
-    property var isMutedSink: Pipewire.defaultAudioSink?.audio?.muted ?? null
-    property var isMutedSource: Pipewire.defaultAudioSource?.audio?.muted ?? null
+    property var isMutedSink: null
+    property var isMutedSource: null
 
 
 
@@ -58,10 +59,18 @@ QtObject {
         ]
     }
 
+    // change something...
+
     onSinkVolumeChanged: {
         if (!Pipewire.defaultAudioSink?.audio) return
         if (root.sinkVolume === Math.round(Pipewire.defaultAudioSink.audio.volume * 100)) return
         Pipewire.defaultAudioSink.audio.volume = root.sinkVolume / 100
+    }
+    Binding on sinkVolume {
+        value: (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio) ? Math.round(Pipewire.defaultAudioSink.audio.volume * 100) : -1
+    }
+    Binding on isMutedSink {
+        value: Pipewire.defaultAudioSink?.audio?.muted ?? null
     }
     onIsMutedSinkChanged: {
         if (!Pipewire.defaultAudioSink?.audio) return
@@ -72,6 +81,12 @@ QtObject {
         if (!Pipewire.defaultAudioSource?.audio) return
         if (root.sourceVolume === Math.round(Pipewire.defaultAudioSource.audio.volume * 100)) return
         Pipewire.defaultAudioSource.audio.volume = root.sourceVolume / 100
+    }
+    Binding on sourceVolume {
+        value: (Pipewire.defaultAudioSource && Pipewire.defaultAudioSource.audio) ? Math.round(Pipewire.defaultAudioSource.audio.volume * 100) : -1
+    }
+    Binding on isMutedSource {
+        value: Pipewire.defaultAudioSource?.audio?.muted ?? null
     }
     onIsMutedSourceChanged: {
         if (!Pipewire.defaultAudioSource?.audio) return
