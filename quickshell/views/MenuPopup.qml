@@ -80,6 +80,21 @@ PanelWindow {
                     clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
                 }
                 OptionSlider {
+                    id: sourceSlider
+                    height: 34
+                    width: parent.width
+
+                    minValue: 0
+                    maxValue: 100
+                    sliderStep: 1
+                    Binding on currentValue {
+                        value: SystemStates.sourceVolume
+                    }
+
+                    onCurrentValueChanged: SystemStates.sourceVolume = sourceSlider.currentValue
+                    clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
+                }
+                OptionSlider {
                     id: briSlider
                     height: 34
                     width: parent.width

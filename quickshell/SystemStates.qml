@@ -14,6 +14,12 @@ QtObject {
 
     property int sinkVolume: -1
     property var isMutedSink: null
+    property int sourceVolume: -1
+    property var isMutedSource: null
+
+
+
+
 
     // ---
     // Logics
@@ -21,6 +27,10 @@ QtObject {
 
     // flags
     property var _isSyncingBrightnessVolume: false
+
+
+
+
 
     // listener
     onBrightnessVolumeChanged: {
@@ -63,6 +73,28 @@ QtObject {
         if (!Pipewire.defaultAudioSink?.audio) return
         Pipewire.defaultAudioSink.audio.muted = isMutedSink
     }
+
+    property var  _sourceListener: Connections {
+        target: Pipewire.defaultAudioSource?.audio ?? null
+        function onVolumeChanged() { root.sourceVolume = Math.round(Pipewire.defaultAudioSource.audio.volume * 100) }
+    }
+    onSourceVolumeChanged: {
+        if (!Pipewire.defaultAudioSource?.audio) return
+        if (root.sourceVolume === Math.round(Pipewire.defaultAudioSource.audio.volume * 100)) return
+        Pipewire.defaultAudioSource.audio.volume = root.sourceVolume / 100
+    }
+    Binding on isMutedSource {
+        value: Pipewire.defaultAudioSource?.audio?.muted ?? null
+    }
+    onIsMutedSourceChanged: {
+        if (!Pipewire.defaultAudioSource?.audio) return
+        Pipewire.defaultAudioSource.audio.muted = isMutedSource
+    }
+
+
+
+
+
     // system getter
     property var _getBrightness: Process {
         command: ["sh", "-c", 'brightnessctl | grep "Current"']
@@ -78,12 +110,20 @@ QtObject {
         }
     }
 
+
+
+
+
     // system setter
     property var _updateBrightnessVolume: Process {
         onStarted: root._isSyncingBrightnessVolume = true
         command: ["brightnessctl", "set"]
         onExited: root._isSyncingBrightnessVolume = false
     }
+
+
+
+
 
     // tester
     property var _test: Timer {
