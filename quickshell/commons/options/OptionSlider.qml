@@ -25,6 +25,8 @@ Item {
     property int horizontalPadding: 5
     property int spacing: 5
 
+    property var clickIconHandle: () => {}
+
     Label {
         id: iconPanel
         text: root.iconSample
@@ -36,6 +38,10 @@ Item {
         BaseText {
             text: root.displayIcon
             anchors.centerIn: parent
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: root.clickIconHandle()
         }
     }
     Label {
