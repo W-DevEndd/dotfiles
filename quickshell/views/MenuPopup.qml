@@ -65,7 +65,7 @@ PanelWindow {
                 spacing: 5
                 
                 OptionSlider {
-                    id: sinkSlider
+                    id: sinkAudioSlider
                     height: 34
                     width: parent.width
 
@@ -76,11 +76,11 @@ PanelWindow {
                         value: SystemStates.sinkVolume
                     }
 
-                    onCurrentValueChanged: SystemStates.sinkVolume = sinkSlider.currentValue
+                    onCurrentValueChanged: SystemStates.sinkVolume = sinkAudioSlider.currentValue
                     clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
                 }
                 OptionSlider {
-                    id: sourceSlider
+                    id: sourceAudioSlider
                     height: 34
                     width: parent.width
 
@@ -91,7 +91,7 @@ PanelWindow {
                         value: SystemStates.sourceVolume
                     }
 
-                    onCurrentValueChanged: SystemStates.sourceVolume = sourceSlider.currentValue
+                    onCurrentValueChanged: SystemStates.sourceVolume = sourceAudioSlider.currentValue
                     clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
                 }
                 OptionSlider {
