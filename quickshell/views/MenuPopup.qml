@@ -23,7 +23,7 @@ PanelWindow {
         top: true
         right: true
     }
-margins.right: margin - 100 * (1 - root.alpha)
+    margins.right: margin - 100 * (1 - root.alpha)
     margins.top: margin
 
     implicitWidth: 400
@@ -75,7 +75,9 @@ margins.right: margin - 100 * (1 - root.alpha)
                     Binding on currentValue {
                         value: SystemStates.sinkVolume
                     }
+
                     onCurrentValueChanged: SystemStates.sinkVolume = sinkSlider.currentValue
+                    clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
                 }
                 OptionSlider {
                     id: briSlider

@@ -13,7 +13,7 @@ QtObject {
     property int brightnessVolume: -1
 
     property int sinkVolume: -1
-    property var isMutedSink: false
+    property var isMutedSink: null
 
     // ---
     // Logics
@@ -38,6 +38,8 @@ QtObject {
         }
     }
 
+
+
     property var _audioTracker: PwObjectTracker {
         objects: [
             Pipewire.defaultAudioSink,
@@ -54,7 +56,13 @@ QtObject {
         if (root.sinkVolume === Math.round(Pipewire.defaultAudioSink.audio.volume * 100)) return
         Pipewire.defaultAudioSink.audio.volume = root.sinkVolume / 100
     }
-
+    Binding on isMutedSink {
+        value: Pipewire.defaultAudioSink?.audio?.muted ?? null
+    }
+    onIsMutedSinkChanged: {
+        if (!Pipewire.defaultAudioSink?.audio) return
+        Pipewire.defaultAudioSink.audio.muted = isMutedSink
+    }
     // system getter
     property var _getBrightness: Process {
         command: ["sh", "-c", 'brightnessctl | grep "Current"']
