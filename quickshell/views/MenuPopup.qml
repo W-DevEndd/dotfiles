@@ -37,6 +37,10 @@ PanelWindow {
     Rectangle {
         id: bg
         color: Catppuccin.base
+        border {
+            color: Catppuccin.crust
+            width: 1
+        }
         opacity: root.opacity * root.alpha
         radius: 10
 
@@ -54,83 +58,78 @@ PanelWindow {
 
         spacing: 10
 
-        Item {
+        Column {
+            id: sliderPanel
             width: maincontent.width
-            height: sliderPanel.height
 
-            Column {
-                id: sliderPanel
+            spacing: 5
+
+            OptionSlider {
+                id: sinkAudioSlider
+                height: 34
                 width: parent.width
 
-                spacing: 5
-                
-                OptionSlider {
-                    id: sinkAudioSlider
-                    height: 34
-                    width: parent.width
+                displayIcon: SystemStates.isMutedSink ? "" : (
+                    currentValue >= 40 ? "" :
+                    currentValue >= 10 ? "" : ""
+                )
 
-                    displayIcon: SystemStates.isMutedSink ? "" : (
-                        currentValue >= 40 ? "" :
-                        currentValue >= 10 ? "" : ""
-                    )
-
-                    minValue: 0
-                    maxValue: 100
-                    sliderStep: 1
-                    Binding on currentValue {
-                        value: SystemStates.sinkVolume
-                    }
-
-                    onCurrentValueChanged: SystemStates.sinkVolume = sinkAudioSlider.currentValue
-                    clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
+                minValue: 0
+                maxValue: 100
+                sliderStep: 1
+                Binding on currentValue {
+                    value: SystemStates.sinkVolume
                 }
-                OptionSlider {
-                    id: sourceAudioSlider
-                    height: 34
-                    width: parent.width
 
-                    displayIcon: SystemStates.isMutedSource ? "" : ""
+                onCurrentValueChanged: SystemStates.sinkVolume = sinkAudioSlider.currentValue
+                clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
+            }
+            OptionSlider {
+                id: sourceAudioSlider
+                height: 34
+                width: parent.width
 
-                    minValue: 0
-                    maxValue: 100
-                    sliderStep: 1
-                    Binding on currentValue {
-                        value: SystemStates.sourceVolume
-                    }
+                displayIcon: SystemStates.isMutedSource ? "" : ""
 
-                    onCurrentValueChanged: SystemStates.sourceVolume = sourceAudioSlider.currentValue
-                    clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
+                minValue: 0
+                maxValue: 100
+                sliderStep: 1
+                Binding on currentValue {
+                    value: SystemStates.sourceVolume
                 }
-                OptionSlider {
-                    id: briSlider
-                    height: 34
-                    width: parent.width
 
-                    displayIcon: (
-                        currentValue > 96 ? "" :
-                        currentValue > 88 ? "" :
-                        currentValue > 80 ? "" :
-                        currentValue > 73 ? "" :
-                        currentValue > 65 ? "" :
-                        currentValue > 57 ? "" :
-                        currentValue > 50 ? "" :
-                        currentValue > 42 ? "" :
-                        currentValue > 34 ? "" :
-                        currentValue > 26 ? "" :
-                        currentValue > 19 ? "" :
-                        currentValue > 11 ? "" :
-                        currentValue > 3 ? "" : ""
-                    )
+                onCurrentValueChanged: SystemStates.sourceVolume = sourceAudioSlider.currentValue
+                clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
+            }
+            OptionSlider {
+                id: briSlider
+                height: 34
+                width: parent.width
 
-                    property real minValue: 0
-                    property real maxValue: 100
-                    property real sliderStep: 1
-                    Binding on currentValue {
-                        value: SystemStates.brightnessVolume
-                    }
+                displayIcon: (
+                    currentValue > 96 ? "" :
+                    currentValue > 88 ? "" :
+                    currentValue > 80 ? "" :
+                    currentValue > 73 ? "" :
+                    currentValue > 65 ? "" :
+                    currentValue > 57 ? "" :
+                    currentValue > 50 ? "" :
+                    currentValue > 42 ? "" :
+                    currentValue > 34 ? "" :
+                    currentValue > 26 ? "" :
+                    currentValue > 19 ? "" :
+                    currentValue > 11 ? "" :
+                    currentValue > 3 ? "" : ""
+                )
 
-                    onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
+                property real minValue: 0
+                property real maxValue: 100
+                property real sliderStep: 1
+                Binding on currentValue {
+                    value: SystemStates.brightnessVolume
                 }
+
+                onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
             }
         }
     }
