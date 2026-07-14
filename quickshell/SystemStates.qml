@@ -1,4 +1,5 @@
 pragma Singleton
+import Quickshell.Networking
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import QtQuick
@@ -10,14 +11,18 @@ QtObject {
     // Main Properties
     // ---
 
+    // Media $ Display control
     property int brightnessVolume: -1
 
-    // Sửa ở nơi bạn khai báo thuộc tính root
     property int sinkVolume: -1
     property int sourceVolume: (Pipewire.defaultAudioSource && Pipewire.defaultAudioSource.audio) ? Math.round(Pipewire.defaultAudioSource.audio.volume * 100) : 0
 
     property var isMutedSink: null
     property var isMutedSource: null
+
+    // Networking
+    property var wifiEnabled: null
+
 
 
 
@@ -59,8 +64,6 @@ QtObject {
         ]
     }
 
-    // change something...
-
     onSinkVolumeChanged: {
         if (!Pipewire.defaultAudioSink?.audio) return
         if (root.sinkVolume === Math.round(Pipewire.defaultAudioSink.audio.volume * 100)) return
@@ -91,6 +94,16 @@ QtObject {
     onIsMutedSourceChanged: {
         if (!Pipewire.defaultAudioSource?.audio) return
         Pipewire.defaultAudioSource.audio.muted = isMutedSource
+    }
+
+
+
+    Binding on wifiEnabled {
+        value: Networking.wifiEnabled
+    }
+    onWifiEnabledChanged: {
+        if (root.wifiEnabled === Networking.wifiEnabled) return
+        Networking.wifiEnabled = root.wifiEnabled
     }
 
 

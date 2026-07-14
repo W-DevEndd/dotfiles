@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import "root:/"
@@ -27,7 +28,7 @@ PanelWindow {
     margins.top: margin
 
     implicitWidth: 400
-    implicitHeight: maincontent.height + padding * 2
+    implicitHeight: mainContent.height + padding * 2
 
     // layer
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
@@ -49,7 +50,7 @@ PanelWindow {
     }
 
     Column {
-        id: maincontent
+        id: mainContent
         opacity: root.opacity * root.alpha
 
         width: root.implicitWidth - root.padding * 2
@@ -58,11 +59,59 @@ PanelWindow {
 
         spacing: 10
 
+        Item {
+            id: buttonPanel
+            property int padding: 34
+            width: mainContent.width
+            height: childrenRect.height + padding
+
+            GridLayout {
+                id: buttonsGrid
+                width: buttonPanel.width - buttonPanel.padding
+                property int childrenHeight: 55
+
+                anchors.horizontalCenter: buttonPanel.horizontalCenter
+                y: buttonPanel.padding / 2
+
+                columns: 3
+                rowSpacing: 13
+                columnSpacing: 13
+                flow: Grid.LeftToRight
+
+                OptionButton {
+                    displayIcon: ""
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: buttonsGrid.childrenHeight
+
+                    Binding on toggleState {
+                        value: SystemStates.wifiEnabled
+                    }
+                    onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
+                }
+                OptionButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                }
+                OptionButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                }
+                OptionButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                }
+                OptionButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                }
+            }
+        }
+
         Column {
             id: sliderPanel
-            width: maincontent.width
+            width: mainContent.width
 
-            spacing: 5
+            spacing: 8
 
             OptionSlider {
                 id: sinkAudioSlider
