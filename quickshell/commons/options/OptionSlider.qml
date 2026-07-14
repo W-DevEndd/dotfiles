@@ -23,7 +23,7 @@ Item {
     property var sliderSnap: Slider.SnapOnRelease
 
     property int horizontalPadding: 5
-    property int spacing: 5
+    property int spacing: 10
 
     property var clickIconHandle: () => {}
 
