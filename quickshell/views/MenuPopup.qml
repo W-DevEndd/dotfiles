@@ -16,7 +16,7 @@ PanelWindow {
 
     color: "transparent"
     property real opacity: 1.0
-    property int padding: 5
+    property int padding: 10
     property int margin: 5
 
     // position and size
@@ -28,7 +28,7 @@ PanelWindow {
     margins.top: margin
 
     implicitWidth: 400
-    implicitHeight: mainContent.height + padding * 2
+    implicitHeight: content.height
 
     // layer
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
@@ -49,138 +49,156 @@ PanelWindow {
         height: root.height
     }
 
-    Column {
-        id: mainContent
+    Row {
+        id: content
+        property var isInSubcontent: false
+
         opacity: root.opacity * root.alpha
+        spacing: root.padding
+        height: isInSubcontent ? subContent.height : mainContent.height
+        x: -(mainContent.width + spacing) * Number(isInSubcontent)
 
-        width: root.implicitWidth - root.padding * 2
-        x: root.padding
-        y: root.padding
+        Column {
+            id: mainContent
 
-        spacing: 10
+            width: root.implicitWidth - root.padding * 2
+            padding: root.padding
 
-        Item {
-            id: buttonPanel
-            property int padding: 34
-            width: mainContent.width
-            height: childrenRect.height + padding
+            spacing: 10
 
-            GridLayout {
-                id: buttonsGrid
-                width: buttonPanel.width - buttonPanel.padding
-                property int childrenHeight: 55
+            Item {
+                id: buttonPanel
+                property int padding: 5
+                width: mainContent.width
+                height: childrenRect.height + padding * 2
 
-                anchors.horizontalCenter: buttonPanel.horizontalCenter
-                y: buttonPanel.padding / 2
+                GridLayout {
+                    id: buttonsGrid
+                    width: buttonPanel.width - buttonPanel.padding * 2
+                    property int childrenHeight: 55
 
-                columns: 3
-                rowSpacing: 13
-                columnSpacing: 13
-                flow: Grid.LeftToRight
+                    anchors.horizontalCenter: buttonPanel.horizontalCenter
+                    y: buttonPanel.padding
 
-                OptionButton {
-                    displayIcon: ""
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                    columns: 3
+                    rowSpacing: 13
+                    columnSpacing: 13
+                    flow: Grid.LeftToRight
 
-                    Binding on toggleState {
-                        value: SystemStates.wifiEnabled
+                    OptionButton {
+                        displayIcon: ""
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: buttonsGrid.childrenHeight
+
+                        Binding on toggleState {
+                            value: SystemStates.wifiEnabled
+                        }
+                        onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
                     }
-                    onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
+                    OptionButton {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: buttonsGrid.childrenHeight
+                    }
+                    OptionButton {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: buttonsGrid.childrenHeight
+                    }
+                    OptionButton {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: buttonsGrid.childrenHeight
+                    }
+                    OptionButton {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: buttonsGrid.childrenHeight
+                    }
                 }
-                OptionButton {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: buttonsGrid.childrenHeight
+            }
+
+            Column {
+                id: sliderPanel
+                width: mainContent.width
+
+                spacing: 8
+
+                OptionSlider {
+                    id: sinkAudioSlider
+                    height: 34
+                    width: parent.width
+
+                    displayIcon: SystemStates.isMutedSink ? "" : (
+                        currentValue >= 40 ? "" :
+                        currentValue >= 10 ? "" : ""
+                    )
+
+                    minValue: 0
+                    maxValue: 100
+                    sliderStep: 1
+                    Binding on currentValue {
+                        value: SystemStates.sinkVolume
+                    }
+
+                    onCurrentValueChanged: SystemStates.sinkVolume = sinkAudioSlider.currentValue
+                    clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
                 }
-                OptionButton {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                OptionSlider {
+                    id: sourceAudioSlider
+                    height: 34
+                    width: parent.width
+
+                    displayIcon: SystemStates.isMutedSource ? "" : ""
+
+                    minValue: 0
+                    maxValue: 100
+                    sliderStep: 1
+                    Binding on currentValue {
+                        value: SystemStates.sourceVolume
+                    }
+
+                    onCurrentValueChanged: SystemStates.sourceVolume = sourceAudioSlider.currentValue
+                    clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
                 }
-                OptionButton {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: buttonsGrid.childrenHeight
-                }
-                OptionButton {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: buttonsGrid.childrenHeight
+                OptionSlider {
+                    id: briSlider
+                    height: 34
+                    width: parent.width
+
+                    displayIcon: (
+                        currentValue > 96 ? "" :
+                        currentValue > 88 ? "" :
+                        currentValue > 80 ? "" :
+                        currentValue > 73 ? "" :
+                        currentValue > 65 ? "" :
+                        currentValue > 57 ? "" :
+                        currentValue > 50 ? "" :
+                        currentValue > 42 ? "" :
+                        currentValue > 34 ? "" :
+                        currentValue > 26 ? "" :
+                        currentValue > 19 ? "" :
+                        currentValue > 11 ? "" :
+                        currentValue > 3 ? "" : ""
+                    )
+
+                    property real minValue: 0
+                    property real maxValue: 100
+                    property real sliderStep: 1
+                    Binding on currentValue {
+                        value: SystemStates.brightnessVolume
+                    }
+
+                    onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
                 }
             }
         }
 
         Column {
-            id: sliderPanel
-            width: mainContent.width
+            id: subContent
+            width: root.width - root.padding * 2
+            padding: root.padding
 
-            spacing: 8
-
-            OptionSlider {
-                id: sinkAudioSlider
-                height: 34
-                width: parent.width
-
-                displayIcon: SystemStates.isMutedSink ? "" : (
-                    currentValue >= 40 ? "" :
-                    currentValue >= 10 ? "" : ""
-                )
-
-                minValue: 0
-                maxValue: 100
-                sliderStep: 1
-                Binding on currentValue {
-                    value: SystemStates.sinkVolume
-                }
-
-                onCurrentValueChanged: SystemStates.sinkVolume = sinkAudioSlider.currentValue
-                clickIconHandle: () => SystemStates.isMutedSink = !SystemStates.isMutedSink
-            }
-            OptionSlider {
-                id: sourceAudioSlider
-                height: 34
-                width: parent.width
-
-                displayIcon: SystemStates.isMutedSource ? "" : ""
-
-                minValue: 0
-                maxValue: 100
-                sliderStep: 1
-                Binding on currentValue {
-                    value: SystemStates.sourceVolume
-                }
-
-                onCurrentValueChanged: SystemStates.sourceVolume = sourceAudioSlider.currentValue
-                clickIconHandle: () => SystemStates.isMutedSource = !SystemStates.isMutedSource
-            }
-            OptionSlider {
-                id: briSlider
-                height: 34
-                width: parent.width
-
-                displayIcon: (
-                    currentValue > 96 ? "" :
-                    currentValue > 88 ? "" :
-                    currentValue > 80 ? "" :
-                    currentValue > 73 ? "" :
-                    currentValue > 65 ? "" :
-                    currentValue > 57 ? "" :
-                    currentValue > 50 ? "" :
-                    currentValue > 42 ? "" :
-                    currentValue > 34 ? "" :
-                    currentValue > 26 ? "" :
-                    currentValue > 19 ? "" :
-                    currentValue > 11 ? "" :
-                    currentValue > 3 ? "" : ""
-                )
-
-                property real minValue: 0
-                property real maxValue: 100
-                property real sliderStep: 1
-                Binding on currentValue {
-                    value: SystemStates.brightnessVolume
-                }
-
-                onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
+            Rectangle {
+                width: subContent.width
+                height: 100
             }
         }
     }
-
 }
