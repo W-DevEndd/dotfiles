@@ -2,18 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import "root:/"
 
-
-
-
-
-
-
-
-
-
-
-
-
 Button {
     id: root
     property var toggleState: false
@@ -29,9 +17,7 @@ Button {
             color: root.toggleState ? Catppuccin.crust : Catppuccin.subtext1
             anchors.centerIn: parent
             font.bold: true
-            font.pointSize: root.height * 0.3
+            font.pointSize: root.height * 0.3 || 11
         }
     }
-
-    onClicked: toggleState = !toggleState
 }
