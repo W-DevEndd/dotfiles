@@ -209,12 +209,30 @@ PanelWindow {
                 id: subContent
                 width: contentPanel.width
 
-                Row {
+                Item {
+                    width: subContent.width
+                    height: 21
+
+                    BaseText {
+                        id: extraContentTitle
+                        text: "Wifi"
+                        font.bold: true
+                        anchors.centerIn: parent
+                    }
                     SecondaryButton {
                         displayIcon: ""
                         onClicked: content.isInSubcontent = false
-                        height: 21
+                        anchors.left: parent.left
                         width: height
+                        height: parent.height
+                    }
+                    SwitchToggle {
+                        Binding on checked {
+                            value: SystemStates.wifiEnabled
+                        }
+                        onCheckedChanged: SystemStates.wifiEnabled = checked
+                        height: parent.height
+                        anchors.right: parent.right
                     }
                 }
             }
