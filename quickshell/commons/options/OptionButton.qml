@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import "root:/"
+import "root:/commons/"
 
 Button {
     id: root
@@ -12,7 +13,7 @@ Button {
         radius: 5
         color: root.toggleState ? Catppuccin.blue : Catppuccin.surface2
 
-        Label {
+        BaseText {
             text: root.displayIcon
             color: root.toggleState ? Catppuccin.crust : Catppuccin.subtext1
             anchors.centerIn: parent

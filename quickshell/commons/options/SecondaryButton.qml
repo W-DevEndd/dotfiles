@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import "root:/"
+import "root:/commons/"
 
 Button {
     id: root
@@ -10,9 +11,10 @@ Button {
         color: root.hovered ? Catppuccin.surface1 : Catppuccin.surface0
         radius: 5
 
-        Label {
+        BaseText {
             text: root.displayIcon
             anchors.centerIn: parent
+            font.bold: true
         }
     }
 }
