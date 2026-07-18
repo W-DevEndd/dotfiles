@@ -299,7 +299,7 @@ PanelWindow {
                     delegate: Item {
                         id: wifiItem
                         width: wifiNetworksList.width
-                        height: 34
+                        height: wifiControl.height
 
                         MouseArea {
                             id: itemMouseArea
@@ -312,20 +312,16 @@ PanelWindow {
                             }
                         }
 
-                        Item {
+                        Column {
                             id: wifiControl
-                            property int margins: 10
-                            width: wifiItem.width - margins * 2
-                            height: wifiItem.height - margins * 2
-                            x:  margins
-                            y: margins
+                            width: wifiItem.width
+                            padding: 10
+                            spacing: 10
 
-                            Row {
-                                height: wifiControl.height
-                                width: childrenRect.width
-                                anchors.left: wifiControl.left
-
-                                spacing: 10
+                            Item {
+                                id: wifiInfo
+                                width: wifiControl.width - wifiControl.padding * 2
+                                height: 21
 
                                 Item {
                                     height: parent.height
@@ -343,30 +339,52 @@ PanelWindow {
                                             )
                                         }
                                         color: Catppuccin.blue
-                                        anchors.fill: parent
+                                        anchors.centerIn: parent
                                         font.bold: true
+                                    }
+
+                                    BaseText {
+                                        text: modelData.name
+                                        x: parent.height + 10
+                                        anchors.verticalCenter: parent.verticalCenter
                                     }
                                 }
 
-                                BaseText {
-                                    text: modelData.name
-                                    anchors.verticalCenter: parent.verticalCenter
+                                Item {
+                                    height: parent.height
+                                    width: height
+
+                                    anchors.right: parent.right
+
+                                    BaseText {
+                                        text: (
+                                            modelData.connected ? "" :
+                                            modelData.known ?     "" : ""
+                                        )
+                                        color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
+                                        font.bold: true
+                                        anchors.centerIn: parent
+                                    }
+                                }
+
+                                MouseArea {
+                                    id: clickHandle
+                                    anchors.fill: parent
+                                    onClicked: {
+                                    }
                                 }
                             }
-
                             Item {
-                                height: parent.height
-                                width: height
+                                id: wifiPasswordInput
+                                width: wifiControl.width - wifiControl.padding * 2
+                                height: 21
 
-                                anchors.right: parent.right
-
-                                BaseText {
-                                    text: (
-                                        modelData.connected ? "" :
-                                        modelData.known ?     "" : ""
-                                    )
-                                    font.bold: true
-                                    anchors.centerIn: parent
+                                Rectangle {
+                                    height: 2
+                                    width: parent.width
+                                    anchors.bottom: parent.bottom
+                                    color: Catppuccin.overlay0
+                                }
                                 }
                             }
                         }
