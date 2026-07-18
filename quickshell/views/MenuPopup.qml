@@ -331,8 +331,17 @@ PanelWindow {
                                     width: height
 
                                     BaseText {
-                                        text: modelData.known ? "" : ""
-                                        color: modelData.connected ? Catppuccin.blue : Catppuccin.text
+                                        text: {
+                                            let strength = modelData.signalStrength;
+                                            return (
+                                                (strength > 0.80) ? "󰤨" :
+                                                (strength > 0.60) ? "󰤨" :
+                                                (strength > 0.40) ? "󰤥" :
+                                                (strength > 0.20) ? "󰤢" :
+                                                (strength > 0.00) ? "󰤟" : "󰤯"
+                                            )
+                                        }
+                                        color: Catppuccin.blue
                                         anchors.fill: parent
                                         font.bold: true
                                     }
