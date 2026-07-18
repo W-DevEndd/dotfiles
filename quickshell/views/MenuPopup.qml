@@ -235,6 +235,107 @@ PanelWindow {
                         anchors.right: parent.right
                     }
                 }
+
+                Item {
+                    width: subContent.width
+                    height: 8
+                }
+
+                ListView {
+                    id: wifiNetworksList
+                    width: subContent.width
+                    height: Math.min(610, childrenRect.height)
+                    clip: true
+
+                    add: Transition {
+                        NumberAnimation { 
+                            property: "opacity"
+                            from: 0.0
+                            to: 1.0
+                            duration: 300 
+                            easing.type: Easing.OutQuad
+                        }
+
+                        NumberAnimation { 
+                            property: "y"
+                            from: typeof(y) !== 'undefined' ? y + 15 : 0
+                            duration: 250
+                            easing.type: Easing.OutCubic
+                        }
+                    }
+                    remove: Transition {
+                        ParallelAnimation {
+                            NumberAnimation { 
+                                property: "opacity"
+                                to: 0.0
+                                duration: 200 
+                            }
+
+                            NumberAnimation { 
+                                property: "height"
+                                to: 0
+                                duration: 250
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+                    }
+
+
+
+                    model: SystemStates.wifiNetworks
+                    highlight: Rectangle {
+                        width: wifiNetworksList.width
+                        height: 34
+
+                        color: Catppuccin.surface0
+                        radius: 10
+
+                        Behavior on y { SpringAnimation {
+                                spring: 3
+                                damping: 0.2
+                                duration: 150
+                        } }
+                    }
+                    highlightMoveDuration: 150
+                    highlightFollowsCurrentItem: true
+                    delegate: Item {
+                        id: wifiItem
+                        width: wifiNetworksList.width
+                        height: 34
+
+                        MouseArea {
+                            id: itemMouseArea
+                            anchors.fill: parent
+
+                            hoverEnabled: true 
+
+                            onEntered: {
+                                wifiNetworksList.currentIndex = index
+                            }
+                        }
+
+                        Item {
+                            id: wifiControl
+                            property int margins: 10
+                            width: wifiItem.width - margins * 2
+                            height: width.width - margins * 2
+                            x:  margins
+                            y: margins
+
+                            Row {
+                                height: wifiControl.height
+                                width: childrenRect.width
+                                anchors.left: wifiControl.left
+
+                                spacing: 5
+
+                                BaseText {
+                                    text: modelData.name
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
