@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
@@ -385,6 +386,8 @@ PanelWindow {
                                     anchors.bottom: parent.bottom
                                     color: Catppuccin.overlay0
                                 }
+                                TextField {
+
                                 }
                             }
                         }
