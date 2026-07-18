@@ -34,6 +34,7 @@ PanelWindow {
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
     exclusiveZone: 0
     WlrLayershell.layer: WlrLayer.Overlay
+    Binding on focusable { value: PpStates.showMenuPopup }
 
     Rectangle {
         id: bg
