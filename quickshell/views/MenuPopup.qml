@@ -208,6 +208,7 @@ PanelWindow {
             Column {
                 id: subContent
                 width: contentPanel.width
+                spacing: 8
 
                 Item {
                     width: subContent.width
@@ -236,15 +237,10 @@ PanelWindow {
                     }
                 }
 
-                Item {
-                    width: subContent.width
-                    height: 8
-                }
-
                 ListView {
                     id: wifiNetworksList
                     width: subContent.width
-                    height: Math.min(610, childrenRect.height)
+                    height: Math.min(377, childrenRect.height)
                     clip: true
 
                     add: Transition {
@@ -318,7 +314,7 @@ PanelWindow {
                             id: wifiControl
                             property int margins: 10
                             width: wifiItem.width - margins * 2
-                            height: width.width - margins * 2
+                            height: wifiItem.height - margins * 2
                             x:  margins
                             y: margins
 
@@ -327,10 +323,23 @@ PanelWindow {
                                 width: childrenRect.width
                                 anchors.left: wifiControl.left
 
-                                spacing: 5
+                                spacing: 10
+
+                                Item {
+                                    height: parent.height
+                                    width: height
+
+                                    BaseText {
+                                        text: modelData.known ? "" : ""
+                                        color: modelData.connected ? Catppuccin.blue : Catppuccin.text
+                                        anchors.fill: parent
+                                        font.bold: true
+                                    }
+                                }
 
                                 BaseText {
                                     text: modelData.name
+                                    anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
                         }
