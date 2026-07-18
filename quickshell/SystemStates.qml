@@ -22,7 +22,7 @@ QtObject {
 
     // Networking
     property var wifiEnabled: null
-
+    property var wifiNetworks: null
 
 
 
@@ -121,6 +121,16 @@ QtObject {
                 root._isSyncingBrightnessVolume = true
                 root.brightnessVolume = Number(value[value.length - 1].match(/\d+/)[0])
                 root._isSyncingBrightnessVolume = false
+            }
+        }
+    }
+
+    property var _getWifi: Instantiator {
+        model: Networking.devices
+        delegate: QtObject {
+            Component.onCompleted: if (modelData.type === DeviceType.Wifi) {
+                root.wifiNetworks = modelData.networks
+                modelData.scannerEnabled = true
             }
         }
     }
