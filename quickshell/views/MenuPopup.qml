@@ -352,6 +352,22 @@ PanelWindow {
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
+
+                            Item {
+                                height: parent.height
+                                width: height
+
+                                anchors.right: parent.right
+
+                                BaseText {
+                                    text: (
+                                        modelData.connected ? "" :
+                                        modelData.known ?     "" : ""
+                                    )
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                }
+                            }
                         }
                     }
                 }
