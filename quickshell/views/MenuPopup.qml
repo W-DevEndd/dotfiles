@@ -13,6 +13,7 @@ PanelWindow {
     property real alpha: Number(PpStates.showMenuPopup)
     Behavior on alpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
     visible: PpStates.showMenuPopup | alpha !== 0
+    onVisibleChanged: content.isInSubcontent = false
 
     color: "transparent"
     property real opacity: 1.0
