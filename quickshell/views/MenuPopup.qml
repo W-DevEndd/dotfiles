@@ -242,8 +242,10 @@ PanelWindow {
 
                 ListView {
                     id: wifiNetworksList
+
+                    property int forcussedIndex: 0
                     width: subContent.width
-                    height: Math.min(377, childrenRect.height)
+                    height: 377
                     clip: true
 
                     add: Transition {
@@ -301,6 +303,8 @@ PanelWindow {
                         id: wifiItem
                         width: wifiNetworksList.width
                         height: wifiControl.height
+                        clip: true
+                        Behavior on height { NumberAnimation { duration: 400; easing.type: Easing.InOutExpo } }
 
                         MouseArea {
                             id: itemMouseArea
@@ -316,8 +320,14 @@ PanelWindow {
                         Column {
                             id: wifiControl
                             width: wifiItem.width
+                            height: wifiInfo.height + padding * 2 + (spacing + wifiPasswdInput.height) * showPskPanel
                             padding: 10
                             spacing: 10
+
+                            property var showPskPanel: false
+                            Connections { target: wifiNetworksList; function onForcussedIndexChanged() { if (wifiNetworksList.forcussedIndex !== index) wifiControl.showPskPanel = false } }
+                            Connections { target: content; function onIsInSubcontentChanged() { wifiControl.showPskPanel = false } }
+
 
                             Item {
                                 id: wifiInfo
@@ -372,22 +382,29 @@ PanelWindow {
                                     id: clickHandle
                                     anchors.fill: parent
                                     onClicked: {
+                                        wifiNetworksList.forcussedIndex = index
+                                        if (modelData.connected) return
+                                        if (modelData.known) modelData.connect()
+                                        else {
+                                            wifiControl.showPskPanel = true
+                                        }
                                     }
                                 }
                             }
-                            Item {
-                                id: wifiPasswordInput
+                            TextField {
+                                id: wifiPasswdInput
                                 width: wifiControl.width - wifiControl.padding * 2
-                                height: 21
-
-                                Rectangle {
+                                background: Rectangle {
+                                    color: Catppuccin.text
                                     height: 2
                                     width: parent.width
                                     anchors.bottom: parent.bottom
-                                    color: Catppuccin.overlay0
                                 }
-                                TextField {
 
+                                echoMode: TextInput.Password
+                                onAccepted: {
+                                    console.log(wifiPasswdInput.text)
+                                    modelData.connectWithPsk(wifiPasswdInput.text)
                                 }
                             }
                         }
