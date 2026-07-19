@@ -318,10 +318,11 @@ PanelWindow {
                             onClicked: {
                                 wifiNetworksList.forcussedIndex = index
                                 if (modelData.connected) return
-                                if (modelData.known) modelData.connect()
-                                else {
-                                    wifiControl.showPskPanel = !wifiControl.showPskPanel
-                                }
+                                modelData.connect()
+                                // if (modelData.known) modelData.connect()
+                                // else {
+                                //     wifiControl.showPskPanel = !wifiControl.showPskPanel
+                                // }
                             }
                         }
 
