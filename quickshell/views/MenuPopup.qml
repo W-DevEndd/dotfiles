@@ -315,6 +315,14 @@ PanelWindow {
                             onEntered: {
                                 wifiNetworksList.currentIndex = index
                             }
+                            onClicked: {
+                                wifiNetworksList.forcussedIndex = index
+                                if (modelData.connected) return
+                                if (modelData.known) modelData.connect()
+                                else {
+                                    wifiControl.showPskPanel = !wifiControl.showPskPanel
+                                }
+                            }
                         }
 
                         Column {
@@ -375,19 +383,6 @@ PanelWindow {
                                         color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
                                         font.bold: true
                                         anchors.centerIn: parent
-                                    }
-                                }
-
-                                MouseArea {
-                                    id: clickHandle
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        wifiNetworksList.forcussedIndex = index
-                                        if (modelData.connected) return
-                                        if (modelData.known) modelData.connect()
-                                        else {
-                                            wifiControl.showPskPanel = true
-                                        }
                                     }
                                 }
                             }
