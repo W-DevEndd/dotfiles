@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Networking
 import "root:/"
 import "root:/commons/"
 import "root:/commons/options/"
@@ -306,6 +307,13 @@ PanelWindow {
                         clip: true
                         Behavior on height { NumberAnimation { duration: 400; easing.type: Easing.InOutExpo } }
 
+                        Connections {
+                            target: modelData
+                            function onConnectionFailed(res) {
+                                if (res === ConnectionFailReason.NoSecrets) modelData.forget()
+                            }
+                        }
+
                         MouseArea {
                             id: itemMouseArea
                             anchors.fill: parent
@@ -379,7 +387,7 @@ PanelWindow {
                                     BaseText {
                                         text: (
                                             modelData.connected ? "" :
-                                            modelData.known ?     "" : ""
+                                            modelData.known ?     "" : ""
                                         )
                                         color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
                                         font.bold: true
