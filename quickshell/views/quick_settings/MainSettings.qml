@@ -39,11 +39,29 @@ Column {
                     value: SystemStates.wifiEnabled
                 }
                 onPrimaryClick: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
-                onSecondaryClick: root.parentContentContext.isInSubcontent = true
+                onSecondaryClick: {
+                    root.parentContentContext.changeSubcontent("Wifi", "quick_settings/WifiSettings.qml", {
+                        parentContentContext: root.parentContentContext
+                    })
+                    root.parentContentContext.isInSubcontent = true
+                }
             }
-            OptionButton {
+            OptionButtonWithExtra {
                 Layout.fillWidth: true
                 Layout.preferredHeight: buttonsGrid.childrenHeight
+
+                displayIcon: ""
+
+                Binding on toggleState {
+                    value: SystemStates.wifiEnabled
+                }
+                onPrimaryClick: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
+                onSecondaryClick: {
+                    root.parentContentContext.changeSubcontent("Bluetooth", "quick_settings/BluetoothSettings.qml", {
+                    })
+                    root.parentContentContext.isInSubcontent = true
+                }
+
             }
             OptionButton {
                 Layout.fillWidth: true

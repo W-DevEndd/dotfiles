@@ -65,6 +65,11 @@ PanelWindow {
         Row {
             id: content
 
+            function changeSubcontent(title: string, source: url, opt: var) {
+                subContentTitle.text = title
+                subcontentLoader.setSource(source, opt)
+            }
+
             property var isInSubcontent: false
             Connections { target: PpStates; function onShowQuickSettingsChanged() { content.isInSubcontent = false } }
 
@@ -89,8 +94,8 @@ PanelWindow {
                     height: 21
 
                     BaseText {
-                        id: extraContentTitle
-                        text: "Wifi"
+                        id: subContentTitle
+                        text: ""
                         font.bold: true
                         anchors.centerIn: parent
                     }
@@ -111,9 +116,12 @@ PanelWindow {
                     }
                 }
 
-                WifiSettings {
-                    id: wifiNetworksList
-                    parentContentContext: content
+                Loader {
+                    id: subcontentLoader
+                    width: subContent.width
+                    height: childrenRect.height
+                    sourceComponent: Item {}
+                    onLoaded: { if (item) item.width = width } 
                 }
             }
         }
