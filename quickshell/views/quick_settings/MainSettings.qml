@@ -20,6 +20,7 @@ Column {
             id: buttonsGrid
             width: buttonPanel.width - buttonPanel.padding * 2
             property int childrenHeight: 55
+            property int childrenWidth: width / 3 - rowSpacing / 2
 
             anchors.horizontalCenter: buttonPanel.horizontalCenter
             y: buttonPanel.padding
@@ -30,7 +31,7 @@ Column {
             flow: Grid.LeftToRight
 
             OptionButtonWithExtra {
-                Layout.fillWidth: true
+                Layout.preferredWidth: buttonsGrid.childrenWidth
                 Layout.preferredHeight: buttonsGrid.childrenHeight
 
                 displayIcon: ""
@@ -46,33 +47,12 @@ Column {
                     root.parentContentContext.isInSubcontent = true
                 }
             }
-            OptionButtonWithExtra {
-                Layout.fillWidth: true
-                Layout.preferredHeight: buttonsGrid.childrenHeight
-
-                displayIcon: ""
-
-                Binding on toggleState {
-                    value: SystemStates.wifiEnabled
-                }
-                onPrimaryClick: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
-                onSecondaryClick: {
-                    root.parentContentContext.changeSubcontent("Bluetooth", "quick_settings/BluetoothSettings.qml", {
-                    })
-                    root.parentContentContext.isInSubcontent = true
-                }
-
-            }
             OptionButton {
-                Layout.fillWidth: true
+                Layout.preferredWidth: buttonsGrid.childrenWidth
                 Layout.preferredHeight: buttonsGrid.childrenHeight
             }
             OptionButton {
-                Layout.fillWidth: true
-                Layout.preferredHeight: buttonsGrid.childrenHeight
-            }
-            OptionButton {
-                Layout.fillWidth: true
+                Layout.preferredWidth: buttonsGrid.childrenWidth
                 Layout.preferredHeight: buttonsGrid.childrenHeight
             }
         }
