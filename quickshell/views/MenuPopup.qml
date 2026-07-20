@@ -379,19 +379,37 @@ PanelWindow {
                                 }
 
                                 Item {
+                                    id: wifiState
                                     height: parent.height
                                     width: height
 
                                     anchors.right: parent.right
 
                                     BaseText {
+                                        id: wifiStateIcon
+                                        property var loadingFrames: [ "", "", "", "", "", "" ]
+                                        property int currentLoadingFrameIndex: 0
+
                                         text: (
+                                            modelData.stateChanging ? loadingFrames[currentLoadingFrameIndex] :
                                             modelData.connected ? "" :
                                             modelData.known ?     "" : ""
                                         )
                                         color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
                                         font.bold: true
                                         anchors.centerIn: parent
+                                    }
+
+                                    NumberAnimation {
+                                        target: wifiStateIcon
+                                        property: "currentLoadingFrameIndex"
+                                        from: 0
+                                        to: 5
+                                        duration: 800
+                                        loops: Animation.Infinite
+
+                                        easing.type: Easing.Linear
+                                        running: modelData.stateChanging
                                     }
                                 }
                             }
@@ -410,6 +428,7 @@ PanelWindow {
                                     console.log(wifiPasswdInput.text)
                                     modelData.connectWithPsk(wifiPasswdInput.text)
                                 }
+
                             }
                         }
                     }
