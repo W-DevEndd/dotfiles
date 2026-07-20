@@ -14,6 +14,6 @@ ContentPanel {
 
     MouseArea {
         anchors.fill: root
-        onClicked: PpStates.showMenuPopup = !PpStates.showMenuPopup
+        onClicked: PpStates.showQuickSettings = !PpStates.showQuickSettings
     }
 }

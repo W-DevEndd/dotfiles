@@ -10,5 +10,5 @@ ShellRoot {
         opacity: root.bgOpacity
     }
 
-    MenuPopup { opacity: root.bgOpacity }
+    QuickSettings { opacity: root.bgOpacity }
 }

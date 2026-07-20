@@ -12,9 +12,9 @@ PanelWindow {
     id: root
 
     // visible animation
-    property real alpha: Number(PpStates.showMenuPopup)
+    property real alpha: Number(PpStates.showQuickSettings)
     Behavior on alpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
-    visible: PpStates.showMenuPopup | alpha !== 0
+    visible: PpStates.showQuickSettings | alpha !== 0
 
     color: "transparent"
     property real opacity: 1.0
@@ -36,7 +36,7 @@ PanelWindow {
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
     exclusiveZone: 0
     WlrLayershell.layer: WlrLayer.Overlay
-    Binding on focusable { value: PpStates.showMenuPopup }
+    Binding on focusable { value: PpStates.showQuickSettings }
 
     Rectangle {
         id: bg
@@ -68,7 +68,7 @@ PanelWindow {
             id: content
 
             property var isInSubcontent: false
-            Connections { target: PpStates; function onShowMenuPopupChanged() { content.isInSubcontent = false } }
+            Connections { target: PpStates; function onShowQuickSettingsChanged() { content.isInSubcontent = false } }
 
             spacing: root.padding
             height: isInSubcontent ? subContent.height : mainContent.height

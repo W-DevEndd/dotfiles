@@ -85,7 +85,7 @@ PanelWindow {
 
             Tray { height: parent.height }
             DateTime { height: parent.height }
-            Menu { height: parent.height }
+            Status { height: parent.height }
         }
     }
 }
