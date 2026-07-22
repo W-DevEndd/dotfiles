@@ -4,9 +4,9 @@ import "root:/views/"
 
 ShellRoot {
     id: root
-    property real bgOpacity: 0.85
+    property real shellOpacity: 0.85
 
     TopBar {
-        opacity: root.bgOpacity
+        opacity: root.shellOpacity
     }
 }
