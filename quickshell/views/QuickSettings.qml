@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Wayland
 import "root:/"
@@ -16,8 +17,8 @@ PanelWindow {
 
     color: "transparent"
     property real opacity: 1.0
-    property int padding: 10
-    property int margin: 5
+    property int padding: 5
+    property int margin: 6
 
     // position and size
     anchors {
@@ -47,81 +48,50 @@ PanelWindow {
         radius: 10
 
         width: root.width
-        height: content.height + root.padding * 2
-        Behavior on height { NumberAnimation { duration: 400; easing.type: Easing.InOutQuart } }
+        height: contentPanel.height + root.padding * 2
     }
 
-    Item {
+    Column {
         id: contentPanel
         opacity: root.opacity * root.alpha
 
         width: root.implicitWidth - root.padding * 2
-        height: content.height + root.padding * 2
-        Behavior on height { NumberAnimation { duration: 400; easing.type: Easing.InOutQuart } }
         x: root.padding
         y: root.padding
+
+        spacing: 5
         clip: true
 
-        Row {
-            id: content
+        Item {
+            id: statusPanel
+            width: contentPanel.width
+            height: 28
 
-            function changeSubcontent(title: string, source: url, opt: var) {
-                subContentTitle.text = title
-                subcontentLoader.setSource(source, opt)
+            SmallIconButton {
+                height: parent.height
+                width: height
             }
+        }
 
-            property var isInSubcontent: false
-            Connections { target: PpStates; function onShowQuickSettingsChanged() { content.isInSubcontent = false } }
+        Rectangle {
+            color: Catppuccin.surface0
+            radius: 5
+            width: contentPanel.width
+            height: childrenRect.height
 
-            spacing: root.padding
-            height: isInSubcontent ? subContent.height : mainContent.height
-            x: -(mainContent.width + spacing) * Number(isInSubcontent)
-            Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.InOutQuart } }
-
-            MainSettings {
-                id: mainContent
-                width: contentPanel.width
-                parentContentContext: content
-            }
-
-            Column {
-                id: subContent
-                width: contentPanel.width
-                spacing: 8
-
-                Item {
-                    width: subContent.width
-                    height: 21
-
-                    BaseText {
-                        id: subContentTitle
-                        text: ""
-                        font.bold: true
-                        anchors.centerIn: parent
-                    }
-                    SecondaryButton {
-                        displayIcon: ""
-                        onClicked: content.isInSubcontent = false
-                        anchors.left: parent.left
-                        width: height
-                        height: parent.height
-                    }
-                    SwitchToggle {
-                        Binding on checked {
-                            value: SystemStates.wifiEnabled
-                        }
-                        onCheckedChanged: SystemStates.wifiEnabled = checked
-                        height: parent.height
-                        anchors.right: parent.right
-                    }
-                }
+            ScrollView {
+                width: parent.width
+                height: contentLoader.height
+                padding: 5
 
                 Loader {
-                    id: subcontentLoader
-                    width: subContent.width
-                    height: childrenRect.height
-                    sourceComponent: Item {}
-                    onLoaded: { if (item) item.width = width } 
+                    id: contentLoader
+                    width: parent.width
+                    sourceComponent: Item { height: 200 }
+                    onLoaded: {
+                        item.width = width
+                        height = item.height
+                    }
                 }
             }
         }
