@@ -9,6 +9,4 @@ ShellRoot {
     TopBar {
         opacity: root.bgOpacity
     }
-
-    QuickSettings { opacity: root.bgOpacity }
 }
