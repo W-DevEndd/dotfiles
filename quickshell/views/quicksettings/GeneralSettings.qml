@@ -1,8 +1,14 @@
 import QtQuick
-import "root:/commons/"
+import "root:/"
+import "root:/commons/options"
 
-Row {
-    BaseText {
-        text: "AAAAAAaaaaaaaaaa"
+Column {
+    id: root
+
+    SmallIconTextButton {
+        bgColor: SystemStates.wifiEnabled ? Catppuccin.surface1 : Catppuccin.surface0
+        displayIcon: ""
+        displayText: "Wifi"
+        height: 24
     }
 }

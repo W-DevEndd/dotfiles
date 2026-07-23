@@ -13,6 +13,7 @@ ShellRoot {
 
     TopBar {
         opacity: root.shellOpacity
+        cornerSize: root.windowRouding + root.windowGaps
     }
 
     Loader {

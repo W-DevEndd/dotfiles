@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import "root:/"
+import "./quicksettings/"
 
 PanelWindow {
     id: root
@@ -36,16 +37,14 @@ PanelWindow {
         Row {
             id: content
             width: parent.width
-            height: 400
+            height: generalContent.height + padding * 2
 
             padding: 8
             spacing: 8
 
-            Loader {
+            GeneralSettings {
                 id: generalContent
-                Component.onCompleted: generalContent.setSource("./quicksettings/GeneralSettings.qml", {
-                    width: content.width - content.padding * 2
-                })
+                width: content.width - content.padding * 2
             }
         }
     }
