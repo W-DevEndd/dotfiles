@@ -5,36 +5,14 @@ import "root:/"
 PanelWindow {
     id: root
 
-    required property var loader
-
-    signal close()
-    onClose: {
-        opacity = 0
-        margins.right = -50
-    }
+    focusable: true
 
     property real opacity: 1.0
-    onOpacityChanged: loader.closed = opacity === 0
-    Behavior on opacity { NumberAnimation {
-        duration:400
-        easing.type: Easing.OutExpo
-    }}
     color: "transparent"
 
-    property int gaps: 6
-    anchors {
-        top: true
-        right: true
-    }
+    property int gaps: 0
+    property int radius: 0
     
-    margins.right: -50
-    Behavior on margins.right { NumberAnimation {
-        duration: 400
-        easing.type: Easing.OutExpo
-    }}
-
-    Component.onCompleted: margins.right = 0
-
     implicitWidth: 440
     implicitHeight: contentPanel.height + root.gaps * 2
 
@@ -50,18 +28,25 @@ PanelWindow {
 
         height: content.height
         width: root.width - root.gaps * 2
-        radius: 10
+        radius: root.radius
 
         x: root.gaps
         y: root.gaps
 
-        Column {
+        Row {
             id: content
             width: parent.width
             height: 400
 
             padding: 8
             spacing: 8
+
+            Loader {
+                id: generalContent
+                Component.onCompleted: generalContent.setSource("./quicksettings/GeneralSettings.qml", {
+                    width: content.width - content.padding * 2
+                })
+            }
         }
     }
 }
