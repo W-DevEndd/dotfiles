@@ -15,7 +15,7 @@ PanelWindow {
     property int radius: 0
     
     implicitWidth: 333
-    implicitHeight: contentPanel.height + root.gaps * 2
+    implicitHeight: content.trueHeight + root.gaps * 2
 
     Rectangle {
         id: contentPanel
@@ -34,17 +34,44 @@ PanelWindow {
         x: root.gaps
         y: root.gaps
 
+        clip: true
         Row {
             id: content
+            property var isInExtraContent: false
+            property int trueHeight: (isInExtraContent ? extraContent.height: generalContent.height) + padding * 2
+            function loadExtraContent(path: string, opts) {
+                extraContent.setSource(path, opts)
+            }
+
             width: parent.width
-            height: generalContent.height + padding * 2
+            height: trueHeight
+            Behavior on height { NumberAnimation {
+                easing: Easing.OutExpo
+                duration: 400
+            }}
 
             padding: 8
-            spacing: 8
+            spacing: padding
+            x: -(generalContent.width + content.spacing) * isInExtraContent
+            Behavior on x { NumberAnimation {
+                easing: Easing.OutExpo
+                duration: 400
+            }}
 
             GeneralSettings {
                 id: generalContent
+                parentContentContext: content
                 width: content.width - content.padding * 2
+            }
+
+            Loader {
+                id: extraContent
+                width: content.width - content.padding * 2
+                height: childrenRect.height
+                sourceComponent: Item {}
+                onLoaded: {
+                    item.width = extraContent.width 
+                }
             }
         }
     }

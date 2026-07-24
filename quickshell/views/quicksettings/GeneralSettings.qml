@@ -6,6 +6,8 @@ import "root:/commons/options"
 Column {
     id: root
 
+    required property var parentContentContext
+
     spacing: 16
 
     Item {
@@ -19,6 +21,13 @@ Column {
             contentColor: SystemStates.wifiEnabled ? Catppuccin.base : Catppuccin.text
 
             onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
+            onSecondaryClicked: {
+                parentContentContext.isInExtraContent = true
+                parentContentContext.loadExtraContent("quicksettings/WifiSetting.qml", {
+                    parentContentContext: root.parentContentContext
+                })
+            }
+
             displayIcon: ""
             displayText: SystemStates.connectedWifi?.name ?? "Nah"
 
