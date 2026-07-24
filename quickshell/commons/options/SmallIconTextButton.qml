@@ -1,0 +1,38 @@
+import QtQuick
+import QtQuick.Controls
+import "root:/"
+import "root:/commons/"
+
+Button {
+    id: root
+
+    property string displayIcon: "#"
+    property string displayText: "Aaaaaa"
+
+    property color bgColor: Catppuccin.surface0
+    padding: 5
+
+    width: childrenRect.width
+
+    background: Rectangle {
+        radius: 5
+        color: root.bgColor
+        height: root.height
+        width: childrenRect.width + root.padding * 2
+
+        Row {
+            anchors.verticalCenter: parent.verticalCenter
+            height: childrenRect.height
+            width: childrenRect.width
+            x: root.padding
+            spacing: 5
+
+            BaseText {
+                text: root.displayIcon
+            }
+            BaseText {
+                text: root.displayText
+            }
+        }
+    }
+}
