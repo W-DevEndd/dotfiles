@@ -2,6 +2,7 @@ pragma Singleton
 import Quickshell.Networking
 import Quickshell.Io
 import Quickshell.Services.Pipewire
+import Quickshell.Services.UPower 
 import QtQuick
 
 QtObject {
@@ -23,6 +24,10 @@ QtObject {
     // Networking
     property var wifiEnabled: null
     property var wifiNetworks: null
+
+    // Power
+    property int batteryPerc: UPower.displayDevice.percentage * 100
+    property var isCharging: !UPower.onBattery
 
 
 
