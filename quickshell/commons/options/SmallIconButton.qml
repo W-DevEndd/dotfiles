@@ -15,8 +15,8 @@ Button {
 
         Text {
             text: root.displayIcon
-            anchors.centerIn: parent
             color: root.iconColor
+            anchors.centerIn: parent
         }
     }
 }

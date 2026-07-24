@@ -9,6 +9,7 @@ Button {
     property string displayIcon: "#"
     property string displayText: "Aaaaaa"
 
+    property color contentColor: Catppuccin.text
     property color bgColor: Catppuccin.surface0
     padding: 5
 
@@ -29,9 +30,11 @@ Button {
 
             BaseText {
                 text: root.displayIcon
+                color: root.contentColor
             }
             BaseText {
                 text: root.displayText
+                color: root.contentColor
             }
         }
     }
