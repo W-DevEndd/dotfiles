@@ -14,7 +14,7 @@ PanelWindow {
     property int gaps: 0
     property int radius: 0
     
-    implicitWidth: 440
+    implicitWidth: 333
     implicitHeight: contentPanel.height + root.gaps * 2
 
     Rectangle {
