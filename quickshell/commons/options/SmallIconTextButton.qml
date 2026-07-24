@@ -13,9 +13,10 @@ Button {
     property color bgColor: Catppuccin.surface0
     padding: 5
 
-    width: childrenRect.width
+    width: bg.width
 
     background: Rectangle {
+        id: bg
         radius: 5
         color: root.bgColor
         height: root.height

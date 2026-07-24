@@ -24,6 +24,13 @@ QtObject {
     // Networking
     property var wifiEnabled: null
     property var wifiNetworks: null
+    property var connectedWifi: {
+        if (!root.wifiNetworks || !root.wifiNetworks.values) return null;
+
+        let connected = root.wifiNetworks.values.find(network => network.connected);
+
+        return connected ? connected : null;
+    }
 
     // Power
     property int batteryPerc: UPower.displayDevice.percentage * 100

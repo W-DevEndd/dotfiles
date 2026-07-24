@@ -17,12 +17,12 @@ Column {
 
             onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
             displayIcon: ""
-            displayText: "Wifi"
+            displayText: SystemStates.connectedWifi?.name ?? "Nah"
 
             height: statusPanel.height
             anchors.left: statusPanel.left
         }
-        
+
         SmallIconTextButton {
 
             displayIcon: (
