@@ -5,20 +5,24 @@ import "root:/commons/"
 
 Button {
     id: root
-    property var toggleState: false
 
     property string displayIcon: "$"
 
+    property color contentColor: Catppuccin.text
+    property color bgColor: Catppuccin.blue
+
+    property int radius: 10
+
     background: Rectangle {
-        radius: 5
-        color: root.toggleState ? Catppuccin.blue : Catppuccin.surface2
+        radius: root.radius
+        color: root.bgColor
 
         BaseText {
             text: root.displayIcon
-            color: root.toggleState ? Catppuccin.crust : Catppuccin.subtext1
+            color: root.contentColor
             anchors.centerIn: parent
             font.bold: true
-            font.pointSize: root.height * 0.3 || 11
+            font.pointSize: root.height * 0.6 || 11
         }
     }
 }

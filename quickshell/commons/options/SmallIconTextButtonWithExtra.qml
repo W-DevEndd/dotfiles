@@ -1,5 +1,6 @@
-import "./"
 import QtQuick
+import "root:/"
+import "./"
 
 Row {
     id: root
