@@ -8,7 +8,7 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef" },
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp-vsnip": { "branch": "main", "commit": "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
-  "codediff.nvim": { "branch": "main", "commit": "2253030fc17c8356a2ff1026f25cb9b570bdd91f" },
+  "codediff.nvim": { "branch": "main", "commit": "8bd120d5e02172852e788adde2abc94383cae741" },
   "cord.nvim": { "branch": "master", "commit": "8f081613c1314a0d6f38839c2788216621efb4d9" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "fzf-lua": { "branch": "main", "commit": "9ad7340dcc6d2afc30e64fb4088597c7573ed62c" },
