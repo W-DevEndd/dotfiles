@@ -27,8 +27,19 @@ Column {
                 })
             }
 
-            displayIcon: ""
-            displayText: SystemStates.connectedWifi?.name ?? "Wifi"
+            property var connectedWifi: SystemStates.connectedWifi
+            property var wifiStreight: connectedWifi?.signalStrength ?? 0.0
+
+            displayIcon: (
+                !connectedWifi ? "󰤭" :
+                (wifiStreight > 0.80) ? "󰤨" :
+                (wifiStreight > 0.60) ? "󰤨" :
+                (wifiStreight > 0.40) ? "󰤥" :
+                (wifiStreight > 0.20) ? "󰤢" :
+                (wifiStreight > 0.00) ? "󰤟" : "󰤯"
+
+            )
+            displayText: connectedWifi?.name ?? "Wifi"
 
             height: statusPanel.height
             anchors.left: statusPanel.left
@@ -73,9 +84,9 @@ Column {
                 height: 34
                 width: parent.width
 
-                displayIcon: SystemStates.isMutedSink ? "" : (
-                    currentValue >= 40 ? "" :
-                    currentValue >= 10 ? "" : ""
+                displayIcon: SystemStates.isMutedSink ? "󰝟" : (
+                    currentValue >= 40 ? "󰕾" :
+                    currentValue >= 10 ? "󰖀" : "󰕿"
                 )
 
                 minValue: 0
@@ -142,7 +153,7 @@ Column {
                 width: parent.width
                 height: 40
 
-                property int padding: 18
+                property int padding: 16
 
                 Rectangle {
                     color: Catppuccin.surface0
