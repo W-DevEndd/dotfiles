@@ -36,6 +36,13 @@ QtObject {
     property int batteryPerc: UPower.displayDevice.percentage * 100
     property var isCharging: !UPower.onBattery
 
+    readonly property var powerProfiles: [
+        PowerProfile.PowerSaver,
+        PowerProfile.Balanced,
+        PowerProfile.Performance,
+    ]
+    property var powerProfile: null
+
 
 
 
@@ -117,6 +124,11 @@ QtObject {
         if (root.wifiEnabled === Networking.wifiEnabled) return
         Networking.wifiEnabled = root.wifiEnabled
     }
+
+    Binding on powerProfile {
+        value: PowerProfiles.profile
+    }
+    onPowerProfileChanged: PowerProfiles.profile = root.powerProfile
 
 
 

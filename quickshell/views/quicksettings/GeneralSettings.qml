@@ -135,6 +135,63 @@ Column {
 
                 onCurrentValueChanged: SystemStates.brightnessVolume = briSlider.currentValue
             }
+            Item { height: 5; width: parent.width}
+
+            Item {
+                id: powerProfileControl
+                width: parent.width
+                height: 40
+
+                property int padding: 18
+
+                Rectangle {
+                    color: Catppuccin.surface0
+                    radius: 10
+                    anchors.centerIn: powerProfileControl
+                    height: powerProfileControl.height
+                    width: powerProfileControl.width - powerProfileControl.padding * 2
+
+                    Rectangle {
+                        color: Catppuccin.green
+                        radius: 10
+                        height: parent.height
+                        width: parent.width / 3
+                        x: width * SystemStates.powerProfiles.indexOf(SystemStates.powerProfile)
+                        Behavior on x { NumberAnimation {
+                            duration: 400
+                            easing.type: Easing.InOutExpo
+                        }}
+
+                    }
+
+                    Row {
+                        width: parent.width
+                        height: parent.height
+                        spacing: 0
+                        Repeater {
+                            model: 3
+                            delegate: OptionButton {
+                                displayIcon: (
+                                    modelData === 0 ? "󰌪" :
+                                    modelData === 1 ? "󰗑" : "󰓅"
+                                )
+                                contentColor: (
+                                    SystemStates.powerProfile === SystemStates.powerProfiles[modelData] ? Catppuccin.crust : Catppuccin.text
+                                )
+                                Behavior on contentColor { ColorAnimation {
+                                    duration: 400
+                                    easing.type: Easing.InOutExpo
+                                }}
+                                bgColor: "transparent"
+                                height: parent.height
+                                width: parent.width / 3
+
+                                onClicked: SystemStates.powerProfile = SystemStates.powerProfiles[modelData]
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
