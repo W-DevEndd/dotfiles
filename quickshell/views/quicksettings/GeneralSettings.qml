@@ -17,8 +17,7 @@ Column {
         width: root.width
 
         SmallIconTextButtonWithExtra {
-            bgColor: SystemStates.wifiEnabled ? Catppuccin.blue : Catppuccin.surface0
-            contentColor: SystemStates.wifiEnabled ? Catppuccin.base : Catppuccin.text
+            contentColor: SystemStates.wifiEnabled ? Catppuccin.blue : Catppuccin.text
 
             onClicked: SystemStates.wifiEnabled = !SystemStates.wifiEnabled
             onSecondaryClicked: {
