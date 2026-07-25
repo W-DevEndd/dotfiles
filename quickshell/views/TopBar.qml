@@ -14,7 +14,6 @@ PanelWindow {
     property int cornerSize: 0
     property int h: 36
 
-    aboveWindows: false
     exclusiveZone: h
 
     anchors {

@@ -12,8 +12,10 @@ ShellRoot {
     property real shellOpacity: 0.85
 
     TopBar {
+        id: topbar
         opacity: root.shellOpacity
         cornerSize: root.windowRouding + root.windowGaps
+        aboveWindows: true
     }
 
     Loader {
@@ -28,7 +30,13 @@ ShellRoot {
             focusable: Qt.binding(function () { return PpStates.showQuickSettings }),
         })
         onLoaded: {
+            item.exclusionMode = Qt.binding(function () {
+                return TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
+            })
+            item.WlrLayershell.layer = WlrLayer.Overlay
+            item.exclusiveZone = 0
             item.anchors.top = true
+            item.anchors.bottom = true
             item.anchors.right = true
             item.margins.right = Qt.binding(function() {
                 return (1.0 - quicksettingsLoader.componentAlpha) * (-100)

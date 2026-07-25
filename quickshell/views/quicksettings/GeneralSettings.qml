@@ -29,7 +29,7 @@ Column {
             }
 
             displayIcon: ""
-            displayText: SystemStates.connectedWifi?.name ?? "Nah"
+            displayText: SystemStates.connectedWifi?.name ?? "Wifi"
 
             height: statusPanel.height
             anchors.left: statusPanel.left

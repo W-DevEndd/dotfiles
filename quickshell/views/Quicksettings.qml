@@ -15,7 +15,8 @@ PanelWindow {
     property int radius: 0
     
     implicitWidth: 333
-    implicitHeight: content.trueHeight + root.gaps * 2
+    property int contentHeight: content.trueHeight
+    implicitHeight: contentHeight + root.gaps * 2
 
     Rectangle {
         id: contentPanel
@@ -39,6 +40,7 @@ PanelWindow {
             id: content
             property var isInExtraContent: false
             property int trueHeight: (isInExtraContent ? extraContent.height: generalContent.height) + padding * 2
+            // onTrueHeightChanged: root.contentHeight = Math.max(trueHeight, height)
             function loadExtraContent(path: string, opts) {
                 extraContent.setSource(path, opts)
             }
@@ -49,6 +51,7 @@ PanelWindow {
                 easing: Easing.OutExpo
                 duration: 400
             }}
+            // onHeightChanged: if (height === trueHeight) root.contentHeight = trueHeight
 
             padding: 8
             spacing: padding

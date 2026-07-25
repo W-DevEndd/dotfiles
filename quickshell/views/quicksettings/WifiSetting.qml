@@ -9,7 +9,7 @@ Column {
     id: root
 
     required property var parentContentContext
-    height: 400
+    height: childrenRect.height
 
     spacing: 16
 
@@ -45,7 +45,7 @@ Column {
         id: wifiList
         property int forcussedIndex: 0
         width: root.width
-        height: 377
+        height: Math.min(377, childrenRect.height)
         clip: true
 
         add: Transition {

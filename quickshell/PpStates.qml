@@ -6,6 +6,7 @@ QtObject {
     id: root
 
     // States
+    property var needTopBar: showQuickSettings
     property var showQuickSettings: false
 
     // Logic
