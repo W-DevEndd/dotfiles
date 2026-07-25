@@ -128,7 +128,10 @@ QtObject {
     Binding on powerProfile {
         value: PowerProfiles.profile
     }
-    onPowerProfileChanged: PowerProfiles.profile = root.powerProfile
+    onPowerProfileChanged: {
+        if (root.powerProfile === PowerProfiles.profile) return
+        PowerProfiles.profile = root.powerProfile
+    }
 
 
 
