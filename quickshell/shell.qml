@@ -18,29 +18,53 @@ ShellRoot {
         aboveWindows: true
     }
 
-    Loader {
-        id: quicksettingsLoader
-        property real componentAlpha: Number(PpStates.showQuickSettings)
-        Behavior on componentAlpha { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
-        active: componentAlpha !== 0
-        Component.onCompleted: setSource("./views/Quicksettings.qml", {
-            radius: root.windowRouding,
-            gaps: root.windowGaps,
-            opacity: Qt.binding(function() { return quicksettingsLoader.componentAlpha * root.shellOpacity }),
-            focusable: Qt.binding(function () { return PpStates.showQuickSettings }),
-        })
-        onLoaded: {
-            item.exclusionMode = Qt.binding(function () {
-                return TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
-            })
-            item.WlrLayershell.layer = WlrLayer.Overlay
-            item.exclusiveZone = 0
-            item.anchors.top = true
-            item.anchors.bottom = true
-            item.anchors.right = true
-            item.margins.right = Qt.binding(function() {
-                return (1.0 - quicksettingsLoader.componentAlpha) * (-100)
-            })
+    PanelWindow {
+        id: popupPanel
+
+        WlrLayershell.layer: WlrLayer.Overlay
+        focusable: PpStates.showQuickSettings
+        visible: quicksettingsLoader.openProgress
+
+        color.a: 0.0
+
+        implicitWidth: 333
+
+        exclusionMode: ExclusionMode.Normal
+        anchors {
+            top: true
+            right: true
+            left: true
+            bottom: true
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: popupPanel.closeAll()
+        }
+        Shortcut {
+            sequence: "Escape"
+            onActivated: popupPanel.closeAll()
+        }
+
+        function closeAll() {
+            PpStates.showQuickSettings = false
+        }
+
+        Loader {
+            id: quicksettingsLoader
+            property real openProgress: Number(PpStates.showQuickSettings)
+            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
+
+            opacity: openProgress * root.shellOpacity
+            anchors {
+                top: parent.top
+                topMargin: root.windowGaps
+                right: parent.right
+                rightMargin: root.windowGaps - (100 * (1.0 - openProgress))
+            }
+
+            active: openProgress !== 0
+            Component.onCompleted: setSource("./views/Quicksettings.qml", { radius: root.windowRouding })
         }
     }
 }

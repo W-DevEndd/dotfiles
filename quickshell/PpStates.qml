@@ -7,6 +7,7 @@ QtObject {
 
     // States
     property var needTopBar: showQuickSettings
+    property var showPopup: showQuickSettings
     property var showQuickSettings: false
 
     // Logic
