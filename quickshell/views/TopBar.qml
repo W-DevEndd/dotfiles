@@ -34,7 +34,6 @@ PanelWindow {
         onPaint: {
             var ctx = getContext("2d");
 
-
             ctx.fillStyle = Catppuccin.base;
             ctx.beginPath();
 

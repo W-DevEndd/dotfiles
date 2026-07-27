@@ -27,9 +27,7 @@ ShellRoot {
 
         color.a: 0.0
 
-        implicitWidth: 333
-
-        exclusionMode: ExclusionMode.Normal
+        exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
         anchors {
             top: true
             right: true
@@ -71,16 +69,19 @@ ShellRoot {
         Loader {
             id: commandPaletteLoader
             property real openProgress: Number(PpStates.showCommandPalette)
-            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
+            Behavior on openProgress { NumberAnimation { duration: 500; easing.type: Easing.OutExpo } }
 
-            opacity: openProgress * root.shellOpacity
+            opacity: root.shellOpacity
             anchors {
                 bottom: parent.bottom
                 horizontalCenter: parent.horizontalCenter
+                bottomMargin: -item?.width * (1.0 - openProgress)
             }
 
             active: openProgress !== 0.0
-            Component.onCompleted: setSource("./views/CommandPalette.qml", { radius: root.windowRouding })
+            Component.onCompleted: setSource("./views/CommandPalette.qml", {
+                radius: root.windowRouding,
+            })
         }
     }
 }
