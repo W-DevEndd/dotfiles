@@ -22,8 +22,8 @@ ShellRoot {
         id: popupPanel
 
         WlrLayershell.layer: WlrLayer.Overlay
-        focusable: PpStates.showQuickSettings
-        visible: quicksettingsLoader.openProgress
+        focusable: PpStates.showPopup
+        visible: quicksettingsLoader.openProgress || commandPaletteLoader.openProgress
 
         color.a: 0.0
 
@@ -48,6 +48,7 @@ ShellRoot {
 
         function closeAll() {
             PpStates.showQuickSettings = false
+            PpStates.showCommandPalette = false
         }
 
         Loader {
@@ -63,8 +64,23 @@ ShellRoot {
                 rightMargin: root.windowGaps - (100 * (1.0 - openProgress))
             }
 
-            active: openProgress !== 0
+            active: openProgress !== 0.0
             Component.onCompleted: setSource("./views/Quicksettings.qml", { radius: root.windowRouding })
+        }
+
+        Loader {
+            id: commandPaletteLoader
+            property real openProgress: Number(PpStates.showCommandPalette)
+            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
+
+            opacity: openProgress * root.shellOpacity
+            anchors {
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            active: openProgress !== 0.0
+            Component.onCompleted: setSource("./views/CommandPalette.qml", { radius: root.windowRouding })
         }
     }
 }
