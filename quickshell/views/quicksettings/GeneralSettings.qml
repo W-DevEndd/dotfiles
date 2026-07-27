@@ -197,7 +197,9 @@ Column {
                                 height: parent.height
                                 width: parent.width / 3
 
-                                onClicked: SystemStates.powerProfile = SystemStates.powerProfiles[modelData]
+                                property var clickable: SystemStates.powerProfile != SystemStates.powerProfiles[modelData]
+                                onClicked: if (clickable) SystemStates.powerProfile = SystemStates.powerProfiles[modelData]
+                                HoverHandler { enabled: parent.clickable; cursorShape: Qt.PointingHandCursor }
                             }
                         }
                     }

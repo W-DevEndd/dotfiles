@@ -42,6 +42,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: root.clickIconHandle()
+            HoverHandler { cursorShape: Qt.PointingHandCursor }
         }
     }
     Label {
@@ -76,6 +77,7 @@ Item {
         onMoved: {
             root.currentValue = control.value
         }
+        HoverHandler { cursorShape: Qt.OpenHandCursor }
 
         background: Rectangle {
             anchors.fill: control

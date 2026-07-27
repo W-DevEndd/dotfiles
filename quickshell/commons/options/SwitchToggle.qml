@@ -8,7 +8,7 @@ Switch {
     width: 2 * height
 
     contentItem: Item {}
-    
+
     indicator: Rectangle {
         height:   parent.height
         width: (2 / 3) * parent.width
@@ -42,4 +42,5 @@ Switch {
             }
         }
     }
+    HoverHandler { cursorShape: Qt.PointingHandCursor}
 }

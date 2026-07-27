@@ -11,6 +11,7 @@ Row {
 
     property color contentColor: Catppuccin.text
     property color bgColor: Catppuccin.surface0
+    property color bgColorHovered: Catppuccin.surface1
 
     signal clicked()
     signal secondaryClicked()
@@ -25,9 +26,10 @@ Row {
         displayIcon: root.displayIcon
 
         contentColor: root.contentColor
-        bgColor: root.bgColor
+        bgColor: hover1.hovered ? root.bgColorHovered: root.bgColor
 
         onClicked: root.clicked()
+        HoverHandler { id: hover1; cursorShape: Qt.PointingHandCursor }
     }
     SmallIconButton {
         height: root.height
@@ -36,8 +38,9 @@ Row {
         displayIcon: root.displayExtraIcon
 
         iconColor: root.contentColor
-        bgColor: root.bgColor
+        bgColor: hover2.hovered ? root.bgColorHovered: root.bgColor
 
         onClicked: root.secondaryClicked()
+        HoverHandler { id: hover2; cursorShape: Qt.PointingHandCursor }
     }
 }

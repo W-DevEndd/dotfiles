@@ -24,6 +24,7 @@ Column {
             height: headerPanel.height
             width: height
             onClicked: root.parentContentContext.isInExtraContent = false
+            HoverHandler { cursorShape: Qt.PointingHandCursor}
         }
 
         BaseText {
@@ -118,6 +119,7 @@ Column {
                 anchors.fill: parent
 
                 hoverEnabled: true 
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
 
                 onEntered: {
                     wifiList.currentIndex = index

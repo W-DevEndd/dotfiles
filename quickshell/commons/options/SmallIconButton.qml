@@ -7,7 +7,7 @@ Button {
 
     property string displayIcon: "#"
     property color iconColor: Catppuccin.text
-    property color bgColor: Catppuccin.surface0
+    property color bgColor: root.hovered ? Catppuccin.surface1 : Catppuccin.surface0
 
     background: Rectangle {
         color: root.bgColor

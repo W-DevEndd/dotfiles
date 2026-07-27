@@ -10,7 +10,8 @@ Button {
     property string displayText: "Aaaaaa"
 
     property color contentColor: Catppuccin.text
-    property color bgColor: Catppuccin.surface0
+    property color bgColor: root.hovered ? Catppuccin.surface1 : Catppuccin.surface0
+
     padding: 5
 
     width: bg.width
