@@ -6,6 +6,8 @@ import "root:/"
 Canvas {
     id: root
 
+    property var handleExit: () => {}
+
     property int radius: 0
     property int borderW: 2
     property color borderColor: Catppuccin.crust
@@ -67,6 +69,7 @@ Canvas {
                 id: contentLoader
                 width: parent.width
                 anchors.bottom: parent.bottom
+                function handleEnter() { item?.handleEnter(); if (item?.exitOnEntered) root.handleExit() }
                 function updateContent() {
                     var props = {
                         width: contentLoader.width,
@@ -86,6 +89,19 @@ Canvas {
             }
             color: Catppuccin.text
             onTextChanged: contentLoader.updateContent()
+            Keys.onPressed: (event) => {
+                const key = event.key
+                if (key === Qt.Key_Down) {
+                    contentLoader.item?.incrementCurrentIndex()
+                    event.accepted = true
+                } else if (key === Qt.Key_Up) {
+                    contentLoader.item?.decrementCurrentIndex()
+                    event.accepted = true
+                } else if (key === Qt.Key_Return) {
+                    contentLoader.handleEnter()
+                    event.accepted = true
+                }
+            }
         }
 
         Timer {

@@ -81,6 +81,7 @@ ShellRoot {
             active: openProgress !== 0.0
             Component.onCompleted: setSource("./views/CommandPalette.qml", {
                 radius: root.windowRouding,
+                handleExit: () => { PpStates.showCommandPalette = false },
             })
         }
     }

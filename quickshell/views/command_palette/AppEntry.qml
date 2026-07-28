@@ -10,6 +10,9 @@ ListView {
 
     property string inpText: ""
 
+    property var exitOnEntered: true
+    function handleEnter() { root.currentItem.execute() }
+
     height: Math.min(childrenRect.height, 500)
     model: ScriptModel {
         values: {
@@ -38,13 +41,22 @@ ListView {
 
     delegate: Item {
         id: desktopItem
+
+        function execute() { modelData.execute() }
+
         width: root.width
         height: 40
 
         MouseArea {
             anchors.fill: parent
-            onClicked: modelData.execute()
-            HoverHandler { onHoveredChanged: if (hovered) { root.currentIndex = index }}
+            onClicked: {
+                if (root.currentIndex === index) return desktopItem.execute()
+                root.currentIndex = index
+            }
+            HoverHandler {
+                // onHoveredChanged: if (hovered) { root.currentIndex = index
+                cursorShape: Qt.PointingHandCursor
+            }
         }
 
         Row {
@@ -56,7 +68,7 @@ ListView {
             IconImage {
                 height: parent.height - parent.padding * 2
                 width: height
-                source: modelData.icon ? "image://icon/" + modelData.icon : "image://icon/application-x-executable"
+                source: Quickshell.iconPath(modelData.icon, "image-missing")
             }
 
             Item {
