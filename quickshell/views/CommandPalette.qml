@@ -75,7 +75,8 @@ Canvas {
                         width: contentLoader.width,
                         inpText: Qt.binding(function () { return cmdInput.text })
                     }
-                    contentLoader.setSource("./command_palette/AppEntry.qml", props)
+                    if (cmdInput.text[0] === '/') contentLoader.setSource("./command_palette/CustomCommad.qml", props)
+                    else contentLoader.setSource("./command_palette/AppEntry.qml", props)
                 }
             }
         }
