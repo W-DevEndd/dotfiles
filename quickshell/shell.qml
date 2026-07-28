@@ -75,7 +75,7 @@ ShellRoot {
             anchors {
                 bottom: parent.bottom
                 horizontalCenter: parent.horizontalCenter
-                bottomMargin: -item?.width * (1.0 - openProgress)
+                bottomMargin: -item?.height * (1.0 - openProgress)
             }
 
             active: openProgress !== 0.0

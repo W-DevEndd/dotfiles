@@ -68,7 +68,10 @@ Canvas {
                 width: parent.width
                 anchors.bottom: parent.bottom
                 function updateContent() {
-                    var props = { width: contentLoader.width }
+                    var props = {
+                        width: contentLoader.width,
+                        inpText: Qt.binding(function () { return cmdInput.text })
+                    }
                     contentLoader.setSource("./command_palette/AppEntry.qml", props)
                 }
             }
@@ -83,6 +86,12 @@ Canvas {
             }
             color: Catppuccin.text
             onTextChanged: contentLoader.updateContent()
+        }
+
+        Timer {
+            interval: 0
+            running: true
+            onTriggered: contentLoader.updateContent()
         }
     }
 }
