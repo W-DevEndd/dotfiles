@@ -1,11 +1,12 @@
 import QtQuick
 import QtQuick.Controls
+import "root:/"
 
 ListView {
     property string inpText: ""
 
     property var exitOnEntered: true
-    function handleEnter() { root.currentItem.execute() }
+    function handleEnter() {}
 
     height: 100
 }
