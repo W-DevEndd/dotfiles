@@ -69,17 +69,18 @@ ShellRoot {
         Loader {
             id: commandPaletteLoader
             property real openProgress: Number(PpStates.showCommandPalette)
-            Behavior on openProgress { NumberAnimation { duration: 500; easing.type: Easing.OutExpo } }
+            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
 
             opacity: root.shellOpacity
             anchors {
                 bottom: parent.bottom
                 horizontalCenter: parent.horizontalCenter
-                bottomMargin: -item?.height * (1.0 - openProgress)
+                bottomMargin: -100 * (1.0 - openProgress)
             }
 
             active: openProgress !== 0.0
             Component.onCompleted: setSource("./views/CommandPalette.qml", {
+                contentLoaderActive: Qt.binding(function() { return PpStates.showCommandPalette }),
                 radius: root.windowRouding,
                 handleClose: () => { PpStates.showCommandPalette = false },
             })

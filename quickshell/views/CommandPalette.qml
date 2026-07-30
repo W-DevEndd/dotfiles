@@ -6,6 +6,7 @@ import "root:/"
 Canvas {
     id: root
 
+    property var contentLoaderActive: true
     property var handleClose: () => {}
 
     property int radius: 0
@@ -62,7 +63,7 @@ Canvas {
 
         Item {
             width: content.width - content.padding * 2
-            height: childrenRect.height
+            height: contentLoader.active ? childrenRect.height : 0
             Behavior on height { NumberAnimation {
                 duration: 400
                 easing.type: Easing.OutExpo
@@ -72,6 +73,7 @@ Canvas {
                 id: contentLoader
                 width: parent.width
                 anchors.bottom: parent.bottom
+                active: root.contentLoaderActive
                 function handleEnter() { item?.handleEnter() }
                 function updateContent() {
                     var props = {
@@ -112,7 +114,7 @@ Canvas {
         }
 
         Timer {
-            interval: 0
+            interval: 50
             running: true
             onTriggered: contentLoader.updateContent()
         }
