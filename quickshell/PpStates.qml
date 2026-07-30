@@ -21,14 +21,6 @@ QtObject {
             execute: () => { root.cmpHandleAutoComplete("/wallpaper ") },
             dontCloseOnExec: true,
         },
-        {
-            name: "/open-dotfiles",
-            execute: () => { Quickshell.execDetached(["kitty", "nvim", "~/dotfiles/"]) },
-        },
-        {
-            name: "/poweroff",
-            execute: () => { Quickshell.execDetached(["poweroff"]) },
-        },
     ]
 
     // Logic
