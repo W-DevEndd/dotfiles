@@ -10,21 +10,31 @@ ListView {
 
     property string inpText: ""
 
-    property var exitOnEntered: true
     function handleEnter() { root.currentItem.execute() }
+    property var handleClose: () => {}
 
     height: Math.min(childrenRect.height, 500)
     model: ScriptModel {
         values: {
-            const allApps = DesktopEntries.applications.values;
+            const allApps = (
+                root.inpText.startsWith("/") ? PpStates.cmpCustomCommands :
+                [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
+            );
 
-            return allApps.filter(app => 
+            const filteredApps = allApps.filter(app => 
                 app.name.toLowerCase().includes(root.inpText.toLowerCase())
             );
+            if (!filteredApps.length) return [{
+                name: "Run `" + root.inpText + "` as sh",
+                icon: "application-x-shellscript",
+                execute: () => { Quickshell.execDetached(["sh", "-c", root.inpText]) },
+            }]
+
+            return filteredApps
         }
     }
+    onModelChanged: currentIndex = 0;
 
-    highlightFollowsCurrentItem: true
     highlight: Rectangle {
         width: root.width
         height: 40
@@ -42,7 +52,10 @@ ListView {
     delegate: Item {
         id: desktopItem
 
-        function execute() { modelData.execute() }
+        function execute() {
+            modelData.execute();
+            if (!modelData.dontCloseOnExec) root.handleClose();
+        }
 
         width: root.width
         height: 40

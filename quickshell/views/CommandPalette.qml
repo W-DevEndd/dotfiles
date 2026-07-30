@@ -6,14 +6,17 @@ import "root:/"
 Canvas {
     id: root
 
-    property var handleExit: () => {}
+    property var handleClose: () => {}
 
     property int radius: 0
     property int borderW: 2
     property color borderColor: Catppuccin.crust
     property color color: Catppuccin.base
 
-    Component.onCompleted: cmdInput.forceActiveFocus()
+    Component.onCompleted: {
+        cmdInput.forceActiveFocus()
+        PpStates.cmpHandleAutoComplete = (text) => { cmdInput.text = text }
+    }
 
     onPaint: {
         const ctx = getContext("2d")
@@ -69,14 +72,17 @@ Canvas {
                 id: contentLoader
                 width: parent.width
                 anchors.bottom: parent.bottom
-                function handleEnter() { item?.handleEnter(); if (item?.exitOnEntered) root.handleExit() }
+                function handleEnter() { item?.handleEnter() }
                 function updateContent() {
                     var props = {
                         width: contentLoader.width,
-                        inpText: Qt.binding(function () { return cmdInput.text })
+                        inpText: Qt.binding(function () { return cmdInput.text }),
+                        handleClose: root.handleClose
                     }
-                    if (cmdInput.text[0] === '/') contentLoader.setSource("./command_palette/CustomCommad.qml", props)
-                    else contentLoader.setSource("./command_palette/AppEntry.qml", props)
+                    if (cmdInput.text.startsWith("/wallpaper ")) {
+                        contentLoader.setSource("./command_palette/WallpaperPicker.qml", props)
+                    }
+                    else contentLoader.setSource("./command_palette/Launcher.qml", props)
                 }
             }
         }
@@ -92,10 +98,10 @@ Canvas {
             onTextChanged: contentLoader.updateContent()
             Keys.onPressed: (event) => {
                 const key = event.key
-                if (key === Qt.Key_Down) {
+                if (key === Qt.Key_Down || key === Qt.Key_Tab) {
                     contentLoader.item?.incrementCurrentIndex()
                     event.accepted = true
-                } else if (key === Qt.Key_Up) {
+                } else if (key === Qt.Key_Up || key === Qt.Key_Backtab) {
                     contentLoader.item?.decrementCurrentIndex()
                     event.accepted = true
                 } else if (key === Qt.Key_Return) {

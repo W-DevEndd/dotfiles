@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import Quickshell
 import Quickshell.Io
 
 QtObject {
@@ -12,9 +13,23 @@ QtObject {
     property var showQuickSettings: false
     property var showCommandPalette: false
 
-    property var customCommands: ListModel {
-        ListElement { name: "/wallpaper" }
-    }
+    property var cmpHandleAutoComplete: (text) => {}
+
+    property var cmpCustomCommands: [
+        {
+            name: "/wallpaper",
+            execute: () => { root.cmpHandleAutoComplete("/wallpaper ") },
+            dontCloseOnExec: true,
+        },
+        {
+            name: "/open-dotfiles",
+            execute: () => { Quickshell.execDetached(["kitty", "nvim", "~/dotfiles/"]) },
+        },
+        {
+            name: "/poweroff",
+            execute: () => { Quickshell.execDetached(["poweroff"]) },
+        },
+    ]
 
     // Logic
     property var _logic: IpcHandler {
