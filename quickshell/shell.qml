@@ -9,7 +9,8 @@ ShellRoot {
     property int windowGaps: 6
     property int windowRouding: 12
 
-    property real shellOpacity: 0.85
+    property real shellOpacity: 0.9
+    property var test: ShellStates
 
     TopBar {
         id: topbar
