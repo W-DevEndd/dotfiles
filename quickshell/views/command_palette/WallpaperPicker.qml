@@ -1,12 +1,35 @@
 import QtQuick
+import "root:/"
+import "root:/commons/"
+import "root:/utils/"
 
-Item {
+Column {
     id: root
 
     property string inpText: ""
+    property string option: inpText.replace("/wallpaper ", '')
+    onOptionChanged: {
+        if (option.startsWith("cd ")) typingWallsDir = option.replace("cd ", '').trim()
+    }
 
-    function handleEnter() { console.log("Aaaaaaaaaaaaa") }
-    property var handleClose: () => {}
+    property string typingWallsDir: ""
+    property string wallpapersDir: Pathlibs.userResolve([ShellStates.wallpapersDir, typingWallsDir].join('/'))
 
-    height: 500
+    function handleEnter() {
+        if (option.startsWith("cd ")) {
+            ShellStates.wallpapersDir = root.wallpapersDir
+            root.typingWallsDir = ""
+            PpStates.cmpHandleAutoComplete("/wallpaper set ")
+        }
+    }
+    property var handleClose: () => {
+    }
+
+    BaseText {
+        color: Catppuccin.overlay0
+        text: root.wallpapersDir
+        font.bold: true
+    }
+
+    height: 272
 }
