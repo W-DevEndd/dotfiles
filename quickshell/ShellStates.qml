@@ -7,22 +7,32 @@ import "root:/utils/"
 QtObject {
     id: root
 
+    property int scrWidth:  Quickshell.screens[0].width
+    property int scrHeight: Quickshell.screens[0].height
+
     readonly property url wallConfUrl: Quickshell.statePath("wall-conf.json")
     property string wallpapersDir: ""
     property string currentWallpaper: ""
+
+
+
     Binding on wallpapersDir {
         value: root._wallConfListener.parsedData?.wallsDir
     }
     Binding on currentWallpaper {
         value: root._wallConfListener.parsedData?.currWall
     }
+
+
+
     onWallpapersDirChanged: {
         if (wallpapersDir !== _wallConfListener.parsedData.wallsDir) root._wallConfListener.saveConfig()
     }
     onCurrentWallpaperChanged: {
         if (currentWallpaper !== _wallConfListener.parsedData.currWall) root._wallConfListener.saveConfig()
-        console.log(currentWallpaper)
     }
+
+
 
     Component.onCompleted: {
         Quickshell.execDetached(["touch", wallConfUrl])
@@ -30,8 +40,8 @@ QtObject {
     }
     property var _wallConfListener: FileView {
         readonly property var _default_conf: ({
-            wallsDir: "~/.wallpaper/",
-            currWall: "~/.wallpaper/elaina.jpg",
+            wallsDir: "~/.wallpapers/",
+            currWall: "~/.wallpapers/elaina.jpg",
         })
         property var parsedData: null
         path: ""
