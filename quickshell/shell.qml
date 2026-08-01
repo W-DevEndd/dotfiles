@@ -3,6 +3,7 @@ import Quickshell.Wayland
 import QtQuick
 import "root:/"
 import "root:/views/"
+import "root:/utils/"
 
 ShellRoot {
     id: root
@@ -10,7 +11,6 @@ ShellRoot {
     property int windowRouding: 12
 
     property real shellOpacity: 0.9
-    property var test: ShellStates
 
     TopBar {
         id: topbar
@@ -88,5 +88,5 @@ ShellRoot {
         }
     }
 
-    // Background { }
+    Background { }
 }

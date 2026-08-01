@@ -7,9 +7,6 @@ import "root:/utils/"
 QtObject {
     id: root
 
-    property int scrWidth:  Quickshell.screens[0].width
-    property int scrHeight: Quickshell.screens[0].height
-
     readonly property url wallConfUrl: Quickshell.statePath("wall-conf.json")
     property string wallpapersDir: ""
     property string currentWallpaper: ""
@@ -40,8 +37,8 @@ QtObject {
     }
     property var _wallConfListener: FileView {
         readonly property var _default_conf: ({
-            wallsDir: "~/.wallpapers/",
-            currWall: "~/.wallpapers/elaina.jpg",
+            wallsDir: Pathlibs.userResolve("~/.wallpapers/"),
+            currWall: Pathlibs.userResolve("~/.wallpapers/elaina.jpg"),
         })
         property var parsedData: null
         path: ""

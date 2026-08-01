@@ -1,10 +1,13 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import "root:/"
+import "root:/utils/"
 
 PanelWindow {
     id: root
     WlrLayershell.layer: WlrLayer.Background
+    exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     anchors {
         top: true
@@ -13,13 +16,15 @@ PanelWindow {
         bottom: true
     }
     Image {
+        id: wallpaper
         anchors.fill: parent
-        asynchronous: false
         cache: false
-
-        anchors.centerIn: parent
-        sourceSize.width: width
-        sourceSize.height: height
-        source: "/home/w-devendd/.wallpaper/wallpaperflare.com_wallpaper.jpg"
+    }
+    Connections {
+        target: ShellStates
+        function onCurrentWallpaperChanged() {
+            wallpaper.source = Cache.cachedWallpaperPath(ShellStates.currentWallpaper)
+            // console.log(Cache.cachedWallpaperPath(ShellStates.currentWallpaper))
+        }
     }
 }
