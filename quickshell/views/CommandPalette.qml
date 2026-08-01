@@ -52,6 +52,10 @@ Canvas {
 
     height: content.height
     width: 555
+    Behavior on width { NumberAnimation {
+        duration: 400
+        easing.type: Easing.OutExpo
+    }}
     MouseArea { anchors.fill: root }
 
     Column {
@@ -82,9 +86,13 @@ Canvas {
                         handleClose: root.handleClose
                     }
                     if (cmdInput.text.startsWith("/wallpaper ")) {
+                        root.width = 999
                         contentLoader.setSource("./command_palette/WallpaperPicker.qml", props)
                     }
-                    else contentLoader.setSource("./command_palette/Launcher.qml", props)
+                    else {
+                        root.width = 555
+                        contentLoader.setSource("./command_palette/Launcher.qml", props)
+                    }
                 }
             }
         }
