@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Io
 import "root:/"
 import "root:/commons/"
 import "root:/utils/"
@@ -9,7 +10,7 @@ Column {
     property string inpText: ""
     property string option: inpText.replace("/wallpaper ", '')
     onOptionChanged: {
-        if (option.startsWith("cd ")) typingWallsDir = option.replace("cd ", '').trim()
+        if (option.startsWith("./")) typingWallsDir = option
     }
 
     property string typingWallsDir: ""
@@ -18,10 +19,10 @@ Column {
     function incrementCurrentIndex() { wallpapersView.incrementCurrentIndex() }
     function decrementCurrentIndex() { wallpapersView.decrementCurrentIndex() }
     function handleEnter() {
-        if (option.startsWith("cd ")) {
+        if (option.startsWith("./")) {
             ShellStates.wallpapersDir = root.wallpapersDir
             root.typingWallsDir = ""
-            PpStates.cmpHandleAutoComplete("/wallpaper set ")
+            PpStates.cmpHandleAutoComplete("/wallpaper ")
         }
     }
     property var handleClose: () => {
@@ -40,7 +41,7 @@ Column {
         height: (9 / 16) * (width / displayItems)
 
         orientation: ListView.Horizontal
-        highlightRangeMode: ListView.ApplyRange
+        highlightRangeMode: ListView.StrictlyEnforceRange
 
         preferredHighlightBegin: (width - (width / displayItems - spacing)) / 2
         preferredHighlightEnd: preferredHighlightBegin + (width / displayItems - spacing)
@@ -48,12 +49,12 @@ Column {
 
         snapMode: ListView.SnapToItem
 
-
-        model: ShellStates.wallpapersList
+        model: []
         property int displayItems: 5
         spacing: 10
 
         onCurrentIndexChanged: console.log(currentIndex)
+
         delegate: Item {
             width: wallpapersView.width / wallpapersView.displayItems - wallpapersView.spacing
             height: wallpapersView.height
@@ -64,11 +65,11 @@ Column {
                 height: ((wallpapersView.currentIndex === index) ? 1.0 : 0.85) * parent.height
                 Behavior on width { NumberAnimation {
                     duration: 400
-                    easing.type: Easing.InOutExpo
+                    easing.type: Easing.OutExpo
                 }}
                 Behavior on height { NumberAnimation {
                     duration: 400
-                    easing.type: Easing.InOutExpo
+                    easing.type: Easing.OutExpo
                 }}
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
@@ -78,7 +79,7 @@ Column {
                 opacity: 1.0 - Number(wallpapersView.currentIndex === index)
                 Behavior on opacity { NumberAnimation {
                     duration: 400
-                    easing.type: Easing.InOutExpo
+                    easing.type: Easing.OutExpo
                 }}
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom

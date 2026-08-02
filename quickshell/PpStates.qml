@@ -18,7 +18,7 @@ QtObject {
     property var cmpCustomCommands: [
         {
             name: "/wallpaper",
-            execute: () => { root.cmpHandleAutoComplete("/wallpaper set ") },
+            execute: () => { root.cmpHandleAutoComplete("/wallpaper ") },
             dontCloseOnExec: true,
         },
     ]
