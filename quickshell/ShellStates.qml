@@ -10,6 +10,12 @@ QtObject {
     readonly property url wallConfUrl: Quickshell.statePath("wall-conf.json")
     property string wallpapersDir: ""
     property string currentWallpaper: ""
+    property var wallpapersList: [
+        1, 2, 3,
+        1, 2, 3,
+        1, 2, 3,
+        1, 2, 3,
+    ]
 
 
 

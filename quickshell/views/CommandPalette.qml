@@ -86,7 +86,7 @@ Canvas {
                         handleClose: root.handleClose
                     }
                     if (cmdInput.text.startsWith("/wallpaper ")) {
-                        root.width = 999
+                        root.width = 1500
                         contentLoader.setSource("./command_palette/WallpaperPicker.qml", props)
                     }
                     else {
