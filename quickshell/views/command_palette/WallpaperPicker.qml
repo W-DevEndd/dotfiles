@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell.Io
 import Quickshell.Widgets
 import "root:/"
@@ -9,18 +10,25 @@ Column {
     id: root
 
     property string inpText: ""
-    property string option: inpText.replace("/wallpaper ", '')
+    property string option: inpText.replace("/wallpaper ", '').trim()
     onOptionChanged: {
-        if (option.trim().startsWith("./")) typingWallsDir = option.trim()
+        if (option.startsWith("./") || option.startsWith("../")) {
+            typingWallsDir = option
+            searchingName = ""
+        } else {
+            searchingName = option
+            typingWallsDir = ""
+        }
     }
 
     property string typingWallsDir: ""
+    property string searchingName: ""
     property string wallpapersDir: Pathlibs.userResolve([ShellStates.wallpapersDir, typingWallsDir].join('/'))
 
     function incrementCurrentIndex() { wallpapersView.incrementCurrentIndex() }
     function decrementCurrentIndex() { wallpapersView.decrementCurrentIndex() }
     function handleEnter() {
-        if (option.trim().startsWith("./")) {
+        if (option.startsWith("./") || option.startsWith("../")) {
             ShellStates.wallpapersDir = root.wallpapersDir
             root.typingWallsDir = ""
             PpStates.cmpHandleAutoComplete("/wallpaper ")
@@ -44,7 +52,7 @@ Column {
         height: (9 / 16) * (width / displayItems)
 
         orientation: ListView.Horizontal
-        highlightRangeMode: ListView.SnapToItem
+        highlightRangeMode: ListView.ApplyRange
 
         preferredHighlightBegin: (width - (width / displayItems - spacing)) / 2
         preferredHighlightEnd: preferredHighlightBegin + (width / displayItems - spacing)
@@ -52,11 +60,14 @@ Column {
 
         snapMode: ListView.SnapToItem
 
-        model: []
+        property var unfilteredModel: []
+        model: unfilteredModel.filter(
+            w => w.name.toLowerCase().includes(root.searchingName)
+        )
         property int displayItems: 5
         spacing: 10
 
-        onCurrentIndexChanged: console.log(currentIndex)
+        // onCurrentIndexChanged: console.log(currentIndex)
 
         delegate: Item {
             id: wallpaperItem
@@ -64,6 +75,18 @@ Column {
             height: wallpapersView.height
 
             clip: true
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    if (wallpapersView.currentIndex == index) {
+                        ShellStates.currentWallpaper = modelData
+                    } else {
+                        wallpapersView.currentIndex = index
+                    }
+                }
+            }
 
             ClippingRectangle {
                 radius: 10
@@ -97,7 +120,7 @@ Column {
                     duration: 400
                     easing.type: Easing.OutExpo
                 }}
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 text: modelData.name
             }
@@ -109,7 +132,7 @@ Column {
         property string wallsDir: ""
         Binding on wallsDir { value: root.wallpapersDir }
         onWallsDirChanged: {
-            console.log(wallsDir)
+            // console.log(wallsDir)
             proc.exec(["ls", wallsDir])
         }
 
@@ -137,7 +160,7 @@ Column {
                         if (f === ShellStates.currentWallpaper.name)
                             focusedIndex = i
                     })
-                    wallpapersView.model = wallpapers
+                    wallpapersView.unfilteredModel = wallpapers
                     wallpapersView.currentIndex = focusedIndex
                 }
             }
