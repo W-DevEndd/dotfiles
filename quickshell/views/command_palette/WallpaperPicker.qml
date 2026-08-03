@@ -56,8 +56,8 @@ Column {
         highlightMoveDuration: 400
 
         highlightRangeMode: ListView.StrictlyEnforceRange
-        preferredHighlightBegin: width / 2 - (currentItem?.width ?? 0) / 2
-        preferredHighlightEnd: width / 2 + (currentItem?.width ?? 0) / 2
+        preferredHighlightBegin: width / 2 -  itemWidth / 2
+        preferredHighlightEnd: width / 2 + itemWidth / 2
 
         snapMode: ListView.SnapToItem
 
@@ -67,12 +67,13 @@ Column {
         )
         property int displayItems: 5
         spacing: 10
+        property int itemWidth: width / displayItems - spacing
 
         // onCurrentIndexChanged: console.log(currentIndex)
 
         delegate: Item {
             id: wallpaperItem
-            width: wallpapersView.width / wallpapersView.displayItems - wallpapersView.spacing
+            width: wallpapersView.itemWidth
             height: wallpapersView.height
 
             clip: true
@@ -163,6 +164,7 @@ Column {
                     })
                     wallpapersView.unfilteredModel = wallpapers
                     wallpapersView.currentIndex = focusedIndex
+                    // wallpapersView.positionViewAtIndex(focusedIndex, ListView.Contain)
                 }
             }
         }
