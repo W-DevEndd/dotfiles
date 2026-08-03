@@ -39,7 +39,7 @@ PanelWindow {
     Connections {
         target: ShellStates
         function onCurrentWallpaperChanged() {
-            wallpaper.source = ShellStates.currentWallpaper
+            wallpaper.source = ShellStates.currentWallpaper.path
         }
     }
 }

@@ -85,13 +85,17 @@ Canvas {
                         inpText: Qt.binding(function () { return cmdInput.text }),
                         handleClose: root.handleClose
                     }
+                    var targetSource = ""
                     if (cmdInput.text.startsWith("/wallpaper ")) {
                         root.width = 1500
-                        contentLoader.setSource("./command_palette/WallpaperPicker.qml", props)
-                    }
-                    else {
+                        targetSource = Qt.resolvedUrl("./command_palette/WallpaperPicker.qml")
+                    } else {
                         root.width = 555
-                        contentLoader.setSource("./command_palette/Launcher.qml", props)
+                        targetSource = Qt.resolvedUrl("./command_palette/Launcher.qml")
+                    }
+
+                    if (contentLoader.source !== targetSource) {
+                        contentLoader.setSource(targetSource, props)
                     }
                 }
             }

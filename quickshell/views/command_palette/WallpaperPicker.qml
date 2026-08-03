@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Io
+import Quickshell.Widgets
 import "root:/"
 import "root:/commons/"
 import "root:/utils/"
@@ -10,7 +11,7 @@ Column {
     property string inpText: ""
     property string option: inpText.replace("/wallpaper ", '')
     onOptionChanged: {
-        if (option.startsWith("./")) typingWallsDir = option
+        if (option.trim().startsWith("./")) typingWallsDir = option.trim()
     }
 
     property string typingWallsDir: ""
@@ -19,10 +20,12 @@ Column {
     function incrementCurrentIndex() { wallpapersView.incrementCurrentIndex() }
     function decrementCurrentIndex() { wallpapersView.decrementCurrentIndex() }
     function handleEnter() {
-        if (option.startsWith("./")) {
+        if (option.trim().startsWith("./")) {
             ShellStates.wallpapersDir = root.wallpapersDir
             root.typingWallsDir = ""
             PpStates.cmpHandleAutoComplete("/wallpaper ")
+        } else {
+            ShellStates.currentWallpaper = wallpapersView.model[wallpapersView.currentIndex]
         }
     }
     property var handleClose: () => {
@@ -41,7 +44,7 @@ Column {
         height: (9 / 16) * (width / displayItems)
 
         orientation: ListView.Horizontal
-        highlightRangeMode: ListView.StrictlyEnforceRange
+        highlightRangeMode: ListView.SnapToItem
 
         preferredHighlightBegin: (width - (width / displayItems - spacing)) / 2
         preferredHighlightEnd: preferredHighlightBegin + (width / displayItems - spacing)
@@ -56,10 +59,13 @@ Column {
         onCurrentIndexChanged: console.log(currentIndex)
 
         delegate: Item {
+            id: wallpaperItem
             width: wallpapersView.width / wallpapersView.displayItems - wallpapersView.spacing
             height: wallpapersView.height
 
-            Rectangle {
+            clip: true
+
+            ClippingRectangle {
                 radius: 10
                 width: ((wallpapersView.currentIndex === index) ? 1.0 : 0.85) * parent.width
                 height: ((wallpapersView.currentIndex === index) ? 1.0 : 0.85) * parent.height
@@ -71,9 +77,19 @@ Column {
                     duration: 400
                     easing.type: Easing.OutExpo
                 }}
+
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
 
+                color: "transparent"
+
+                Image {
+                    source: modelData.path
+                    // sourceSize.width: width
+                    // sourceSize.height: height
+                    anchors.fill: parent
+                    asynchronous: true
+                }
             }
             BaseText {
                 opacity: 1.0 - Number(wallpapersView.currentIndex === index)
@@ -83,7 +99,47 @@ Column {
                 }}
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
-                text: "AAAAAAAaaaaaaaa.png"
+                text: modelData.name
+            }
+        }
+    }
+
+    Item {
+        id: wallpapersCollector
+        property string wallsDir: ""
+        Binding on wallsDir { value: root.wallpapersDir }
+        onWallsDirChanged: {
+            console.log(wallsDir)
+            proc.exec(["ls", wallsDir])
+        }
+
+        property var proc: Process {
+            stdout: StdioCollector {
+                onStreamFinished: {
+                    let focusedIndex = 0;
+                    let wallpapers = []
+                    const exts = [
+                        ".png",
+                        ".jpeg",
+                        ".jpg",
+                        ".webp",
+                    ]
+                    const files = this.text.split(/\s+/).filter(file => {
+                        var tmp = file.split('.');
+                        var fExt = '.' + tmp[tmp.length - 1];
+                        return exts.includes(fExt);
+                    })
+                    files.forEach((f, i) => {
+                        wallpapers.push({
+                            name: f,
+                            path: [wallpapersCollector.wallsDir, f].join('/'),
+                        })
+                        if (f === ShellStates.currentWallpaper.name)
+                            focusedIndex = i
+                    })
+                    wallpapersView.model = wallpapers
+                    wallpapersView.currentIndex = focusedIndex
+                }
             }
         }
     }
