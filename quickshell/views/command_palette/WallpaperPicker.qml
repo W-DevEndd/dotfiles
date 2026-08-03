@@ -52,11 +52,12 @@ Column {
         height: (9 / 16) * (width / displayItems)
 
         orientation: ListView.Horizontal
-        highlightRangeMode: ListView.ApplyRange
 
-        preferredHighlightBegin: (width - (width / displayItems - spacing)) / 2
-        preferredHighlightEnd: preferredHighlightBegin + (width / displayItems - spacing)
         highlightMoveDuration: 400
+
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        preferredHighlightBegin: width / 2 - (currentItem?.width ?? 0) / 2
+        preferredHighlightEnd: width / 2 + (currentItem?.width ?? 0) / 2
 
         snapMode: ListView.SnapToItem
 
