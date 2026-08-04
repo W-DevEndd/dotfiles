@@ -29,11 +29,11 @@ ListView {
                 icon: "application-x-shellscript",
                 execute: () => { Quickshell.execDetached(["sh", "-c", root.inpText]) },
             }]
+            root.currentIndex = 0;
 
             return filteredApps
         }
     }
-    onModelChanged: currentIndex = 0;
 
     highlight: Rectangle {
         width: root.width

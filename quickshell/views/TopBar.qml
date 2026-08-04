@@ -35,6 +35,7 @@ PanelWindow {
             var ctx = getContext("2d");
 
             ctx.fillStyle = Catppuccin.base;
+            // ctx.fillStyle = "transparent";
             ctx.beginPath();
 
             ctx.moveTo(0, 0);

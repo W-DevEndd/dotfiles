@@ -112,27 +112,24 @@ Column {
                 Loader {
                     id: wallpaperLoader
                     anchors.fill: parent
-                    asynchronous: true
+                    active: modelData.type === "image" || index === wallpapersView.currentIndex
 
                     Component {
                         id: videoComp
                         Item {
-                            // MediaPlayer {
-                            //     id: player
-                            //     source: modelData.path
-                            //     loops: MediaPlayer.Infinite
-                            //     videoOutput: videoOutputId
-                            //     audioOutput: null
-                            //     Component.onCompleted: {
-                            //         player.play()
-                            //         player.pause()
-                            //     }
-                            // }
-                            // VideoOutput {
-                            //     id: videoOutputId
-                            //     anchors.fill: parent
-                            //     fillMode: VideoOutput.PreserveAspectCrop
-                            // }
+                            MediaPlayer {
+                                id: player
+                                source: modelData.path
+                                loops: MediaPlayer.Infinite
+                                videoOutput: videoOutputId
+                                audioOutput: null
+                                autoPlay: true
+                            }
+                            VideoOutput {
+                                id: videoOutputId
+                                anchors.fill: parent
+                                fillMode: VideoOutput.PreserveAspectCrop
+                            }
                         }
                     }
                     Component {
