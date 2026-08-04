@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
+import QtMultimedia
 import "root:/"
 import "root:/utils/"
 
@@ -55,32 +56,60 @@ PanelWindow {
 
             radius: width / 2
 
-            Image {
+            Loader {
+                id: wallpaperLoader
+
                 height: root.height
                 width: root.width
                 x: 0 + clipPanel.height / 2 - clipPanel.startX
                 y: 0 + clipPanel.height / 2 - clipPanel.startY
 
-                source: modelData["path"]
-                sourceSize {
-                    width: root.scrWidth
-                    height: root.scrHeight
+                sourceComponent: modelData.type === "image" ? imageComp : videoComp
+
+                Component {
+                    id: videoComp
+                    Item {
+                        MediaPlayer {
+                            id: player
+                            source: modelData.path
+                            loops: MediaPlayer.Infinite
+                            videoOutput: videoOutputId
+                            audioOutput: null
+                            autoPlay: true
+                        }
+                        VideoOutput {
+                            id: videoOutputId
+                            anchors.fill: parent
+                            fillMode: VideoOutput.PreserveAspectCrop
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: player.playing ? player.pause() : player.play()
+                        }
+                    }
                 }
-                fillMode: Image.PreserveAspectCrop
-                horizontalAlignment: Image.AlignHCenter
-                verticalAlignment: Image.AlignVCenter
-                smooth: true
-                // asynchronous: true
-                // Timer {
-                //     repeat: true
-                //     running: true
-                //     interval: 1000
-                //     onTriggered: console.log(modelData)
-                // }
+                Component {
+                    id: imageComp
+                    Image {
+                        source: modelData["path"]
+                        sourceSize {
+                            width: root.scrWidth
+                            height: root.scrHeight
+                        }
+                        anchors.fill: parent
+
+                        fillMode: Image.PreserveAspectCrop
+                        horizontalAlignment: Image.AlignHCenter
+                        verticalAlignment: Image.AlignVCenter
+                        smooth: true
+                    }
+                }
             }
         }
         // onItemAdded: console.log("Aaaa")
-        // onItemRemoved: console.log("EEEeeeee")
+        // onItemRemoved: (item) => {
+        //     console.log(item)
+        // }
         // property var _test: Timer {
         //     interval: 1000
         //     repeat: true

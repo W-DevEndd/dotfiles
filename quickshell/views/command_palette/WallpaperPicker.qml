@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtMultimedia
 import Quickshell.Io
 import Quickshell.Widgets
 import "root:/"
@@ -108,12 +109,42 @@ Column {
 
                 color: "transparent"
 
-                Image {
-                    source: modelData.path
-                    // sourceSize.width: width
-                    // sourceSize.height: height
+                Loader {
+                    id: wallpaperLoader
                     anchors.fill: parent
                     asynchronous: true
+
+                    Component {
+                        id: videoComp
+                        Item {
+                            // MediaPlayer {
+                            //     id: player
+                            //     source: modelData.path
+                            //     loops: MediaPlayer.Infinite
+                            //     videoOutput: videoOutputId
+                            //     audioOutput: null
+                            //     Component.onCompleted: {
+                            //         player.play()
+                            //         player.pause()
+                            //     }
+                            // }
+                            // VideoOutput {
+                            //     id: videoOutputId
+                            //     anchors.fill: parent
+                            //     fillMode: VideoOutput.PreserveAspectCrop
+                            // }
+                        }
+                    }
+                    Component {
+                        id: imageComp
+                        Image {
+                            source: modelData.path
+                            width: wallpaperLoader.width
+                            height: wallpaperLoader.height
+                            asynchronous: true
+                        }
+                    }
+                    sourceComponent: modelData.type === "image" ? imageComp : videoComp
                 }
             }
             BaseText {
@@ -148,6 +179,8 @@ Column {
                         ".jpeg",
                         ".jpg",
                         ".webp",
+                        ".mp4",
+                        ".mov",
                     ]
                     const files = this.text.split(/\s+/).filter(file => {
                         var tmp = file.split('.');
@@ -156,6 +189,12 @@ Column {
                     })
                     files.forEach((f, i) => {
                         wallpapers.push({
+                            type: (() => {
+                                var tmp = f.split('.');
+                                var fExt = '.' + tmp[tmp.length - 1];
+                                if ([".mp4", ".mov"].includes(fExt)) return "video";
+                                return "image";
+                            })(),
                             name: f,
                             path: [wallpapersCollector.wallsDir, f].join('/'),
                         })
@@ -165,6 +204,7 @@ Column {
                     wallpapersView.unfilteredModel = wallpapers
                     wallpapersView.currentIndex = focusedIndex
                     // wallpapersView.positionViewAtIndex(focusedIndex, ListView.Contain)
+                    // console.log(JSON.stringify(wallpapers, null, 2))
                 }
             }
         }

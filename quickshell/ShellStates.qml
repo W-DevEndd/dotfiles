@@ -37,6 +37,7 @@ QtObject {
         readonly property var _default_conf: ({
             wallsDir: Pathlibs.userResolve("~/.wallpapers/"),
             currWall: {
+                type: "image",
                 name: "elaina.jpg",
                 path: Pathlibs.userResolve("~/.wallpapers/elaina.jpg"),
             }
