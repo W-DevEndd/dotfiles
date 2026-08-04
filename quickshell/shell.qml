@@ -12,6 +12,19 @@ ShellRoot {
 
     property real shellOpacity: 0.9
 
+    property var _test: QtObject {
+        id: test
+        property var p: Cache.cacheThumbnail(Pathlibs.userResolve("~/.wallpapers/elaina.jpg"))
+        // property var _timer: Timer {
+        //     interval: 1000
+        //     repeat: true
+        //     running: true
+        //     onTriggered: {
+        //         console.log(JSON.stringify(test.p, null, 4))
+        //     }
+        // }
+    }
+
     TopBar {
         id: topbar
         opacity: root.shellOpacity
