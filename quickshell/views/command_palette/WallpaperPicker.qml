@@ -112,8 +112,13 @@ Column {
                 Loader {
                     id: wallpaperLoader
                     anchors.fill: parent
-                    active: modelData.type === "image" || index === wallpapersView.currentIndex
+                    property var tmp: null
+                    property var thumb: modelData.type === "image" ? modelData.path : (tmp?.cachedPath ?? "")
+                    active: index === wallpapersView.currentIndex && modelData.type === "video"
 
+                    Component.onCompleted: {
+                        if (modelData.type === "video") tmp = Cache.cacheThumbnail(modelData.path)
+                    }
                     Component {
                         id: videoComp
                         Item {
@@ -132,16 +137,13 @@ Column {
                             }
                         }
                     }
-                    Component {
-                        id: imageComp
-                        Image {
-                            source: modelData.path
-                            width: wallpaperLoader.width
-                            height: wallpaperLoader.height
-                            asynchronous: true
-                        }
+                    Image {
+                        source: wallpaperLoader.thumb
+                        width: wallpaperLoader.width
+                        height: wallpaperLoader.height
+                        asynchronous: true
                     }
-                    sourceComponent: modelData.type === "image" ? imageComp : videoComp
+                    sourceComponent: videoComp
                 }
             }
             BaseText {
