@@ -91,7 +91,7 @@ PanelWindow {
                 Component {
                     id: imageComp
                     Image {
-                        source: modelData["path"]
+                        source: modelData.path
                         sourceSize {
                             width: root.scrWidth
                             height: root.scrHeight

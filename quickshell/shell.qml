@@ -16,7 +16,7 @@ ShellRoot {
     //     id: test
     //     property var p: null
     //     Component.onCompleted: {
-    //         test.p = Cache.cacheThumbnail(Pathlibs.userResolve("~/.wallpapers/elaina-moonlight-flower-moewalls-com.mp4"))
+    //         test.p = Cache.cacheWallpaper(Pathlibs.userResolve("~/.wallpapers/elaina.jpg"))
     //     }
     //     property var _timer: Timer {
     //         interval: 1000
