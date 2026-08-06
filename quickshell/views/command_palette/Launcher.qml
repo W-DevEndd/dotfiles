@@ -49,50 +49,59 @@ ListView {
     }
     highlightMoveDuration: 150
 
-    delegate: Item {
+    delegate: Loader {
         id: desktopItem
+
+        width: root.width
+        height: 40
 
         function execute() {
             modelData.execute();
             if (!modelData.dontCloseOnExec) root.handleClose();
         }
-
-        width: root.width
-        height: 40
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if (root.currentIndex === index) return desktopItem.execute()
-                root.currentIndex = index
-            }
-            HoverHandler {
-                // onHoveredChanged: if (hovered) { root.currentIndex = index
-                cursorShape: Qt.PointingHandCursor
-            }
-        }
-
-        Row {
-            anchors.fill: desktopItem
-
-            padding: 4
-            spacing: 4
-
-            IconImage {
-                height: parent.height - parent.padding * 2
-                width: height
-                source: Quickshell.iconPath(modelData.icon, "image-missing")
-            }
-
+        Component{
+            id: itemComponent
             Item {
-                height: parent.height - parent.padding * 2
-                width: childrenRect.width
+                width: desktopItem.width
+                height: desktopItem.height
 
-                BaseText {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: modelData.name
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (root.currentIndex === index) return desktopItem.execute()
+                        root.currentIndex = index
+                    }
+                    HoverHandler {
+                        // onHoveredChanged: if (hovered) { root.currentIndex = index
+                        cursorShape: Qt.PointingHandCursor
+                    }
+                }
+
+                Row {
+                    anchors.fill: parent
+
+                    padding: 4
+                    spacing: 4
+
+                    IconImage {
+                        height: parent.height - parent.padding * 2
+                        width: height
+                        source: Quickshell.iconPath(modelData.icon, "image-missing")
+                    }
+
+                    Item {
+                        height: parent.height - parent.padding * 2
+                        width: childrenRect.width
+
+                        BaseText {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: modelData.name
+                        }
+                    }
                 }
             }
         }
+        asynchronous: true
+        sourceComponent: itemComponent
     }
 }
