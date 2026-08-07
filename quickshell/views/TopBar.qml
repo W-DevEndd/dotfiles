@@ -73,6 +73,10 @@ PanelWindow {
             height: content.height
 
             spacing: 5
+
+            Monitor {
+                height: middleModules.height
+            }
         }
 
         Row {
