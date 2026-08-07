@@ -10,37 +10,31 @@ Switch {
     contentItem: Item {}
 
     indicator: Rectangle {
-        height:   parent.height
-        width: (2 / 3) * parent.width
-        x: root.visualPosition * (1 / 3) * parent.width
-        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
-        radius: 5
-        border {
-            color: Catppuccin.overlay0
-            width: 1
-        }
+        property int margins: 3
+        height: parent.height - margins * 2
+        width: height
+        x: root.visualPosition * ((parent.width - margins * 2) - width) + margins
+        y: margins
+        Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo }}
+
+
+        radius: width / 2
+        color: Catppuccin.crust
+        Behavior on color { ColorAnimation {
+            easing: Easing.OutExpo
+            duration: 400
+        }}
     }
     background: Rectangle {
         height: root.height
         width: root.width
 
-        radius: 5
-        color: Catppuccin.surface2
-        Item {
-            height: parent.height
-            width: ((2 / 3) * parent.width) / 2 + root.visualPosition * (1 / 3) * parent.width
-            Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutBack }}
-            clip: true
-
-            Rectangle {
-                anchors.left: parent.left
-                height: parent.height
-                width: parent.parent.width
-
-                color: Catppuccin.blue
-                radius: 5
-            }
-        }
+        radius: height / 2
+        color: root.checked ? Catppuccin.blue : Catppuccin.surface0
+        Behavior on color { ColorAnimation {
+            easing: Easing.OutExpo
+            duration: 400
+        }}
     }
     HoverHandler { cursorShape: Qt.PointingHandCursor}
 }
