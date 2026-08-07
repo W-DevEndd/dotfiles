@@ -47,7 +47,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("qs")
   hl.exec_cmd("fcitx5")
 
-  hl.exec_cmd("vestop -m")
+  hl.exec_cmd("vesktop -m")
   hl.exec_cmd("premid")
 end)
 
@@ -288,10 +288,15 @@ hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
-for i = 1, 10 do
+for i = 1, 4 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+end
+for i = 1, 4 do
+    local key = i % 10 -- 10 maps to key 0
+    hl.bind(mainMod .. " + F" .. key,             hl.dsp.focus({ workspace = i + 4}))
+    hl.bind(mainMod .. " + SHIFT + F" .. key,     hl.dsp.window.move({ workspace = i + 4 }))
 end
 
 -- Example special workspace (scratchpad)
