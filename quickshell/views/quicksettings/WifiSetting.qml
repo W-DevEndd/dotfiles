@@ -11,7 +11,7 @@ Column {
     required property var parentContentContext
     height: childrenRect.height
 
-    spacing: 16
+    spacing: 8
 
     Item {
         id: headerPanel
@@ -147,7 +147,7 @@ Column {
                 Item {
                     id: wifiControl
                     width: wifiCol.width - wifiCol.padding * 2
-                    height: 28
+                    height: 16
 
                     Row {
                         height: wifiControl.height
