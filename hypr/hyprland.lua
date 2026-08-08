@@ -202,6 +202,7 @@ hl.config({
 hl.config({
     master = {
         new_status = "master",
+        new_on_top = true
     },
 })
 
@@ -237,7 +238,7 @@ hl.config({
         kb_rules   = "",
 
         follow_mouse = 1,
-        repeat_delay =300,
+        repeat_delay = 300,
 
         sensitivity = 1, -- -1.0 - 1.0, 0 means no modification.
 
