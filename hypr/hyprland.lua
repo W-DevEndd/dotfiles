@@ -21,7 +21,7 @@ hl.monitor({
     position = "auto",
     scale    = "1",
 })
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1" })
+hl.monitor({ output = "HDMI-A-1", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1" })
 
 
 ---------------------
@@ -168,9 +168,9 @@ hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "
 hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
 hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces",    enabled = true,  speed = 4, bezier = "outExpo", style = "slidefade 10%" })
-hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 4, bezier = "outExpo", style = "slidefade 10%" })
-hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 4, bezier = "outExpo", style = "slidefade 5%" })
+hl.animation({ leaf = "workspaces",    enabled = true,  speed = 4, bezier = "outExpo", style = "slidefade 5%" })
+hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 4, bezier = "outExpo", style = "slidefade 5%" })
+hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 2, bezier = "outExpo", style = "slidefade 30%" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
