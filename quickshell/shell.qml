@@ -104,5 +104,5 @@ ShellRoot {
         }
     }
 
-    Background { }
+    Background {}
 }

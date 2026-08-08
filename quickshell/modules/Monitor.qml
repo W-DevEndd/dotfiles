@@ -29,5 +29,13 @@ ContentPanel {
 
             height: root.height
         }
+        PrefixText {
+            visible: SystemMonitorStates.swapPerc >= 5
+            value: SystemMonitorStates.swapPerc + "%"
+            prefix: ""
+            prefixColor: Catppuccin.lavender
+
+            height: root.height
+        }
     }
 }
