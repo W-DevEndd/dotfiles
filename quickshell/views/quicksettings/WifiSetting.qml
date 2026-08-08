@@ -103,14 +103,18 @@ Column {
         delegate: Item {
             id: wifiItem
 
+            property var showPskPanel: (wifiList.forcussedIndex === index) && !modelData.known
             width: wifiList.width
-            height: 34
+            height: wifiCol.height
             clip: true
 
             Connections {
                 target: modelData
                 function onConnectionFailed(res) {
-                    if (res === ConnectionFailReason.NoSecrets) modelData.forget()
+                    if (res === ConnectionFailReason.NoSecrets) {
+                        modelData.forget()
+                        wifiList.forcussedIndex = index
+                    }
                 }
             }
 
@@ -125,81 +129,115 @@ Column {
                     wifiList.currentIndex = index
                 }
                 onClicked: {
-                    wifiList.forcussedIndex = index
+                    wifiList.forcussedIndex = -1
                     if (modelData.connected) return
                     modelData.connect()
+                    // else {
+                    //     wifiItem.showPskPanel = !wifiItem.showPskPanel
+                    // }
                 }
             }
 
-            Item {
-                id: wifiControl
+            Column {
+                id: wifiCol
                 width: wifiItem.width
-                height: wifiItem.height
-
-                Row {
-                    height: wifiControl.height
-                    width: childrenRect.height
-                    anchors.left: wifiControl.left
-
-                    padding: 8
-                    spacing: 5
-
-                    BaseText {
-                        text: {
-                            let strength = modelData.signalStrength;
-                            return (
-                                (strength > 0.80) ? "󰤨" :
-                                (strength > 0.60) ? "󰤨" :
-                                (strength > 0.40) ? "󰤥" :
-                                (strength > 0.20) ? "󰤢" :
-                                (strength > 0.00) ? "󰤟" : "󰤯"
-                            )
-                        }
-                        color: Catppuccin.blue
-                        font.bold: true
-                    }
-
-                    BaseText {
-                        text: modelData.name
-                    }
-                }
+                height: childrenRect.height + padding * 2
+                padding: 8
 
                 Item {
-                    id: wifiState
-                    height: parent.height
-                    width: height
+                    id: wifiControl
+                    width: wifiCol.width - wifiCol.padding * 2
+                    height: 28
 
-                    anchors.right: parent.right
+                    Row {
+                        height: wifiControl.height
+                        width: childrenRect.width
+                        anchors.left: wifiControl.left
 
-                    BaseText {
-                        id: wifiStateIcon
-                        property var loadingFrames: [ "", "", "", "", "", "" ]
-                        property int currentLoadingFrameIndex: 0
+                        // padding: 8
+                        spacing: 5
 
-                        text: (
-                            modelData.stateChanging ? loadingFrames[currentLoadingFrameIndex] :
-                            modelData.connected ? "" :
-                            modelData.known ?     "" : ""
-                        )
-                        color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
-                        font.bold: true
-                        anchors.centerIn: parent
+                        BaseText {
+                            text: {
+                                let strength = modelData.signalStrength;
+                                return (
+                                    (strength > 0.80) ? "󰤨" :
+                                    (strength > 0.60) ? "󰤨" :
+                                    (strength > 0.40) ? "󰤥" :
+                                    (strength > 0.20) ? "󰤢" :
+                                    (strength > 0.00) ? "󰤟" : "󰤯"
+                                )
+                            }
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: Catppuccin.blue
+                            font.bold: true
+                        }
+
+                        BaseText {
+                            text: modelData.name
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                     }
 
-                    NumberAnimation {
-                        target: wifiStateIcon
-                        property: "currentLoadingFrameIndex"
-                        from: 0
-                        to: 5
-                        duration: 800
-                        loops: Animation.Infinite
+                    Item {
+                        id: wifiState
+                        height: parent.height
+                        width: height
 
-                        easing.type: Easing.Linear
-                        running: modelData.stateChanging
+                        anchors.right: parent.right
+
+                        BaseText {
+                            id: wifiStateIcon
+                            property var loadingFrames: [ "", "", "", "", "", "" ]
+                            property int currentLoadingFrameIndex: 0
+
+                            text: (
+                                modelData.stateChanging ? loadingFrames[currentLoadingFrameIndex] :
+                                modelData.connected ? "" :
+                                modelData.known ?     "" : ""
+                            )
+                            color: modelData.connected ? Catppuccin.green : Catppuccin.overlay2
+                            font.bold: true
+                            anchors.centerIn: parent
+                        }
+
+                        NumberAnimation {
+                            target: wifiStateIcon
+                            property: "currentLoadingFrameIndex"
+                            from: 0
+                            to: 5
+                            duration: 800
+                            loops: Animation.Infinite
+
+                            easing.type: Easing.Linear
+                            running: modelData.stateChanging
+                        }
+                    }
+                }
+                TextField {
+                    id: wifiPskInput
+                    height: wifiItem.showPskPanel ? 24 : 0
+                    width: wifiCol.width - wifiCol.padding * 2
+                    visible: wifiItem.showPskPanel
+
+                    onVisibleChanged: if (visible) {
+                        text = ""
+                        forceActiveFocus()
+                    }
+                    onAccepted: modelData.connectWithPsk(text)
+                    echoMode: TextInput.Password
+
+                    background: Rectangle {
+                        width: parent.width
+                        height: 1
+                        // radius: height / 2
+                        anchors.bottom: parent.bottom
+                        color: Catppuccin.text
                     }
                 }
             }
         }
     }
+    Item { width: root.width; height: 1}
 }
 
