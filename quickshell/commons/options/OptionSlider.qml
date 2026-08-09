@@ -77,7 +77,9 @@ Item {
         onMoved: {
             root.currentValue = control.value
         }
-        HoverHandler { cursorShape: Qt.OpenHandCursor }
+        HoverHandler {
+            cursorShape: control.pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+        }
 
         background: Rectangle {
             anchors.fill: control
