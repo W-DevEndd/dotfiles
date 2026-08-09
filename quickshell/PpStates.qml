@@ -8,10 +8,18 @@ QtObject {
 
     // States
     property var needTopBar: showQuickSettings
-    property var showPopup: showQuickSettings || showCommandPalette
+    property var showPopup: showQuickSettings || showCommandPalette || showOSB
+    property var focusPopup: showQuickSettings || showCommandPalette
 
-    property var showQuickSettings: false
+    property var showQuickSettings:  false
     property var showCommandPalette: false
+    property var showOSB:            false
+
+    function handleCloseAll() {
+        PpStates.showQuickSettings = false
+        PpStates.showCommandPalette = false
+        PpStates.showOSB = false
+    }
 
     property var cmpHandleAutoComplete: (text) => {}
 
