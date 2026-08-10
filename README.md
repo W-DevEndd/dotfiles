@@ -1,2 +1,2 @@
 # dotfiles
-Endd's archlinux dotfiles dotfiles.
+Endd's archlinux dotfiles.
