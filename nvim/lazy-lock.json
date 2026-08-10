@@ -9,7 +9,7 @@
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp-vsnip": { "branch": "main", "commit": "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
   "codediff.nvim": { "branch": "main", "commit": "31510a9b34c032b6fe98fc158d4066702f68cff2" },
-  "cord.nvim": { "branch": "master", "commit": "4aca7b812f46fb97c9ebdc97ff0584bffbcd3da7" },
+  "cord.nvim": { "branch": "master", "commit": "ffd5450592c6d069ce941b73bbeb3fdf114a3e91" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "fzf-lua": { "branch": "main", "commit": "8671012a7b2a1648595952c655039d51fb301c14" },
   "gitsigns.nvim": { "branch": "main", "commit": "31d6fb2d618bca1482b9f274751ead5f03461408" },
