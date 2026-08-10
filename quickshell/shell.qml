@@ -102,7 +102,10 @@ ShellRoot {
         OSB {
             id: osbLoader
 
-            property var isReady: false
+            // property var isReady: false
+            property var preload: [
+                SystemStates
+            ]
 
             property real openProgress: Number(PpStates.showOSB)
             Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
@@ -111,7 +114,7 @@ ShellRoot {
             radius: root.windowRouding
 
             function handleShow(callback) {
-                if (!osbLoader.isReady) return
+                // if (!osbLoader.isReady) return
                 // if (PpStates.showQuickSettings) return
                 PpStates.showOSB = true
                 autoHide.restart()
@@ -130,6 +133,9 @@ ShellRoot {
                 function bindChangeBrightness() { osbLoader.handleShow(() => {
                     osbLoader.loadBrightnessSlider()
                 } ) }
+                function bindToggleSinkMute() { osbLoader.handleShow(() => {
+                    osbLoader.loadSinkMuteState()
+                } ) }
             }
 
             anchors {
@@ -144,7 +150,7 @@ ShellRoot {
                 onTriggered: PpStates.showOSB = false
             }
 
-            Timer { interval: 500; running: true; onTriggered: osbLoader.isReady = true }
+            // Timer { interval: 500; running: true; onTriggered: osbLoader.isReady = true }
         }
     }
 

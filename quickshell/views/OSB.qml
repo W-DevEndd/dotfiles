@@ -67,7 +67,12 @@ Rectangle {
         )
     }
 
-    property int padding: 5
+    function loadSinkMuteState() {
+        loader.sourceComponent = superBigIconComp
+        handleLoaded()
+    }
+
+    property int padding: 10
 
     height: loader.height + padding * 2
     width: loader.width + padding * 2
@@ -125,6 +130,14 @@ Rectangle {
                 text: r.displayValue
                 anchors.verticalCenter: r.verticalCenter
             }
+        }
+    }
+
+    Component {
+        id: superBigIconComp
+        BaseText {
+            text: "$"
+            font.pointSize: 24
         }
     }
 
