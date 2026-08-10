@@ -40,7 +40,7 @@ ShellRoot {
 
         WlrLayershell.layer: WlrLayer.Overlay
         focusable: PpStates.focusPopup
-        visible: quicksettingsLoader.openProgress || commandPaletteLoader.openProgress || osbLoader.openProgress
+        visible: quicksettingsLoader.openProgress || commandPaletteLoader.openProgress
 
         color.a: 0.0
 
@@ -98,50 +98,6 @@ ShellRoot {
             })
         }
 
-        Loader {
-            id: osbLoader
-
-            property var isReady: false
-            property real openProgress: Number(PpStates.showOSB)
-            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
-
-            function handleShow(callback) {
-                if (PpStates.showQuickSettings) return
-                if (!isReady) return
-                PpStates.showOSB = true
-
-                autoHide.restart()
-
-                callback()
-            }
-
-            Connections {
-                target: SystemStates
-                function onSinkVolumeChanged() { osbLoader.handleShow(() => {
-                } ) }
-            }
-
-            opacity: root.shellOpacity * openProgress
-
-            anchors {
-                bottom: parent.bottom
-                bottomMargin: 128
-                horizontalCenter: parent.horizontalCenter
-            }
-            active: openProgress !== 0.0
-            Component.onCompleted: {
-                setSource("./views/OSB.qml", {
-                    radius: root.windowRouding,
-                })
-            }
-
-            Timer { interval: 100; running: true; onTriggered: osbLoader.isReady = true }
-            Timer {
-                id: autoHide
-                interval: 500;
-                onTriggered: PpStates.showOSB = false
-            }
-        }
     }
 
     Background {}
