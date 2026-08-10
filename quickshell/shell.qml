@@ -136,7 +136,7 @@ ShellRoot {
                 onTriggered: PpStates.showOSB = false
             }
 
-            Timer { interval: 1000; running: true; onTriggered: osbLoader.isReady = true }
+            Timer { interval: 500; running: true; onTriggered: osbLoader.isReady = true }
         }
     }
 

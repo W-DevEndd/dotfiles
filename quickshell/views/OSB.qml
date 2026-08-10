@@ -12,8 +12,19 @@ Rectangle {
     }
 
     function loadSinkSlider() {
+
+        var vol = SystemStates.sinkVolume
+
         loader.sourceComponent = sliderComp
         handleLoaded()
+        loader.item.currentValue = vol
+        loader.item.minValue = 0
+        loader.item.maxValue = 100
+
+        loader.item.displayIcon = SystemStates.isMutedSink ? "󰝟" : (
+            vol >= 40 ? "󰕾" :
+            vol >= 10 ? "󰖀" : "󰕿"
+        )
     }
 
     property int padding: 5
@@ -29,6 +40,7 @@ Rectangle {
     Component {
         id: sliderComp
         Row {
+            id: r
             property string displayIcon:  "$"
             property string displayValue: currentValue
 
@@ -40,18 +52,22 @@ Rectangle {
             spacing: 8
 
             BaseText {
-                text: parent.displayIcon
-                anchors.verticalCenter: parent.verticalCenter
+                text: r.displayIcon
+                anchors.verticalCenter: r.verticalCenter
             }
 
             Slider {
                 width: 200
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenter: r.verticalCenter
+
+                value: r.currentValue
+                from: r.minValue
+                to: r.maxValue
             }
 
             BaseText {
-                text: "100"
-                anchors.verticalCenter: parent.verticalCenter
+                text: r.displayValue
+                anchors.verticalCenter: r.verticalCenter
             }
         }
     }
