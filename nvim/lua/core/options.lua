@@ -2,6 +2,8 @@
 -- Basic settings
 vim.o.tabstop = 4 -- Number of spaces a tab represents
 vim.o.shiftwidth = 4 -- Number of spaces for each indentation
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 5
 vim.o.expandtab = true -- Convert tabs to spaces
 vim.o.smartindent = true -- Automatically indent new lines
 -- vim.o.
