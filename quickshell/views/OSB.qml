@@ -27,6 +27,46 @@ Rectangle {
         )
     }
 
+    function loadSourceSlider() {
+
+        var vol = SystemStates.sourceVolume
+
+        loader.sourceComponent = sliderComp
+        handleLoaded()
+        loader.item.currentValue = vol
+        loader.item.minValue = 0
+        loader.item.maxValue = 100
+
+        loader.item.displayIcon = SystemStates.isMutedSource ? "" : ""
+    }
+
+    function loadBrightnessSlider() {
+
+        var vol = SystemStates.brightnessVolume
+
+        loader.sourceComponent = sliderComp
+        handleLoaded()
+        loader.item.currentValue = vol
+        loader.item.minValue = 0
+        loader.item.maxValue = 100
+
+        loader.item.displayIcon = (
+            vol > 96 ? "" :
+            vol > 88 ? "" :
+            vol > 80 ? "" :
+            vol > 73 ? "" :
+            vol > 65 ? "" :
+            vol > 57 ? "" :
+            vol > 50 ? "" :
+            vol > 42 ? "" :
+            vol > 34 ? "" :
+            vol > 26 ? "" :
+            vol > 19 ? "" :
+            vol > 11 ? "" :
+            vol > 3 ? "" : ""
+        )
+    }
+
     property int padding: 5
 
     height: loader.height + padding * 2
@@ -63,6 +103,22 @@ Rectangle {
                 value: r.currentValue
                 from: r.minValue
                 to: r.maxValue
+
+                background: Rectangle {
+                    color: Catppuccin.overlay0
+                    width: parent.width
+                    height: 3
+                    radius: height / 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                handle: Rectangle {
+                    x: parent.visualPosition * parent.width - width / 2
+                    implicitWidth: 3
+                    implicitHeight: 16
+                    radius: implicitWidth / 2
+                    color: Catppuccin.blue
+                }
             }
 
             BaseText {

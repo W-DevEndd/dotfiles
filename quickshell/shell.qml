@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import "root:/"
@@ -111,16 +112,23 @@ ShellRoot {
 
             function handleShow(callback) {
                 if (!osbLoader.isReady) return
-                if (PpStates.showQuickSettings) return
+                // if (PpStates.showQuickSettings) return
                 PpStates.showOSB = true
                 autoHide.restart()
                 callback()
             }
 
-            Connections {
-                target: SystemStates
-                function onSinkVolumeChanged() { osbLoader.handleShow(() => {
+            IpcHandler {
+                target: "osb"
+
+                function bindChangeSink() { osbLoader.handleShow(() => {
                     osbLoader.loadSinkSlider()
+                } ) }
+                function bindChangeSource() { osbLoader.handleShow(() => {
+                    osbLoader.loadSourceSlider()
+                } ) }
+                function bindChangeBrightness() { osbLoader.handleShow(() => {
+                    osbLoader.loadBrightnessSlider()
                 } ) }
             }
 
