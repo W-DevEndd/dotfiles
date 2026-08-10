@@ -107,6 +107,7 @@ ShellRoot {
             Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
 
             opacity: root.shellOpacity * openProgress
+            radius: root.windowRouding
 
             function handleShow(callback) {
                 if (!osbLoader.isReady) return
@@ -119,12 +120,12 @@ ShellRoot {
             Connections {
                 target: SystemStates
                 function onSinkVolumeChanged() { osbLoader.handleShow(() => {
-                    console.log("Aaaaaaa")
+                    osbLoader.loadSinkSlider()
                 } ) }
             }
 
             anchors {
-                bottomMargin: 128
+                bottomMargin: 64
                 bottom: parent.bottom
                 horizontalCenter: parent.horizontalCenter
             }
