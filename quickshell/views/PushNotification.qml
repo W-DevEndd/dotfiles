@@ -20,11 +20,6 @@ PanelWindow {
         }
     }
 
-    anchors {
-        left: true
-        bottom: true
-    }
-
     color: "transparent"
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
     WlrLayershell.layer: WlrLayer.Overlay

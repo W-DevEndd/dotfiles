@@ -38,4 +38,10 @@ ContentPanel {
             height: root.height
         }
     }
+
+    MouseArea {
+        anchors.fill: root
+        cursorShape: Qt.PointingHandCursor
+        onClicked: PpStates.showSystemMonitor = !PpStates.showSystemMonitor
+    }
 }

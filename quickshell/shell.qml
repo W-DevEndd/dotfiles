@@ -33,6 +33,11 @@ ShellRoot {
         opacity: root.shellOpacity
         gaps: root.windowGaps
         corner: root.windowRouding
+
+        anchors {
+            left: true
+            bottom: true
+        }
     }
 
     TopBar {
@@ -47,7 +52,12 @@ ShellRoot {
 
         WlrLayershell.layer: WlrLayer.Overlay
         focusable: PpStates.focusPopup
-        visible: quicksettingsLoader.openProgress || commandPaletteLoader.openProgress || osbLoader.openProgress
+        visible: (
+            quicksettingsLoader.openProgress  ||
+            commandPaletteLoader.openProgress ||
+            systemMonitorLoader.openProgress  ||
+            osbLoader.openProgress
+        )
 
         color.a: 0.0
 
@@ -103,6 +113,30 @@ ShellRoot {
                 radius: root.windowRouding,
                 handleClose: () => { PpStates.showCommandPalette = false },
             })
+        }
+
+        Loader {
+            id: systemMonitorLoader
+
+            property real openProgress: Number(PpStates.showSystemMonitor)
+            Behavior on openProgress { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
+
+            opacity: root.shellOpacity * openProgress
+            active: openProgress
+
+            anchors {
+                top: parent.top
+                topMargin: root.windowGaps - (100 * (1.0 - openProgress))
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            Component.onCompleted: {
+                systemMonitorLoader.setSource("./views/SystemMonitor.qml", {
+                    opacity: root.shellOpacity,
+                    radius: root.windowRouding
+                })
+            }
+
         }
 
         OSB {
