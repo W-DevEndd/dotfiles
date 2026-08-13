@@ -139,8 +139,11 @@ ShellRoot {
                 function bindChangeBrightness() { osbLoader.handleShow(() => {
                     osbLoader.loadBrightnessSlider()
                 } ) }
-                function bindToggleSinkMute() { osbLoader.handleShow(() => {
-                    osbLoader.loadSinkMuteState()
+                function bindToggleSink() { osbLoader.handleShow(() => {
+                    osbLoader.loadSinkSlider()
+                } ) }
+                function bindToggleSource() { osbLoader.handleShow(() => {
+                    osbLoader.loadSourceSlider()
                 } ) }
             }
 

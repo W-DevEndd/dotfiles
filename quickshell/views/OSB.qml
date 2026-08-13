@@ -6,17 +6,17 @@ import "root:/commons/"
 Rectangle {
     id: root
 
-    function handleLoaded() {
-        loader.width = loader.item.width
-        loader.height = loader.item.height
+    function handleLoad(comp) {
+        loader.sourceComponent = comp
+        // console.log(loader.item.width)
+        // console.log(loader.item.height)
     }
 
     function loadSinkSlider() {
+        handleLoad(sliderComp)
 
         var vol = SystemStates.sinkVolume
 
-        loader.sourceComponent = sliderComp
-        handleLoaded()
         loader.item.currentValue = vol
         loader.item.minValue = 0
         loader.item.maxValue = 100
@@ -28,11 +28,10 @@ Rectangle {
     }
 
     function loadSourceSlider() {
+        handleLoad(sliderComp)
 
         var vol = SystemStates.sourceVolume
 
-        loader.sourceComponent = sliderComp
-        handleLoaded()
         loader.item.currentValue = vol
         loader.item.minValue = 0
         loader.item.maxValue = 100
@@ -41,11 +40,10 @@ Rectangle {
     }
 
     function loadBrightnessSlider() {
+        handleLoad(sliderComp)
 
         var vol = SystemStates.brightnessVolume
 
-        loader.sourceComponent = sliderComp
-        handleLoaded()
         loader.item.currentValue = vol
         loader.item.minValue = 0
         loader.item.maxValue = 100
@@ -67,15 +65,20 @@ Rectangle {
         )
     }
 
-    function loadSinkMuteState() {
-        loader.sourceComponent = superBigIconComp
-        handleLoaded()
-    }
-
     property int padding: 10
 
     height: loader.height + padding * 2
     width: loader.width + padding * 2
+
+    Behavior on height { NumberAnimation {
+        duration: 400
+        easing.type: Easing.OutBack
+    }}
+    Behavior on width { NumberAnimation {
+        duration: 400
+        easing.type: Easing.OutBack
+    }}
+
     color: Catppuccin.base
     border {
         width: 1
@@ -110,7 +113,7 @@ Rectangle {
                 to: r.maxValue
 
                 background: Rectangle {
-                    color: Catppuccin.overlay0
+                    color: Catppuccin.text
                     width: parent.width
                     height: 3
                     radius: height / 2
@@ -122,7 +125,7 @@ Rectangle {
                     implicitWidth: 3
                     implicitHeight: 16
                     radius: implicitWidth / 2
-                    color: Catppuccin.blue
+                    color: Catppuccin.text
                 }
             }
 
@@ -135,25 +138,31 @@ Rectangle {
 
     Component {
         id: superBigIconComp
-        BaseText {
-            text: "$"
-            font.pointSize: 24
+        Item {
+            id: superBigIcon
+            property string displayIcon: "$"
+            width: 64
+            height: 64
+            BaseText {
+                text: superBigIcon.displayIcon
+                anchors.centerIn: parent
+                font.pointSize: 32
+            }
         }
     }
+
+    clip: true
 
     Loader {
         id: loader
 
+        anchors.centerIn: root
+
         x: root.padding
         y: root.padding
+    }
 
-        Behavior on height { NumberAnimation {
-            duration: 400
-            easing.type: Easing.OutBack
-        }}
-        Behavior on width { NumberAnimation {
-            duration: 400
-            easing.type: Easing.OutBack
-        }}
+    MouseArea {
+        anchors.fill: root
     }
 }

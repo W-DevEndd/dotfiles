@@ -21,7 +21,7 @@ PanelWindow {
     }
 
     anchors {
-        left: true
+        right: true
         bottom: true
     }
 
