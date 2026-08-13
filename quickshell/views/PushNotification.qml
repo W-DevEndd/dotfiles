@@ -16,25 +16,20 @@ PanelWindow {
         target: NotificationDaemon
 
         function onNotification(noti) {
-            root.notis.append({
-                image: noti.image,
-                summary: noti.summary,
-            })
+            notiLoader.model.append(noti)
         }
-    }
-    property var notis: ListModel {
     }
 
     anchors {
-        right: true
-        top: true
+        left: true
+        bottom: true
     }
 
     color: "transparent"
     exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
     WlrLayershell.layer: WlrLayer.Overlay
 
-    implicitWidth: 333
+    implicitWidth: 500
     implicitHeight: content.height + gaps * 2
 
     Column {
@@ -48,7 +43,8 @@ PanelWindow {
         spacing: root.gaps
 
         Repeater {
-            model: root.notis
+            id: notiLoader
+            model: ListModel {}
             delegate: Rectangle {
                 id: notiControl
                 width: content.width
@@ -56,11 +52,11 @@ PanelWindow {
                 radius: root.corner
                 color: Catppuccin.base
                 border {
-                    width: 1
-                    color: Catppuccin.crust
+                    width: 2
+                    color: Catppuccin.blue
                 }
 
-                property int padding: 5
+                property int padding: 12
 
                 Row {
                     id: r
@@ -69,18 +65,56 @@ PanelWindow {
                     width:  notiControl.width  - notiControl.padding * 2
                     height: notiControl.height - notiControl.padding * 2
 
+                    clip: true
+
+                    spacing: 12
+
                     Image {
+                        id: icon
                         height: r.height
                         width: height
 
-                        source: modelData.image
+                        source: model.image
                     }
-                    Column {
-                        anchors.top: r.top
-                        BaseText {
-                            text: modelData.summary
+                    Flickable {
+                        width: r.width - icon.width - r.spacing
+                        height: r.height - r.padding
+
+                        contentHeight: contentColumn.height
+                        clip: true
+
+                        boundsBehavior: Flickable.StopAtBounds
+
+                        Column {
+                            id: contentColumn
+                            width: parent.width
+                            BaseText {
+                                width: parent.width
+                                text: model.summary
+                                font.bold: true
+                                elide: Text.ElideRight
+                            }
+                            BaseText {
+                                width: parent.width
+                                text: model.body
+                                color: Catppuccin.subtext0
+
+                                wrapMode: Text.WordWrap
+                            }
                         }
                     }
+                }
+
+                Timer {
+                    interval: 5000
+                    running: true
+                    onTriggered: notiLoader.model.remove(index)
+                }
+
+                MouseArea {
+                    anchors.fill: notiControl
+                    onClicked: notiLoader.model.remove(index)
+                    cursorShape: Qt.PointingHandCursor
                 }
             }
         }
