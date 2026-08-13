@@ -29,6 +29,12 @@ ShellRoot {
     //     }
     // }
 
+    PushNotification {
+        opacity: root.shellOpacity
+        gaps: root.windowGaps
+        corner: root.windowRouding
+    }
+
     TopBar {
         id: topbar
         opacity: root.shellOpacity
