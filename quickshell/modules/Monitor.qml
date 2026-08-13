@@ -30,7 +30,7 @@ ContentPanel {
             height: root.height
         }
         PrefixText {
-            visible: SystemMonitorStates.swapPerc >= 5
+            visible: SystemMonitorStates.swapPerc >= 10
             value: SystemMonitorStates.swapPerc + "%"
             prefix: ""
             prefixColor: Catppuccin.lavender
