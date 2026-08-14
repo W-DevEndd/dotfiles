@@ -11,4 +11,6 @@ Rectangle {
         width: 1
         color: Catppuccin.crust
     }
+
+    MouseArea { anchors.fill: root }
 }

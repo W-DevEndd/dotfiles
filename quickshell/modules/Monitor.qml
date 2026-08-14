@@ -16,6 +16,21 @@ ContentPanel {
         spacing: 10
 
         PrefixText {
+
+            value: {
+                var total = SystemMonitorStates.netDownPerS + SystemMonitorStates.netUpPerS
+
+                if (total < 1024) return total + " B/s"
+                else if (total < 1024 * 1024) return (total / 1024).toFixed(1) + " KB/s"
+                else return (total / (1024 * 1024)).toFixed(1) + " MB/s"
+            }
+
+            prefix: "󰯎"
+            prefixColor: Catppuccin.peach
+
+            height: root.height
+        }
+        PrefixText {
             value: SystemMonitorStates.cpuPerc + "%"
             prefix: ""
             prefixColor: Catppuccin.blue
