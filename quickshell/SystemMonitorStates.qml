@@ -19,6 +19,8 @@ QtObject {
     property int netUp: -1
     property int netDownPerS: 0
     property int netUpPerS: 0
+    // onNetDownPerSChanged: console.log(netDownPerS)
+    // onNetUpPerSChanged: console.log(netUpPerS)
 
     property var _cpuProc: Process {
         running: true
@@ -56,14 +58,15 @@ QtObject {
             onStreamFinished: {
                 var tmp = this.text.split('\n')
                 var wlp = tmp.find(l => l.includes("wlp2s0:")).trim().split(/\s+/)
+                // console.log(wlp)
                 var down = wlp[1]
                 var up = wlp[9]
 
                 if (root.netDown !== -1) root.netDownPerS = down - root.netDown
                 if (root.netUp !== -1) root.netUpPerS = up - root.netUp
 
-                root.netUp = up
                 root.netDown = down
+                root.netUp = up
             }
         }
     }
