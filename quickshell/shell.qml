@@ -190,7 +190,10 @@ ShellRoot {
             Timer {
                 id: autoHide
                 interval: 500
-                onTriggered: PpStates.showOSB = false
+                onTriggered: {
+                    PpStates.showOSB = false
+                    osbLoader.dontLoad()
+                }
             }
 
             // Timer { interval: 500; running: true; onTriggered: osbLoader.isReady = true }

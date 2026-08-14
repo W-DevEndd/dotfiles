@@ -6,10 +6,15 @@ import "root:/commons/"
 Rectangle {
     id: root
 
+
     function handleLoad(comp) {
         loader.sourceComponent = comp
         // console.log(loader.item.width)
         // console.log(loader.item.height)
+    }
+
+    function dontLoad() {
+        handleLoad(emptyPanel)
     }
 
     function loadSinkSlider() {
@@ -83,6 +88,11 @@ Rectangle {
     border {
         width: 1
         color: Catppuccin.crust
+    }
+
+    Component {
+        id: emptyPanel
+        Item {}
     }
 
     Component {
