@@ -55,12 +55,12 @@ QtObject {
         stdout: StdioCollector {
             onStreamFinished: {
                 var tmp = this.text.split('\n')
-                var wlp = tmp.find(l => l.includes("wlp2s0:")).split(/\s+/)
+                var wlp = tmp.find(l => l.includes("wlp2s0:")).trim().split(/\s+/)
                 var down = wlp[1]
                 var up = wlp[9]
 
                 if (root.netDown !== -1) root.netDownPerS = down - root.netDown
-                if (root.netUp !== -1) root.netDownPerS = up - root.netUp
+                if (root.netUp !== -1) root.netUpPerS = up - root.netUp
 
                 root.netUp = up
                 root.netDown = down
