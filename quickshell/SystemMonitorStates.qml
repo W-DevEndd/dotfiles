@@ -15,6 +15,11 @@ QtObject {
     property int memPerc: ((usedMem / totalMem) * 100)
     property int swapPerc: ((usedSwap / totalSwap) * 100)
 
+    property var mounts: []
+    function refreshMounts() {
+        root._mountProc.running = true
+    }
+
     property var netDown: -1
     property var netUp: -1
     property int netDownPerS: 0
@@ -67,6 +72,35 @@ QtObject {
 
                 root.netDown = down
                 root.netUp = up
+            }
+        }
+    }
+    property var _mountProc: Process {
+        property var listing: true
+        property var whiteList
+        running: true
+        command: ["lsblk", "-o", "MOUNTPOINTS"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                if (root._mountProc.listing) {
+                    root._mountProc.whiteList = this.text.split('\n').filter(p => p.trim()[0] === '/')
+                    root._mountProc.listing = false
+                    root._mountProc.exec(["df", "--output=target,used,size"])
+                } else {
+                    var arr = []
+                    root._mountProc.listing = true
+                    var tmp = this.text.split('\n')
+                    for (const l of tmp) {
+                        var ll = l.split(/\s+/)
+                        if (!root._mountProc.whiteList.includes(ll[0])) continue
+                        arr.push({
+                            name:  ll[0],
+                            used:  ll[1],
+                            total: ll[2],
+                        })
+                    }
+                    root.mounts = arr
+                }
             }
         }
     }

@@ -35,7 +35,7 @@ Rectangle {
         Column {
             id: rightPanel
             height: r.height
-            width: height * 1.5
+            width: height * 2
 
             ProgressBar {
                 width: rightPanel.width
@@ -57,6 +57,19 @@ Rectangle {
                 from: 0
                 to: SystemMonitorStates.totalSwap
             }
+            // Repeater {
+            //     model: SystemMonitorStates.mounts
+            //     delegate: ProgressBar {
+            //         width: rightPanel.width
+            //
+            //         prefix: " (" + modelData.name +")"
+            //         displayValue: StrConverter.byteToH(curr) + " / " + StrConverter.byteToH(to)
+            //         barColor: Catppuccin.mauve
+            //         curr: modelData.used
+            //         from: 0
+            //         to: modelData.total
+            //     }
+            // }
         }
     }
 }
