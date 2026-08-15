@@ -5,18 +5,18 @@ import Quickshell.Io
 QtObject {
     id: root
 
-    property int totalMem: -1
-    property int usedMem:  -1
+    property var totalMem: -1
+    property var usedMem:  -1
 
-    property int totalSwap: -1
-    property int usedSwap: -1
+    property var totalSwap: -1
+    property var usedSwap: -1
 
     property int cpuPerc: -1
-    property int memPerc: (usedMem / totalMem * 100)
-    property int swapPerc: (usedSwap / totalSwap * 100)
+    property int memPerc: ((usedMem / totalMem) * 100)
+    property int swapPerc: ((usedSwap / totalSwap) * 100)
 
-    property int netDown: -1
-    property int netUp: -1
+    property var netDown: -1
+    property var netUp: -1
     property int netDownPerS: 0
     property int netUpPerS: 0
     // onNetDownPerSChanged: console.log(netDownPerS)
@@ -43,11 +43,11 @@ QtObject {
                 var swap = tmp[2].split(/\s+/)
                 // console.log(mem)
                 // console.log(swap)
-                if (root.totalMem === -1) { root.totalMem = mem[1] }
-                root.usedMem = mem[2]
+                if (root.totalMem === -1) { root.totalMem = mem[1] * 1024 }
+                root.usedMem = mem[2] * 1024
 
-                if (root.totalSwap === -1) { root.totalSwap = swap[1] }
-                root.usedSwap = swap[2]
+                if (root.totalSwap === -1) { root.totalSwap = swap[1] * 1024 }
+                root.usedSwap = swap[2] * 1024
             }
         }
     }
