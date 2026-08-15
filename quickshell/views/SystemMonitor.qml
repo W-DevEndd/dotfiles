@@ -1,5 +1,7 @@
 import QtQuick
 import "root:/"
+import "root:/utils/"
+import "root:/views/system_monitor/"
 
 Rectangle {
     id: root
@@ -25,15 +27,36 @@ Rectangle {
 
         spacing: 8
         
-        Item {
+        Rectangle {
             id: leftPanel
             height: r.height
             width: height
         }
-        Rectangle {
+        Column {
             id: rightPanel
             height: r.height
-            width: height * 1.7
+            width: height * 1.5
+
+            ProgressBar {
+                width: rightPanel.width
+
+                prefix: ""
+                displayValue: StrConverter.byteToH(curr) + " / " + StrConverter.byteToH(to)
+                barColor: Catppuccin.green
+                curr: SystemMonitorStates.usedMem
+                from: 0
+                to: SystemMonitorStates.totalMem
+            }
+            ProgressBar {
+                width: rightPanel.width
+
+                prefix: ""
+                displayValue: StrConverter.byteToH(curr) + " / " + StrConverter.byteToH(to)
+                barColor: Catppuccin.lavender
+                curr: SystemMonitorStates.usedSwap
+                from: 0
+                to: SystemMonitorStates.totalSwap
+            }
         }
     }
 }
