@@ -24,6 +24,10 @@ QtObject {
     property var netUp: -1
     property int netDownPerS: 0
     property int netUpPerS: 0
+
+    property var netDownHistory: []
+    property var netUpHistory: []
+
     // onNetDownPerSChanged: console.log(netDownPerS)
     // onNetUpPerSChanged: console.log(netUpPerS)
 
@@ -69,6 +73,14 @@ QtObject {
 
                 if (root.netDown !== -1) root.netDownPerS = down - root.netDown
                 if (root.netUp !== -1) root.netUpPerS = up - root.netUp
+
+                netDownHistory.push(netDownPerS);
+                if (netDownHistory.length > 20) netDownHistory.shift()
+                // console.log(JSON.stringify(netDownHistory, null))
+
+                netUpHistory.push(netUpPerS);
+                if (netUpHistory.length > 20) netUpHistory.shift()
+                // console.log(JSON.stringify(netUpHistory, null))
 
                 root.netDown = down
                 root.netUp = up
