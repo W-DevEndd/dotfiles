@@ -88,6 +88,30 @@ Rectangle {
                     id: netLineChart
                     height: chartPanel.height
                     width: chartPanel.width * 0.75
+
+                    displayPoints: 20
+                    max: 536870912
+                    min: -(max / 10)
+                    lines: [
+                        {
+                            color: Catppuccin.red,
+                            points: SystemMonitorStates.netUpHistory,
+                        },
+                        {
+                            color: Catppuccin.yellow,
+                            points: SystemMonitorStates.netDownHistory,
+                        }
+                    ]
+
+                    // displayPoints: 15
+                    // min: 0
+                    // max: 100
+                    // lines: [
+                    //     {
+                    //         color: Catppuccin.red,
+                    //         points: [5, 3, 40, 53, 2, 49, 42, 9, 70, 43, 50, 97, 4],
+                    //     }
+                    // ]
                 }
                 Column {
                     id: netTextPanel
