@@ -246,12 +246,22 @@ hl.config({
             natural_scroll = true,
         },
     },
+    binds = {
+        scroll_event_delay = 0
+    },
 })
 
 hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "workspace"
+})
+hl.gesture({
+    fingers = 2,
+    direction = "pinch",
+    mode = "live",
+    mods = "SUPER",
+    action = "cursor_zoom",
 })
 
 -- Example per-device config
@@ -307,6 +317,16 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 -- Scroll through existing workspaces with mainMod + scroll
 -- hl.bind(mainMod .. " + mouse_up", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')"))
 -- hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')"))
+local current_zoom = 1.0
+
+function set_zoom(delta) return function()
+    current_zoom = math.max(1.0, current_zoom + delta)
+    hl.config({ cursor = {
+        zoom_factor = current_zoom
+    } })
+end end
+hl.bind(mainMod .. " + mouse_up", set_zoom(-1.0))
+hl.bind(mainMod .. " + mouse_down", set_zoom(0.5))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
