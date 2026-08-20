@@ -15,6 +15,8 @@ QtObject {
     property int memPerc: ((usedMem / totalMem) * 100)
     property int swapPerc: ((usedSwap / totalSwap) * 100)
 
+    property var cpuTemp: -1
+
     property var mounts: []
     function refreshMounts() {
         root._mountProc.running = true
@@ -87,6 +89,14 @@ QtObject {
             }
         }
     }
+    property var _tempProc: Process {
+        running: true
+        command: ["cat", "/sys/class/thermal/thermal_zone0/temp"]
+        stdout: StdioCollector { onStreamFinished: {
+            var tmp = this.text / 1000
+            root.cpuTemp = tmp
+        } }
+    }
     property var _mountProc: Process {
         property var listing: true
         property var whiteList
@@ -122,9 +132,10 @@ QtObject {
         interval: 1000
         repeat: true
         onTriggered: {
-            root._cpuProc.running = true
-            root._memProc.running = true
-            root._netProc.running = true
+            root._cpuProc.running  = true
+            root._memProc.running  = true
+            root._netProc.running  = true
+            root._tempProc.running = true
         }
     }
 }
