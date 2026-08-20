@@ -11,7 +11,7 @@ ContentPanel {
 
     BaseText {
         anchors.centerIn: root
-        text: "󰍜"
+        text: ""
     }
 
     MouseArea {
