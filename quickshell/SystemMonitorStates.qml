@@ -16,6 +16,7 @@ QtObject {
     property int swapPerc: ((usedSwap / totalSwap) * 100)
 
     property var cpuTemp: -1
+    property var cpuHz: -1
 
     property var mounts: []
     function refreshMounts() {
@@ -97,6 +98,14 @@ QtObject {
             root.cpuTemp = tmp
         } }
     }
+    property var _cpuHzProc: Process {
+        running: true
+        command: ["sh", "-c", "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq"]
+        stdout: StdioCollector { onStreamFinished: {
+            var tmp = Math.max(...this.text.split(/\s+/))
+            root.cpuHz = tmp
+        } }
+    }
     property var _mountProc: Process {
         property var listing: true
         property var whiteList
@@ -136,6 +145,7 @@ QtObject {
             root._memProc.running  = true
             root._netProc.running  = true
             root._tempProc.running = true
+            root._cpuHzProc.running = true
         }
     }
 }
