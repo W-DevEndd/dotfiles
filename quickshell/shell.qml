@@ -28,6 +28,7 @@ ShellRoot {
     //         }
     //     }
     // }
+    FontLoader {}
 
     PushNotification {
         opacity: root.shellOpacity
