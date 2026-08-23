@@ -1,0 +1,176 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "logo": {
+        "color": { "1": "blue", "2": "blue" }
+    },
+    "display": {
+        "separator": "  ",
+
+        "key": {
+            "paddingLeft": 2
+        },
+        "disableLinewrap": true
+    },
+    "modules": [
+        {
+            "type": "title",
+            "color": {
+                "at": "magenta", "user": "magenta", "host": "magenta"
+            }
+        },
+        {
+            "type": "separator",
+            "string": "╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮",
+            "times": 1
+        },
+        {
+            "type": "os",
+            "key": "󰣇",
+            "keyColor": "blue"
+        },
+        {
+            "type": "kernel",
+            "key": "",
+            "keyColor": "white"
+        },
+        {
+            "type": "uptime",
+            "key": "󱎫",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "packages",
+            "key": "",
+            "keyColor": "light_green"
+        },
+        {
+            "type": "shell",
+            "key": "",
+            "keyColor": "red"
+        },
+        {
+            "type": "separator",
+            "string": "╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯",
+            "times": 1
+        },
+        {
+            "type": "separator",
+            "string": "╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮",
+            "times": 1
+        },
+        {
+            "type": "de",
+            "key": "",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wm",
+            "key": "",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wmtheme",
+            "key": "",
+            "keyColor": "bright_green"
+        },
+        {
+            "type": "theme",
+            "key": "",
+            "keyColor": "bright_green"
+        },
+        {
+            "type": "icons",
+            "key": "",
+            "keyColor": "bright_green"
+        },
+        {
+            "type": "cursor",
+            "key": "",
+            "keyColor": "white"
+        },
+        {
+            "type": "font",
+            "key": "",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminal",
+            "key": "",
+            "keyColor": "bright_white"
+        },
+        {
+            "type": "terminalfont",
+            "key": "󰛖",
+            "keyColor": "bright_white"
+        },
+        {
+            "type": "separator",
+            "string": "╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯",
+            "times": 1
+        },
+        {
+            "type": "separator",
+            "string": "╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮",
+            "times": 1
+        },
+        {
+            "type": "host",
+            "key": "󰌢",
+            "keyColor": "white"
+        },
+        {
+            "type": "display",
+            "key": "󰍺",
+            "keyColor": "white"
+        },
+        {
+            "type": "cpu",
+            "key": "",
+            "keyColor": "blue"
+        },
+        {
+            "type": "gpu",
+            "key": "",
+            "keyColor": "red"
+        },
+        {
+            "type": "memory",
+            "key": "",
+            "keyColor": "green"
+        },
+        {
+            "type": "swap",
+            "key": "",
+            "keyColor": "white"
+        },
+        {
+            "type": "disk",
+            "key": " ({mountpoint})",
+            "keyColor": "bright_yellow"
+        },
+        {
+            "type": "battery",
+            "key": "󰁹",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "poweradapter",
+            "key": "󰚥",
+            "keyColor": "white"
+        },
+        {
+            "type": "localip",
+            "key": "󰩟",
+            "keyColor": "white"
+        },
+        {
+            "type": "separator",
+            "string": "╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯",
+            "times": 1
+        },
+        {
+            "type": "colors",
+            "symbol": "circle"
+        }
+    ]
+}
