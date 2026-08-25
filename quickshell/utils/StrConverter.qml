@@ -11,4 +11,12 @@ QtObject {
         else if (b < 1024 ** 5) return (b / 1024 ** 4).toFixed(fix) + " TiB"
         return b
     }
+    function kHzToH(k, fix = 1) {
+        if (k < 1000) return k + "KHz"
+        else if (k < 1000 ** 2) return (k / 1000 ** 1).toFixed(fix) + " MHz"
+        else if (k < 1000 ** 3) return (k / 1000 ** 2).toFixed(fix) + " GHz"
+        else if (k < 1000 ** 4) return (k / 1000 ** 3).toFixed(fix) + " THz"
+
+        return k
+    }
 }

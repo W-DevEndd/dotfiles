@@ -16,6 +16,9 @@ QtObject {
     property int swapPerc: ((usedSwap / totalSwap) * 100)
 
     property var cpuTemp: -1
+
+    property int cpuMinHz: -1
+    property int cpuMaxHz: -1
     property var cpuHz: -1
 
     property var mounts: []
@@ -96,6 +99,16 @@ QtObject {
         stdout: StdioCollector { onStreamFinished: {
             var tmp = this.text / 1000
             root.cpuTemp = tmp
+        } }
+    }
+    property var _cpuHzLimitsProc: Process {
+        running: true
+        command: ["sh", "-c", "cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq && cat /sys/devices/system/cpu/cpu0/cpufreq/amd_pstate_max_freq"]
+        stdout: StdioCollector { onStreamFinished: {
+            var tmp = this.text.trim().split(/\s+/)
+            root.cpuMinHz = tmp[0]
+            root.cpuMaxHz = tmp[1]
+            // console.log(tmp)
         } }
     }
     property var _cpuHzProc: Process {

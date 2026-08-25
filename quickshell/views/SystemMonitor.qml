@@ -28,10 +28,17 @@ Rectangle {
 
         spacing: 8
         
-        Rectangle {
+        CircularProgress {
             id: leftPanel
-            height: r.height
+
+            from: SystemMonitorStates.cpuMinHz
+            to: SystemMonitorStates.cpuMaxHz
+            value: SystemMonitorStates.cpuHz
+            displayValue: StrConverter.kHzToH(value, 2)
+            secondaryValue: SystemMonitorStates.cpuTemp + "󰔄"
+
             width: height
+            height: r.height
         }
         Column {
             id: rightPanel
