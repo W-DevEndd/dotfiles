@@ -73,7 +73,7 @@ Item {
                 radiusX: (root.width - root.barWidth) / 2
                 radiusY: (root.height - root.barWidth) / 2
                 startAngle: 90 + root.secondaryTextW / 2
-                sweepAngle: (360 - root.secondaryTextW) * (( root.value - root.from) / (root.to - root.from))
+                sweepAngle: Math.max(0, (360 - root.secondaryTextW) * (( root.value - root.from) / (root.to - root.from)))
 
                 Behavior on sweepAngle { NumberAnimation {
                     duration: 400
