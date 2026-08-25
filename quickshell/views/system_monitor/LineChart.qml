@@ -21,7 +21,7 @@ Rectangle {
         width: 2
         color: Catppuccin.crust
     }
-    color: Catppuccin.mantle
+    color: "transparent"
     property int padding: 5
 
     Repeater {
