@@ -137,7 +137,6 @@ ShellRoot {
                     radius: root.windowRouding
                 })
             }
-
         }
 
         OSB {
