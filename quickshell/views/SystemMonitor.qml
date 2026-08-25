@@ -96,8 +96,8 @@ Rectangle {
                     height: chartPanel.height
                     width: chartPanel.width * 0.75
 
-                    displayPoints: 20
-                    max: 536870912
+                    displayPoints: 50
+                    max: 67108864
                     min: -(max / 10)
                     lines: [
                         {
