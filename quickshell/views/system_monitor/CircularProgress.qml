@@ -27,6 +27,7 @@ Item {
     BaseText {
         id: secondaryText
         text: root.secondaryValue
+        color: Catppuccin.subtext0
         font.bold: true
         anchors {
             horizontalCenter: root.horizontalCenter
@@ -73,6 +74,12 @@ Item {
                 radiusY: (root.height - root.barWidth) / 2
                 startAngle: 90 + root.secondaryTextW / 2
                 sweepAngle: (360 - root.secondaryTextW) * (( root.value - root.from) / (root.to - root.from))
+
+                Behavior on sweepAngle { NumberAnimation {
+                    duration: 400
+                    easing.type: Easing.OutExpo
+                } }
+
             }
         }
     }
