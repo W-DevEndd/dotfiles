@@ -36,7 +36,7 @@ ShellRoot {
         corner: root.windowRouding
 
         anchors {
-            left: true
+            right: true
             bottom: true
         }
     }
