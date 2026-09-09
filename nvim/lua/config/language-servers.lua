@@ -4,7 +4,6 @@ local servers = {
     "pyright",
     "lua_ls",
     "ts_ls",
-    "nixd",
     "html",
     "clangd",
     "hyprls",
@@ -18,6 +17,25 @@ local servers = {
               importPaths = { "/usr/lib/qt6/qml" }
             }
         }
+    },
+    nixd = {
+        cmd = {"nixd"},
+        filetypes = { "nix" },
+        settings = {
+            nixd = {
+                nixpkgs = {
+                    expr = "import <nixpkgs> {}",
+                },
+                formatting = {
+                    command = { "alejandra" },
+                },
+                options = {
+                    nixos = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.))).inputs.nixpkgs.lib.nixosSystem { modules = [ ]; }'
+                    },
+                },
+            },
+        },
     }
 }
 
