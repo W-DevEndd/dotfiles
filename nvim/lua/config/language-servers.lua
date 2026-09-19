@@ -5,7 +5,7 @@ local servers = {
     "lua_ls",
     "ts_ls",
     "html",
-    "clangd",
+    "ccls",
     "hyprls",
     "jsonls",
     "cssls",
