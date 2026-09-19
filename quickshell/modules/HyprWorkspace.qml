@@ -6,17 +6,20 @@ import "root:/"
 ContentPanel {
     id: root
 
+    property int padding: 5
     width: workspcNumbers.width
     Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
 
-    ContentPanel {
+    Rectangle {
         id: focusedScroller
-        height: root.height
+        height: root.height - root.padding
         width: height
 
-        bgColor: Catppuccin.blue
+        color: Catppuccin.red
+        radius: 6
 
-        x: height * Hyprland.workspaces.values.indexOf(Hyprland.focusedWorkspace)
+        y: root.padding / 2
+        x: root.padding / 2 + (height + root.padding) * Hyprland.workspaces.values.indexOf(Hyprland.focusedWorkspace)
         Behavior on x { NumberAnimation { duration: 400; easing.type: Easing.OutExpo } }
     }
 

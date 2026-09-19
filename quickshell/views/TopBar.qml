@@ -9,23 +9,26 @@ PanelWindow {
     id: root
 
     property real opacity: 1.0
-    property int padding: 4
+    property int padding: 6
 
     property int cornerSize: 0
-    property int h: 36
+    property int h: 40
 
-    exclusiveZone: h
+    // exclusiveZone: h
+    exclusiveZone: h - padding
 
     anchors {
         top: true
         left: true
         right: true
     }
-    implicitHeight: h + cornerSize
+    // implicitHeight: h + cornerSize
+    implicitHeight: h
     color: "transparent"
 
     Canvas {
         id: bg
+        visible: false;
         opacity: root.opacity
 
         width: root.width

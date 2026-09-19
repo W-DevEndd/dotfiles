@@ -31,7 +31,7 @@ local servers = {
                 },
                 options = {
                     nixos = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.))).inputs.nixpkgs.lib.nixosSystem { modules = [ ]; }'
+                        expr = "(import <nixpkgs/nixos> { configuration = {}; }).options",
                     },
                 },
             },

@@ -4,10 +4,10 @@ import "root:/"
 Item {
     id: root
 
-    property color bgColor: Catppuccin.surface0
+    property color bgColor: Catppuccin.base
     property int bgRadius: 10
-    property color borderColor: "transparent"
-    property int borderWidth: 0
+    property color borderColor: Catppuccin.crust
+    property int borderWidth: 2
 
     width: 100
 

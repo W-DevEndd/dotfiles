@@ -45,12 +45,17 @@ ShellRoot {
         id: topbar
         opacity: root.shellOpacity
         cornerSize: root.windowRouding + root.windowGaps
-        aboveWindows: true
+        aboveWindows: false
     }
 
     PanelWindow {
         id: popupPanel
 
+        property int topbarMargins: TopLvl.isFullScreen ? 0 : topbar.exclusiveZone
+        Behavior on topbarMargins { NumberAnimation {
+            duration: 400
+            easing.type: Easing.OutBack
+        }}
         WlrLayershell.layer: WlrLayer.Overlay
         focusable: PpStates.focusPopup
         visible: (
@@ -62,7 +67,7 @@ ShellRoot {
 
         color.a: 0.0
 
-        exclusionMode: TopLvl.isFullScreen ? ExclusionMode.Ignore : ExclusionMode.Normal
+        exclusionMode: ExclusionMode.Ignore
         anchors {
             top: true
             right: true
@@ -87,7 +92,7 @@ ShellRoot {
             opacity: openProgress * root.shellOpacity
             anchors {
                 top: parent.top
-                topMargin: root.windowGaps
+                topMargin: root.windowGaps + popupPanel.topbarMargins
                 right: parent.right
                 rightMargin: root.windowGaps - (100 * (1.0 - openProgress))
             }
@@ -127,7 +132,7 @@ ShellRoot {
 
             anchors {
                 top: parent.top
-                topMargin: root.windowGaps - (100 * (1.0 - openProgress))
+                topMargin: root.windowGaps - (100 * (1.0 - openProgress)) + popupPanel.topbarMargins
                 horizontalCenter: parent.horizontalCenter
             }
 

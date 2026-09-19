@@ -12,7 +12,7 @@ Rectangle {
 
     color: Catppuccin.base
     border {
-        width: 1
+        width: 2
         color: Catppuccin.crust
     }
 
