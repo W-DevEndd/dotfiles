@@ -44,7 +44,7 @@ local menu = "wofi"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function ()
-  hl.exec_cmd("hyprpm reload")
+  hl.exec_cmd("hyprctl plugin load /etc/hypr/plugins/libhypr-dynamic-cursors.so")
   hl.exec_cmd("qs")
   hl.exec_cmd("fcitx5")
 
@@ -81,8 +81,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 
 -- hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
-hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
-
+-- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
 -----------------------
 ---- LOOK AND FEEL ----
