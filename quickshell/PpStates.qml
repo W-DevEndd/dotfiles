@@ -38,5 +38,6 @@ QtObject {
         target: "popup"
         function toggleQuickSettings() { root.showQuickSettings = !root.showQuickSettings }
         function toggleCommandPalette() { root.showCommandPalette = !root.showCommandPalette }
+        function toggleDashboard() { root.showSystemMonitor = !root.showSystemMonitor }
     }
 }

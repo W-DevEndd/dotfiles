@@ -289,6 +289,7 @@ hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("qs ipc call popup toggleCommandPalette"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("qs ipc call popup toggleQuickSettings"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("qs ipc call popup toggleDashboard"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
