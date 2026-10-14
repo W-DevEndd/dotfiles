@@ -25,12 +25,12 @@
         },
         {
             "type": "os",
-            "key": "󰣇",
+            "key": "󰟾",
             "keyColor": "blue"
         },
         {
             "type": "kernel",
-            "key": "",
+            "key": "󰝨",
             "keyColor": "white"
         },
         {
