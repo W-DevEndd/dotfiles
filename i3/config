@@ -17,7 +17,7 @@ exec_always --no-startup-id "xfce4-screensaver"
 
 # Apps
 bindsym Mod1+Return exec --no-startup-id xfce4-terminal
-bindsym Mod1+d exec --no-startup-id "~/.config/rofi/launch/launch"
+bindsym Mod1+r exec --no-startup-id "~/.config/rofi/launch/launch"
 bindsym Mod1+m exec --no-startup-id "~/.config/rofi/powermenu/powermenu"
 bindsym Mod1+w exec --no-startup-id "~/.config/rofi/wallpaper-picker/wallpaper-picker ~/.wallpaper/"
 bindsym F12 exec --no-startup-id "scrot $HOME/Pictures/%Y-%m-%d-%H%M%S.png"
@@ -152,10 +152,10 @@ mode "resize" {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym Mod1+r mode "default"
+        # bindsym Mod1+r mode "default"
 }
 
-bindsym Mod1+r mode "resize"
+# bindsym Mod1+r mode "resize"
 
 # Rice
 # colors

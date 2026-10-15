@@ -6,8 +6,12 @@ source ~/.bashrc
 # mkdir -p $(dirname $PIDFILE)
 # echo "$$" >> $PIDFILE
 
-tx11 $@ -xstartup "~/.xinitrc" &
+export DISPLAY=:1
+tx11 $@ :1 -xstartup "~/.xinitrc" &
 PID=$!
+
+# virgl_test_server_android &
+
 am start com.termux.x11/com.termux.x11.MainActivity
 
 trap "kill -2 $PID" SIGINT
