@@ -11,7 +11,7 @@ Canvas {
 
     property int radius: 0
     property int borderW: 2
-    property color borderColor: Catppuccin.crust
+    property color borderColor: Catppuccin.surface0
     property color color: Catppuccin.base
 
     Component.onCompleted: {

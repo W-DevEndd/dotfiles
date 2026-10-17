@@ -48,7 +48,7 @@ PanelWindow {
                 color: Catppuccin.base
                 border {
                     width: 2
-                    color: Catppuccin.blue
+                    color: Catppuccin.surface0
                 }
 
                 property int padding: 12

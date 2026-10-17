@@ -13,7 +13,7 @@ Rectangle {
     color: Catppuccin.base
     border {
         width: 2
-        color: Catppuccin.crust
+        color: Catppuccin.surface0
     }
 
     MouseArea { anchors.fill: root }

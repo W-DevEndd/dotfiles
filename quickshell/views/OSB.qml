@@ -86,8 +86,8 @@ Rectangle {
 
     color: Catppuccin.base
     border {
-        width: 1
-        color: Catppuccin.crust
+        width: 2
+        color: Catppuccin.surface0
     }
 
     Component {

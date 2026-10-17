@@ -6,7 +6,7 @@ Item {
 
     property color bgColor: Catppuccin.base
     property int bgRadius: 10
-    property color borderColor: Catppuccin.crust
+    property color borderColor: Catppuccin.surface0
     property int borderWidth: 2
 
     width: 100
