@@ -204,7 +204,8 @@ hl.config({
 hl.config({
     master = {
         new_status = "master",
-        new_on_top = true
+        new_on_top = true,
+        drop_at_cursor = false,
     },
 })
 
