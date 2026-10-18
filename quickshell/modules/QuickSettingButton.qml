@@ -7,7 +7,7 @@ ContentPanel {
 
     width: height
 
-    bgColor: hoverHandler.hovered ? Catppuccin.surface1 : Catppuccin.surface0
+    bgColor: hoverHandler.hovered ? Catppuccin.surface0 : Catppuccin.base
 
     BaseText {
         anchors.centerIn: root
