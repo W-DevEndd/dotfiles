@@ -45,13 +45,14 @@ ShellRoot {
         id: topbar
         opacity: root.shellOpacity
         cornerSize: root.windowRouding + root.windowGaps
-        aboveWindows: false
+        WlrLayershell.layer: (TopLvl.isFullScreen || PpStates.needTopBar) ? WlrLayer.Overlay : WlrLayer.Bottom
+        margins.top: (TopLvl.isFullScreen && !PpStates.needTopBar) ? -h : 0
     }
 
     PanelWindow {
         id: popupPanel
 
-        property int topbarMargins: TopLvl.isFullScreen ? 0 : topbar.exclusiveZone
+        property int topbarMargins: topbar.exclusiveZone + topbar.margins.top
         Behavior on topbarMargins { NumberAnimation {
             duration: 400
             easing.type: Easing.OutBack
