@@ -55,7 +55,7 @@ ShellRoot {
         property int topbarMargins: topbar.exclusiveZone + topbar.margins.top
         Behavior on topbarMargins { NumberAnimation {
             duration: 400
-            easing.type: Easing.OutBack
+            easing.type: Easing.OutExpo
         }}
         WlrLayershell.layer: WlrLayer.Overlay
         focusable: PpStates.focusPopup
