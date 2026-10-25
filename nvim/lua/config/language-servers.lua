@@ -10,7 +10,7 @@ local servers = {
     "jsonls",
     "cssls",
     qmlls = {
-        cmd = {"qmlls6"},
+        cmd = {"qmlls"},
         filetypes = { "qml" },
         settings = {
             qml = {
