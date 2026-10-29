@@ -59,7 +59,7 @@ ListView {
             modelData.execute();
             if (!modelData.dontCloseOnExec) root.handleClose();
         }
-        Component{
+        Component {
             id: itemComponent
             Item {
                 width: desktopItem.width
@@ -87,6 +87,7 @@ ListView {
                         height: parent.height - parent.padding * 2
                         width: height
                         source: Quickshell.iconPath(modelData.icon, "image-missing")
+                        asynchronous: true
                     }
 
                     Item {
