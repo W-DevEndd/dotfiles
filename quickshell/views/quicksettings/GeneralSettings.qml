@@ -91,7 +91,7 @@ Column {
 
                 minValue: 0
                 maxValue: 100
-                sliderStep: 1
+                sliderStep: 5
                 Binding on currentValue {
                     value: SystemStates.sinkVolume
                 }
@@ -108,7 +108,7 @@ Column {
 
                 minValue: 0
                 maxValue: 100
-                sliderStep: 1
+                sliderStep: 5
                 Binding on currentValue {
                     value: SystemStates.sourceVolume
                 }
@@ -137,9 +137,9 @@ Column {
                     currentValue > 3 ? "" : ""
                 )
 
-                property real minValue: 0
-                property real maxValue: 100
-                property real sliderStep: 1
+                minValue: 0
+                maxValue: 100
+                sliderStep: 5
                 Binding on currentValue {
                     value: SystemStates.brightnessVolume
                 }

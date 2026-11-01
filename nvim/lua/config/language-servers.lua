@@ -26,13 +26,17 @@ local servers = {
                 nixpkgs = {
                     expr = "import <nixpkgs> {}",
                 },
-                formatting = {
-                    command = { "alejandra" },
-                },
                 options = {
                     nixos = {
-                        expr = "(import <nixpkgs/nixos> { configuration = {}; }).options",
+                        expr = '(import <nixpkgs> {}).nixosSystem { modules = [ ]; }',
+                        ["home-manager"] = {
+                            expr = '(import <nixpkgs> {}).home-manager.lib.homeManagerConfiguration { modules = [ ]; }',
+                        },
                     },
+                },
+
+                formatting = {
+                    command = { "alejandra" },
                 },
             },
         },

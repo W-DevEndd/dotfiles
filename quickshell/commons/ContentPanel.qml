@@ -5,7 +5,7 @@ Item {
     id: root
 
     property color bgColor: Catppuccin.base
-    property int bgRadius: 10
+    property int bgRadius: 8
     property color borderColor: Catppuccin.surface0
     property int borderWidth: 2
 

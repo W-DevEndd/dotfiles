@@ -12,7 +12,7 @@ PanelWindow {
     property int padding: 6
 
     property int cornerSize: 0
-    property int h: 40
+    property int h: 44
 
     // exclusiveZone: h
     exclusiveZone: h - padding
