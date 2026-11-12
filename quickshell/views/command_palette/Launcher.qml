@@ -21,17 +21,37 @@ ListView {
                 [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
             );
 
-            const filteredApps = allApps.filter(app => 
-                app.name.toLowerCase().includes(root.inpText.toLowerCase())
-            );
+            const query = root.inpText.toLowerCase();
+            const filteredApps = query === "" ? allApps : allApps
+                .map(app => {
+                    const name = app.name.toLowerCase();
+                    let qIdx = 0;
+                    let score = 0;
+                    let streak = 0;
+
+                    for (let i = 0; i < name.length && qIdx < query.length; i++) {
+                        if (name[i] === query[qIdx]) {
+                            if (i === 0 || name[i - 1] === " ") score += 10;
+                            streak++;
+                            score += streak * 5;
+                            qIdx++;
+                        } else streak = 0;
+                    }
+
+                    return { app: app, score: qIdx === query.length ? score : 0 };
+                })
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score || a.app.name.localeCompare(b.app.name))
+                .map(item => item.app);
+
             if (!filteredApps.length) return [{
                 name: "Run `" + root.inpText + "` as sh",
                 icon: "application-x-shellscript",
                 execute: () => { Quickshell.execDetached(["sh", "-c", root.inpText]) },
-            }]
+            }];
             root.currentIndex = 0;
 
-            return filteredApps
+            return filteredApps;
         }
     }
 

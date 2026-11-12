@@ -85,6 +85,7 @@ Canvas {
                         inpText: Qt.binding(function () { return cmdInput.text }),
                         handleClose: root.handleClose
                     }
+
                     var targetSource = ""
                     if (cmdInput.text.startsWith("/wallpaper ")) {
                         root.width = 1500
