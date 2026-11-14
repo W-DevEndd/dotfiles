@@ -16,13 +16,16 @@ ListView {
     height: Math.min(childrenRect.height, 500)
     model: ScriptModel {
         values: {
-            const allApps = (
-                root.inpText.startsWith("/") ? PpStates.cmpCustomCommands :
-                [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
-            );
+            let filteredApps = [];
+            let cmd = root.inpText;
+            if (!root.inpText.startsWith(">")) {
+                const allApps = (
+                    root.inpText.startsWith("/") ? PpStates.cmpCustomCommands :
+                    [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
+                );
 
-            const query = root.inpText.toLowerCase();
-            const filteredApps = query === "" ? allApps : allApps
+                const query = root.inpText.toLowerCase();
+                filteredApps = query === "" ? allApps : allApps
                 .map(app => {
                     const name = app.name.toLowerCase();
                     let qIdx = 0;
@@ -43,11 +46,12 @@ ListView {
                 .filter(item => item.score > 0)
                 .sort((a, b) => b.score - a.score || a.app.name.localeCompare(b.app.name))
                 .map(item => item.app);
+            } else cmd = root.inpText.slice(1);
 
             if (!filteredApps.length) return [{
-                name: "Run `" + root.inpText + "` as sh",
+                name: "Run `" + cmd + "` as sh",
                 icon: "application-x-shellscript",
-                execute: () => { Quickshell.execDetached(["sh", "-c", root.inpText]) },
+                execute: () => { Quickshell.execDetached(["sh", "-c", cmd]) },
             }];
             root.currentIndex = 0;
 
