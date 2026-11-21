@@ -31,6 +31,10 @@ QtObject {
             execute: () => { root.cmpHandleAutoComplete("/wallpaper ") },
             dontCloseOnExec: true,
         },
+        {
+            name: "/reset",
+            execute: () => { Quickshell.execDetached(["sh", "-c", "qs kill; qs"]) },
+        },
     ]
 
     // Logic
